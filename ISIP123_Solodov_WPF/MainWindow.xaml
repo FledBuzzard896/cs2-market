@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" 
         Height="750" Width="1500"
-        MinHeight="500" MinWidth="1100">
+        MinHeight="550" MinWidth="1100">
     <Grid>
         <Frame x:Name="mainFrame" Source="Pages/AuthPage.xaml" NavigationUIVisibility="Hidden"/>
     </Grid>

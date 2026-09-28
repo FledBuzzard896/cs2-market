@@ -11,6 +11,9 @@ namespace ISIP123_Solodov_WPF
         // Подключение к локальной БД
         public static SteamMarketEntities Context => new SteamMarketEntities();
 
+        // Подключение к БД КИПа
+        public static EntitiesKIP ContextKIP => new EntitiesKIP();
+
         // Хранение текущего пользователя
         public static Users CurrentUser = null;
     }

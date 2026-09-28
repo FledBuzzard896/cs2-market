@@ -6,173 +6,188 @@
       xmlns:local="clr-namespace:ISIP123_Solodov_WPF.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="750" d:DesignWidth="1500"
-      d:MinHeight="500" d:MinWidth="1100"
+      d:MinHeight="550" d:MinWidth="1100"
       Title="Market">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="90"/>
-            <RowDefinition Height="130"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="1010"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        
-        <!-- Покраска -->
-        <Border Background="#171a21" Grid.Row="0" Grid.ColumnSpan="3"/>
-        <Border Background="#577c22" Grid.Row="1" Grid.ColumnSpan="3"/>
-        <Border Background="#1b2838" Grid.Row="2" Grid.ColumnSpan="3"/>
-        
-        <!-- header -->
-        <Grid Grid.Row="0" Grid.Column="1" Margin="5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
-            </Grid.ColumnDefinitions>
-            
-            <Image Source="/Images/stem-logo-nobg.png" Width="175" Height="80" HorizontalAlignment="Left" Grid.Column="0"/>
-            
-            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <StackPanel.Resources>
-                    <Style TargetType="Button">
-                        <Setter Property="Margin" Value="7"/>
-                    </Style>
-                </StackPanel.Resources>
-                <Button x:Name="shopBtn" Content="МАГАЗИН" FontSize="20" Foreground="White" Background="Transparent" BorderThickness="0"/>
-                <Button x:Name="communityBtn" Content="СООБЩЕСТВО" FontSize="20" Foreground="#1999ff" Background="Transparent" BorderThickness="0"/>
-                <Button x:Name="informationBtn" Content="ИНФОРМАЦИЯ" FontSize="20" Foreground="White" Background="Transparent" BorderThickness="0"/>
-                <Button x:Name="supportBtn" Content="ПОДДЕРЖКА" FontSize="20" Foreground="White" Background="Transparent" BorderThickness="0"/>
-            </StackPanel>
-            
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="2">
-                <Button x:Name="exitBtn"
-                        Content="Выйти"
-                        Width="50" Height="20"
-                        Foreground="White" Background="#214b6b"
-                        BorderThickness="0"/>
-                <TextBlock x:Name="NicknameTBox"
-                           Text="тест"
-                           Width="100" Height="20"
-                           Foreground="#1999ff" Background="#32353c"
-                           TextAlignment="Center"
-                           Margin="5,5,0,5"/>
-            </StackPanel>
-        </Grid>
-        
-        <!-- Что такое ТП + кошелёк -->
-        <Grid Grid.Row="1" Grid.Column="1" Margin="5" Background="#577c22">
-
-            <Grid Grid.Column="1" Margin="0,10,0,10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
-                
-                <!-- Левая часть -->
-                <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                    <TextBlock Text="Торговая площадка" FontSize="34" Foreground="White" VerticalAlignment="Center" Grid.Row="0"/>
-                    <TextBlock Text="Продавайте и покупайте предметы участников сообщества Stem." FontSize="14" Foreground="#85a45a" Grid.Row="1"/>
-                </StackPanel>
-
-                    <!-- Правая часть -->
-                <Grid Grid.Column="1" Background="#101214" Height="50" Margin="20,0,5,0">
-                    <TextBlock Text="Баланс кошелька ... " FontSize="16"  Foreground="White" VerticalAlignment="Center" Margin="5,0,5,0"/>
-                </Grid>
-            </Grid>
-        </Grid>
-
-        <Grid Grid.Row="2" Grid.Column="1">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
+                <RowDefinition Height="104"/>
+                <RowDefinition Height="121"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="949"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="1" Grid.Row="0" Height="25" Margin="0,10,0,5" Orientation="Horizontal" Background="#101822">
-                <Button x:Name="listingsBtn" Content="Активные лоты" Width="125" BorderThickness="0" Background="#577c22" Foreground="White" Margin="0,0,10,0" Click="listingsBtn_Click"/>
-                <Button x:Name="historyBtn" Content="История сделок" Width="125" BorderThickness="0" Background="#577c22" Foreground="White" Click="historyBtn_Click"/>
-            </StackPanel>
+            <!-- Покраска -->
+            <Border Background="#171a21" Grid.Row="0" Grid.ColumnSpan="3"/>
+            <Border Background="#577c22" Grid.Row="1" Grid.ColumnSpan="3"/>
+            <Border Background="#1b2838" Grid.Row="2" Grid.ColumnSpan="3"/>
 
-            <Grid Grid.Row="1">
-
+            <!-- header -->
+            <Grid Grid.Row="0" Grid.Column="1" Margin="5">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- Предметы -->
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+                <Image Source="/Images/stem-logo-nobg.png" Width="175" Height="80" HorizontalAlignment="Left" Grid.Column="0"/>
 
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" >
+                    <StackPanel.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="Margin" Value="7"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <Button x:Name="shopBtn" Content="МАГАЗИН" FontSize="20" Foreground="White" Background="Transparent" BorderThickness="0" Click="shopBtn_Click"/>
+                    <Button x:Name="communityBtn" Content="СООБЩЕСТВО" FontSize="20" Foreground="#1999ff" Background="Transparent" BorderThickness="0" Click="communityBtn_Click"/>
+                    <Button x:Name="informationBtn" Content="ИНФОРМАЦИЯ" FontSize="20" Foreground="White" Background="Transparent" BorderThickness="0" Click="informationBtn_Click"/>
+                    <Button x:Name="supportBtn" Content="ПОДДЕРЖКА" FontSize="20" Foreground="White" Background="Transparent" BorderThickness="0" Click="supportBtn_Click"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="2">
+                    <Button x:Name="exitBtn"
+                            Content="Выйти"
+                            Width="50" Height="20"
+                            Foreground="White" Background="#214b6b"
+                            BorderThickness="0" Click="exitBtn_Click"/>
+                    <TextBlock x:Name="NicknameTBox"
+                               Text="тест"
+                               Width="100" Height="20"
+                               Foreground="#1999ff" Background="#32353c"
+                               TextAlignment="Center"
+                               Margin="5,5,0,5"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- Что такое ТП + кошелёк -->
+            <Grid Grid.Row="1" Grid.Column="1"  Background="#577c22">
+
+                <Grid Grid.Column="1" Margin="0,10,0,10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Grid Grid.Row="0" Grid.Column="0" Background="#16202d" Margin="0,5,0,5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="600"/>
-                            <ColumnDefinition Width="75"/>
-                            <ColumnDefinition Width="120"/>
-                        </Grid.ColumnDefinitions>
-                    
-                        <TextBlock Text="НАЗВАНИЕ" Grid.Column="0" Foreground="#afb1b8" Margin="5,0,0,0"/>
-                        <TextBlock Text="КОЛ-ВО" Grid.Column="1" TextAlignment="Center" Foreground="#afb1b8"/>
-                        <TextBlock Text="ЦЕНА" Grid.Column="2" TextAlignment="Center" Foreground="#afb1b8"/>
+                    <!-- Левая часть -->
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock Text="Торговая площадка" FontSize="34" Foreground="White" VerticalAlignment="Center" Grid.Row="0"/>
+                        <TextBlock Text="Продавайте и покупайте предметы участников сообщества Stem." FontSize="14" Foreground="#85a45a" Grid.Row="1"/>
+                    </StackPanel>
+
+                    <!-- Правая часть -->
+                    <Grid Grid.Column="1" Background="#101214" Height="50" Margin="20,0,5,0">
+                        <TextBlock Text="Баланс кошелька ... " FontSize="16"  Foreground="White" VerticalAlignment="Center" Margin="5,0,5,0"/>
                     </Grid>
+                </Grid>
+            </Grid>
 
-                    <ListBox x:Name="ItemsLB"
-                             Grid.Row="1" Grid.Column="0"
-                             BorderThickness="0"
-                             Margin="0,0,0,10"
-                             Background="Transparent"
-                             ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                        
-                        <ListBox.ItemContainerStyle>
-                            <Style TargetType="ListBoxItem">
-                                <Setter Property="Background" Value="#16202d"/>
-                                <!-- Растягиваем элемент по всей ширине ListBox -->
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                <Setter Property="Padding" Value="5,5,0,5"/>
-                                <Setter Property="Margin" Value="0,0,0,5"/>
-                            </Style>
-                        </ListBox.ItemContainerStyle>
-                        
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="600"/>
-                                        <ColumnDefinition Width="75"/>
-                                        <ColumnDefinition Width="120"/>
-                                    </Grid.ColumnDefinitions>
+            <Grid Grid.Row="2" Grid.Column="1" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-                                    <StackPanel Orientation="Horizontal" Grid.Column="0">
-                                        <Border BorderBrush="#66c0f4" BorderThickness="1">
-                                            <Image Source="{Binding Inventories.Items.ItemPicture}" Width="64" Height="64" Grid.Column="0" Margin="5"/>
-                                        </Border>
-                                        <StackPanel Margin="10,0,0,0" Grid.Column="1" Orientation="Vertical">
-                                            <TextBlock Text="{Binding Inventories.Items.Name}" FontWeight="Bold" Foreground="#afb1b8"/>
-                                            <TextBlock Text="Counter-Strike 2" Foreground="#afb1b8"/>
+                <!-- Активные лоты + История сделок -->
+                <Grid Grid.Row="0" Background="#101822" Margin="0,30,0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Height="39"  Orientation="Horizontal">
+                        <Button x:Name="listingsBtn" Content="Активные лоты" FontSize="14" Width="211" Height="39" BorderThickness="0" Background="#577c22" Foreground="White" Margin="0,0,10,0" Click="listingsBtn_Click"/>
+                        <Button x:Name="historyBtn" Content="История сделок" FontSize="14" Width="211" Height="39" BorderThickness="0" Background="#577c22" Foreground="White" Click="historyBtn_Click"/>
+                    </StackPanel>
+
+                    <Button x:Name="sellItemBtn" Content="Продать предмет" Grid.Column="1" Margin="0,0,15,0" Width="120" Height="24" Background="#577c22" Foreground="White" BorderThickness="0" Click="sellItemBtn_Click"/>
+                </Grid>
+
+
+                <Grid Grid.Row="1">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Предметы -->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="27"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="639"/>
+                            <ColumnDefinition Width="295"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Row="0" Grid.Column="0" Background="#16202d" Margin="0,5,15,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="440"/>
+                                <ColumnDefinition Width="81"/>
+                                <ColumnDefinition Width="94"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="НАЗВАНИЕ" Grid.Column="0" Foreground="#afb1b8" Margin="5,0,0,0"/>
+                            <TextBlock Text="КОЛ-ВО" Grid.Column="1" TextAlignment="Center" Foreground="#afb1b8"/>
+                            <TextBlock Text="ЦЕНА" Grid.Column="2" TextAlignment="Center" Foreground="#afb1b8"/>
+                        </Grid>
+
+                        <ListBox x:Name="ItemsLB"
+                                 Grid.Row="1" Grid.Column="0"
+                                 BorderThickness="0"
+                                 Margin="0,0,15,10"
+                                 Background="Transparent"
+                                 VirtualizingPanel.ScrollUnit="Pixel"
+                                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                 PreviewMouseWheel="ListBox_PreviewMouseWheel">
+
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="Background" Value="#16202d"/>
+                                    <!-- Растягиваем элемент по всей ширине ListBox -->
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                    <Setter Property="Padding" Value="5,5,0,5"/>
+                                    <Setter Property="Margin" Value="0,0,0,5"/>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="440"/>
+                                            <ColumnDefinition Width="81"/>
+                                            <ColumnDefinition Width="94"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel Orientation="Horizontal" Grid.Column="0">
+                                            <Border BorderBrush="#66c0f4" BorderThickness="1">
+                                                <Image Source="{Binding Inventories.Items.ItemPicture}" Width="64" Height="64" Grid.Column="0" Margin="5"/>
+                                            </Border>
+                                            <StackPanel Margin="10,0,0,0" Grid.Column="1" Orientation="Vertical">
+                                                <TextBlock Text="{Binding Inventories.Items.Name}" FontWeight="Bold" Foreground="#afb1b8"/>
+                                                <TextBlock Text="Counter-Strike 2" Foreground="#afb1b8"/>
+                                            </StackPanel>
                                         </StackPanel>
-                                    </StackPanel>
-                                    <TextBlock Text="{Binding Inventories.Count}" Foreground="#afb1b8" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"/>
-                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Grid.Column="2">
-                                        <TextBlock Text="От" Foreground="#afb1b8" TextAlignment="Center"/>
-                                        <TextBlock Text="{Binding Price, StringFormat={}{0} руб.}" Foreground="White" TextAlignment="Center"/>
-                                    </StackPanel>
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                                        <TextBlock Text="{Binding Inventories.Count}" Foreground="#afb1b8" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"/>
+                                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Grid.Column="2">
+                                            <TextBlock Text="От" Foreground="#afb1b8" TextAlignment="Center"/>
+                                            <TextBlock Text="{Binding Price, StringFormat={}{0} руб.}" Foreground="White" TextAlignment="Center"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
                 </Grid>
             </Grid>
         </Grid>
-    </Grid>
+    </ScrollViewer>
 </Page>
