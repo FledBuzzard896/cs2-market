@@ -11,15 +11,44 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="130"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1010"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <!-- Покраска -->
+        <Border Background="#171a21" Grid.Row="0" Grid.ColumnSpan="3"/>
+        <Border Background="#577c22" Grid.Row="1" Grid.ColumnSpan="3"/>
+        <Border Background="#1b2838" Grid.Row="2" Grid.ColumnSpan="3"/>
         
         <!-- header -->
-        <Grid Grid.Row="0" Background="#171a21">
-            <Image Source="/Images/stem-logo-nobg.png" Width="75" Height="30" HorizontalAlignment="Left" Margin="10,5,5,5"/>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+        <Grid Grid.Row="0" Grid.Column="1" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <Image Source="/Images/stem-logo-nobg.png" Width="175" Height="80" HorizontalAlignment="Left" Grid.Column="0"/>
+            
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <StackPanel.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Margin" Value="7"/>
+                    </Style>
+                </StackPanel.Resources>
+                <Button x:Name="shopBtn" Content="МАГАЗИН" FontSize="20" Foreground="White" Background="Transparent" BorderThickness="0"/>
+                <Button x:Name="communityBtn" Content="СООБЩЕСТВО" FontSize="20" Foreground="#1999ff" Background="Transparent" BorderThickness="0"/>
+                <Button x:Name="informationBtn" Content="ИНФОРМАЦИЯ" FontSize="20" Foreground="White" Background="Transparent" BorderThickness="0"/>
+                <Button x:Name="supportBtn" Content="ПОДДЕРЖКА" FontSize="20" Foreground="White" Background="Transparent" BorderThickness="0"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="2">
                 <Button x:Name="exitBtn"
                         Content="Выйти"
                         Width="50" Height="20"
@@ -30,18 +59,13 @@
                            Width="100" Height="20"
                            Foreground="#1999ff" Background="#32353c"
                            TextAlignment="Center"
-                           Margin="5"/>
+                           Margin="5,5,0,5"/>
             </StackPanel>
         </Grid>
         
         <!-- Что такое ТП + кошелёк -->
-        <Grid Grid.Row="1" Background="#577c22">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="1010"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            
+        <Grid Grid.Row="1" Grid.Column="1" Margin="5" Background="#577c22">
+
             <Grid Grid.Column="1" Margin="0,10,0,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
@@ -49,29 +73,19 @@
                 </Grid.ColumnDefinitions>
                 
                 <!-- Левая часть -->
-                <Grid Grid.Column="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="auto"/>
-                    </Grid.RowDefinitions>
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock Text="Торговая площадка" FontSize="34" Foreground="White" VerticalAlignment="Center" Grid.Row="0"/>
+                    <TextBlock Text="Продавайте и покупайте предметы участников сообщества Stem." FontSize="14" Foreground="#85a45a" Grid.Row="1"/>
+                </StackPanel>
 
-                    <TextBlock Text="Торговая площадка" FontSize="20" Foreground="White" Grid.Row="0"/>
-                    <TextBlock Text="Продавайте и покупайте предметы участников сообщества Stem." Foreground="#85a45a" Grid.Row="1"/>
-                </Grid>
-                
-                <!-- Правая часть -->
-                <Grid Grid.Column="1" Background="#101214" Margin="20,0,0,0">
-                    <TextBlock Text="Баланс кошелька ... " Foreground="White" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                    <!-- Правая часть -->
+                <Grid Grid.Column="1" Background="#101214" Height="50" Margin="20,0,5,0">
+                    <TextBlock Text="Баланс кошелька ... " FontSize="16"  Foreground="White" VerticalAlignment="Center" Margin="5,0,5,0"/>
                 </Grid>
             </Grid>
         </Grid>
 
-        <Grid Grid.Row="2" Background="#1b2838">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="1010"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+        <Grid Grid.Row="2" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
@@ -82,7 +96,7 @@
                 <Button x:Name="historyBtn" Content="История сделок" Width="125" BorderThickness="0" Background="#577c22" Foreground="White" Click="historyBtn_Click"/>
             </StackPanel>
 
-            <Grid Grid.Row="1" Grid.Column="1">
+            <Grid Grid.Row="1">
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
