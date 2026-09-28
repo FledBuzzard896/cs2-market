@@ -38,7 +38,8 @@ namespace ISIP123_Solodov_WPF.Pages
 
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
-
+            var market = Core.Context.CS2Market.ToList();
+            ItemsLB.ItemsSource = market;
         }
     }
 }

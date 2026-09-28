@@ -5,7 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ISIP123_Solodov_WPF.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="750" d:DesignWidth="1500"
+      d:MinHeight="500" d:MinWidth="1100"
       Title="Market">
 
     <Grid>
@@ -36,9 +37,9 @@
         <!-- Что такое ТП + кошелёк -->
         <Grid Grid.Row="1" Background="#577c22">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="125"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="125"/>
+                <ColumnDefinition Width="1010"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             
             <Grid Grid.Column="1" Margin="0,10,0,10">
@@ -67,16 +68,16 @@
 
         <Grid Grid.Row="2" Background="#1b2838">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="125"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="125"/>
+                <ColumnDefinition Width="1010"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <StackPanel Grid.Column="1" Grid.Row="0" Height="25" Margin="0,5,0,5" Orientation="Horizontal" Background="#101822">
+            <StackPanel Grid.Column="1" Grid.Row="0" Height="25" Margin="0,10,0,5" Orientation="Horizontal" Background="#101822">
                 <Button x:Name="listingsBtn" Content="Активные лоты" Width="125" BorderThickness="0" Background="#577c22" Foreground="White" Margin="0,0,10,0" Click="listingsBtn_Click"/>
                 <Button x:Name="historyBtn" Content="История сделок" Width="125" BorderThickness="0" Background="#577c22" Foreground="White" Click="historyBtn_Click"/>
             </StackPanel>
@@ -99,17 +100,17 @@
                         <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    
+
                     <Grid Grid.Row="0" Grid.Column="0" Background="#16202d" Margin="0,5,0,5">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="600"/>
+                            <ColumnDefinition Width="75"/>
+                            <ColumnDefinition Width="120"/>
                         </Grid.ColumnDefinitions>
                     
-                        <TextBlock Text="НАЗВАНИЕ" Grid.Column="0" Foreground="#afb1b8"/>
-                        <TextBlock Text="КОЛ-ВО" Grid.Column="1" Width="75" TextAlignment="Center" Foreground="#afb1b8"/>
-                        <TextBlock Text="ЦЕНА" Grid.Column="2" Width="75" TextAlignment="Center" Foreground="#afb1b8"/>
+                        <TextBlock Text="НАЗВАНИЕ" Grid.Column="0" Foreground="#afb1b8" Margin="5,0,0,0"/>
+                        <TextBlock Text="КОЛ-ВО" Grid.Column="1" TextAlignment="Center" Foreground="#afb1b8"/>
+                        <TextBlock Text="ЦЕНА" Grid.Column="2" TextAlignment="Center" Foreground="#afb1b8"/>
                     </Grid>
 
                     <ListBox x:Name="ItemsLB"
@@ -118,25 +119,39 @@
                              Margin="0,0,0,10"
                              Background="Transparent"
                              ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                        
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Background" Value="#16202d"/>
+                                <!-- Растягиваем элемент по всей ширине ListBox -->
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="Padding" Value="5,5,0,5"/>
+                                <Setter Property="Margin" Value="0,0,0,5"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid Background="#16202d" Margin="0,0,0,5">
+                                <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="600"/>
+                                        <ColumnDefinition Width="75"/>
+                                        <ColumnDefinition Width="120"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Image Source="{Binding Inventories.Items.ItemPicture}" Width="75" Grid.Column="0" Margin="5"/>
-                                    <StackPanel Grid.Column="1" Orientation="Vertical">
-                                        <TextBlock Text="{Binding Inventories.Items.Name}" FontSize="16" FontWeight="Bold" Foreground="#afb1b8"/>
-                                        <TextBlock Text="Counter-Strike 2" Foreground="#afb1b8"/>
+                                    <StackPanel Orientation="Horizontal" Grid.Column="0">
+                                        <Border BorderBrush="#66c0f4" BorderThickness="1">
+                                            <Image Source="{Binding Inventories.Items.ItemPicture}" Width="64" Height="64" Grid.Column="0" Margin="5"/>
+                                        </Border>
+                                        <StackPanel Margin="10,0,0,0" Grid.Column="1" Orientation="Vertical">
+                                            <TextBlock Text="{Binding Inventories.Items.Name}" FontWeight="Bold" Foreground="#afb1b8"/>
+                                            <TextBlock Text="Counter-Strike 2" Foreground="#afb1b8"/>
+                                        </StackPanel>
                                     </StackPanel>
-                                    <TextBlock Text="{Binding Inventories.Count}" Foreground="#afb1b8" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
-                                        <TextBlock Text="От" Foreground="#afb1b8"/>
-                                        <TextBlock Text="{Binding Price, StringFormat={}{0} руб.}" Foreground="White"/>
+                                    <TextBlock Text="{Binding Inventories.Count}" Foreground="#afb1b8" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"/>
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Grid.Column="2">
+                                        <TextBlock Text="От" Foreground="#afb1b8" TextAlignment="Center"/>
+                                        <TextBlock Text="{Binding Price, StringFormat={}{0} руб.}" Foreground="White" TextAlignment="Center"/>
                                     </StackPanel>
                                 </Grid>
                             </DataTemplate>
