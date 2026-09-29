@@ -9,23 +9,27 @@
       d:MinHeight="550" d:MinWidth="1100"
       Title="Market">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
         <Grid>
+            <Grid.Background>
+                <ImageBrush ImageSource="/Images/background-1.png" Stretch="UniformToFill"/>
+            </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="104"/>
                 <RowDefinition Height="121"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="949"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-
+            
             <!-- Покраска -->
             <Border Background="#171a21" Grid.Row="0" Grid.ColumnSpan="3"/>
             <Border Background="#577c22" Grid.Row="1" Grid.ColumnSpan="3"/>
-            <Border Background="#1b2838" Grid.Row="2" Grid.ColumnSpan="3"/>
+            <!-- <Border Background="#1b2838" Grid.Row="2" Grid.ColumnSpan="3"/> -->
 
             <!-- header -->
             <Grid Grid.Row="0" Grid.Column="1" Margin="5">
@@ -176,7 +180,7 @@
                                                 <TextBlock Text="Counter-Strike 2" Foreground="#afb1b8"/>
                                             </StackPanel>
                                         </StackPanel>
-                                        <TextBlock Text="{Binding Inventories.Count}" Foreground="#afb1b8" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"/>
+                                        <TextBlock Text="{Binding Inventories.Count}" Foreground="#afb1b8" FontSize="14" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"/>
                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Grid.Column="2">
                                             <TextBlock Text="От" Foreground="#afb1b8" TextAlignment="Center"/>
                                             <TextBlock Text="{Binding Price, StringFormat={}{0} руб.}" Foreground="White" TextAlignment="Center"/>

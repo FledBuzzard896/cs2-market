@@ -9,6 +9,7 @@
 
 namespace ISIP123_Solodov_WPF
 {
+    using ISIP123_Solodov_WPF.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;

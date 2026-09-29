@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ISIP123_Solodov_WPF
+namespace ISIP123_Solodov_WPF.Models
 {
     using System;
     using System.Collections.Generic;

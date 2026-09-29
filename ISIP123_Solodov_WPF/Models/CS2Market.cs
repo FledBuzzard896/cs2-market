@@ -7,20 +7,26 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ISIP123_Solodov_WPF
+namespace ISIP123_Solodov_WPF.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class TransactionsHistory
+    public partial class CS2Market
     {
         public int ID { get; set; }
-        public int UserID { get; set; }
-        public int OperationID { get; set; }
-        public decimal TransactionSum { get; set; }
-        public System.DateTime DateOfTransaction { get; set; }
+        public int InventoryID { get; set; }
+        public decimal Price { get; set; }
+        public decimal Commission { get; set; }
+        public int SellerID { get; set; }
+        public Nullable<int> BuyerID { get; set; }
+        public Nullable<System.DateTime> DateOfDeal { get; set; }
+        public System.DateTime DateOfCreatingOffer { get; set; }
+        public int StatusID { get; set; }
     
-        public virtual Operations Operations { get; set; }
         public virtual Users Users { get; set; }
+        public virtual Inventories Inventories { get; set; }
+        public virtual Users Users1 { get; set; }
+        public virtual Status Status { get; set; }
     }
 }

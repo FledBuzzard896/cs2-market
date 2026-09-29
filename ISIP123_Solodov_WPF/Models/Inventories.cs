@@ -7,26 +7,26 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ISIP123_Solodov_WPF
+namespace ISIP123_Solodov_WPF.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class CS2Market
+    public partial class Inventories
     {
-        public int ID { get; set; }
-        public int InventoryID { get; set; }
-        public decimal Price { get; set; }
-        public decimal Commission { get; set; }
-        public int SellerID { get; set; }
-        public Nullable<int> BuyerID { get; set; }
-        public Nullable<System.DateTime> DateOfDeal { get; set; }
-        public System.DateTime DateOfCreatingOffer { get; set; }
-        public int StatusID { get; set; }
+        public Inventories()
+        {
+            this.CS2Market = new HashSet<CS2Market>();
+        }
     
+        public int ID { get; set; }
+        public int UserID { get; set; }
+        public int ItemID { get; set; }
+        public Nullable<double> Flot { get; set; }
+        public int Count { get; set; }
+    
+        public virtual ICollection<CS2Market> CS2Market { get; set; }
+        public virtual Items Items { get; set; }
         public virtual Users Users { get; set; }
-        public virtual Inventories Inventories { get; set; }
-        public virtual Users Users1 { get; set; }
-        public virtual Status Status { get; set; }
     }
 }

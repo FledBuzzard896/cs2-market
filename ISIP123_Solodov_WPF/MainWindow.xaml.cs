@@ -24,5 +24,24 @@ namespace ISIP123_Solodov_WPF
         {
             InitializeComponent();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            var timer = new System.Windows.Threading.DispatcherTimer();
+            timer.Interval = new TimeSpan(0, 0, 1);
+            timer.IsEnabled = true;
+            timer.Tick += (o, t) => {
+                DateTimeNow.Text = DateTime.Now.ToString();
+            };
+            timer.Start();
+        }
+
+        void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (MessageBox.Show("Вы уверены, что хотите закрыть окно?", "Message", MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.No)
+                e.Cancel = true;
+            else
+                e.Cancel = false;
+        }
     }
 }

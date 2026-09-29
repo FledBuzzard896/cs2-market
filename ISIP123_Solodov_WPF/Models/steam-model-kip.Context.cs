@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ISIP123_Solodov_WPF
+namespace ISIP123_Solodov_WPF.Models
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class EntitiesKIP : DbContext
+    public partial class SteamMarketEntitiesKip : DbContext
     {
-        public EntitiesKIP()
-            : base("name=EntitiesKIP")
+        public SteamMarketEntitiesKip()
+            : base("name=SteamMarketEntitiesKip")
         {
         }
     

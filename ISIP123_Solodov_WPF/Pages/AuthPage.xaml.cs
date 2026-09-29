@@ -51,5 +51,10 @@ namespace ISIP123_Solodov_WPF.Pages
         {
             NavigationService.Navigate(new Market());
         }
+
+        private void IForgotPassword_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

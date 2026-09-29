@@ -7,30 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ISIP123_Solodov_WPF
+namespace ISIP123_Solodov_WPF.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Users
+    public partial class Status
     {
-        public Users()
+        public Status()
         {
             this.CS2Market = new HashSet<CS2Market>();
-            this.CS2Market1 = new HashSet<CS2Market>();
-            this.Inventories = new HashSet<Inventories>();
-            this.TransactionsHistory = new HashSet<TransactionsHistory>();
         }
     
         public int ID { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public string Nickname { get; set; }
-        public decimal Balance { get; set; }
+        public string Name { get; set; }
     
         public virtual ICollection<CS2Market> CS2Market { get; set; }
-        public virtual ICollection<CS2Market> CS2Market1 { get; set; }
-        public virtual ICollection<Inventories> Inventories { get; set; }
-        public virtual ICollection<TransactionsHistory> TransactionsHistory { get; set; }
     }
 }

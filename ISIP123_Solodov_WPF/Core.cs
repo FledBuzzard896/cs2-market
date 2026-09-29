@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ISIP123_Solodov_WPF.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace ISIP123_Solodov_WPF
         public static SteamMarketEntities Context => new SteamMarketEntities();
 
         // Подключение к БД КИПа
-        public static EntitiesKIP ContextKIP => new EntitiesKIP();
+        public static SteamMarketEntitiesKip ContextKIP => new SteamMarketEntitiesKip();
 
         // Хранение текущего пользователя
         public static Users CurrentUser = null;

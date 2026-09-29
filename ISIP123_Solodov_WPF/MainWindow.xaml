@@ -6,9 +6,20 @@
         xmlns:local="clr-namespace:ISIP123_Solodov_WPF"
         mc:Ignorable="d"
         Title="MainWindow" 
+        
         Height="750" Width="1500"
-        MinHeight="550" MinWidth="1100">
+        MinHeight="550" MinWidth="1100"
+    
+        Loaded="Window_Loaded"
+        Closing="Window_Closing">
     <Grid>
         <Frame x:Name="mainFrame" Source="Pages/AuthPage.xaml" NavigationUIVisibility="Hidden"/>
+        <TextBlock x:Name="DateTimeNow"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Foreground="#39FF14"
+            FontFamily="./Fonts/#DS-Digital"
+            FontSize="14"
+            Margin="5"/>
     </Grid>
 </Window>

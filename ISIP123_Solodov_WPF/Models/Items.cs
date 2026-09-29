@@ -7,21 +7,27 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ISIP123_Solodov_WPF
+namespace ISIP123_Solodov_WPF.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Status
+    public partial class Items
     {
-        public Status()
+        public Items()
         {
-            this.CS2Market = new HashSet<CS2Market>();
+            this.Inventories = new HashSet<Inventories>();
         }
     
         public int ID { get; set; }
         public string Name { get; set; }
+        public int TypeID { get; set; }
+        public Nullable<int> QualityID { get; set; }
+        public decimal AveragePrice { get; set; }
+        public string ItemPicture { get; set; }
     
-        public virtual ICollection<CS2Market> CS2Market { get; set; }
+        public virtual ICollection<Inventories> Inventories { get; set; }
+        public virtual Qualities Qualities { get; set; }
+        public virtual Types Types { get; set; }
     }
 }

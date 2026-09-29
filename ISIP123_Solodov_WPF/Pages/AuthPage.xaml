@@ -17,59 +17,49 @@
         </Grid.RowDefinitions>
         
         <Image Source="/Images/stem-logo-nobg.png"
-               HorizontalAlignment="Left" VerticalAlignment="Top"
-               Width="100" Margin="10"
+               Style="{StaticResource LogoStemAuthPage}"
                Grid.Row="0"/>
 
-        <Border
-            BorderBrush="#32353c"
-            BorderThickness="2"
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center"
-            Grid.Row="1">
-            <StackPanel Background="#181a21" Margin="20">
-                <TextBlock Text="ВОЙДИТЕ ИСПОЛЬЗУЯ ИМЯ АККАУНТА" Foreground="#1999ff"/>
-                <TextBox x:Name="loginBox"
-                         Margin="0,5,0,0" 
-                         Height="35" Width="400" 
-                         Background="#32353c" Foreground="White" 
-                         BorderThickness="0"/>
-                
-                <TextBlock Text="ПАРОЛЬ" Foreground="#afb1b8" Margin="0,10,0,0"/>
-                <PasswordBox x:Name="passwordBox" 
-                             Margin="0,5,0,0" 
-                             Height="35" Width="400" 
-                             Background="#32353c" Foreground="White" 
-                             BorderThickness="0" 
-                             PasswordChar="•"/>
+        <Border Style="{StaticResource GrayBorder}" Grid.Row="1">
+            <Grid Background="#181a21" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
 
-                <Button x:Name="enterBtn" 
-                        Content="Войти" 
-                        Height="35" 
-                        Background="#1999ff" Foreground="White"
-                        Margin="100,20,100,10" 
-                        BorderThickness="0" Click="enterBtn_Click"/>
-            </StackPanel>
+                <StackPanel Grid.Column="0" Margin="20">
+                    <TextBlock Text="ВОЙДИТЕ, ИСПОЛЬЗУЯ ИМЯ АККАУНТА" Foreground="#1999ff"/>
+                    <TextBox x:Name="loginBox" Style="{StaticResource AuthTextBox}"/>
+                    <TextBlock Text="ПАРОЛЬ" Foreground="#afb1b8" Margin="0,10,0,0"/>
+                    <PasswordBox x:Name="passwordBox" Style="{StaticResource AuthPassBox}"/>
+
+                    <Button x:Name="enterBtn" 
+                        Content="Войти"
+                        Style="{StaticResource EnterButton}"
+                        Click="enterBtn_Click"/>
+
+                    <Button x:Name="IForgotPassword"
+                            Content="Помогите, я не могу войти в аккаунт" 
+                            Foreground="#afb1b8" Background="Transparent"
+                            BorderThickness="0" Margin="5"
+                            Click="IForgotPassword_Click"/>
+                </StackPanel>
+                <Image Grid.Column="1" Margin="0,20,20,20" Width="200" Source="/Images/steam-wiki-qr.jpg"/>
+            </Grid>
         </Border>
         <StackPanel Grid.Row="2" Margin="20" HorizontalAlignment="Center">
-            <TextBlock Text="Первый раз в Stem?"
-                       Foreground="White"
-                       FontWeight="Bold" FontSize="18"
-                       HorizontalAlignment="Center"
-                       Margin="10"/>
+            <TextBlock Text="Первый раз в Stem?" Style="{StaticResource FirstTimeStemTBlock}"/>
             
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="regBtn"
                         Content="Создать аккаунт"
-                        Height="25" Width="125"
-                        BorderThickness="0"
-                        Foreground="White" Background="#214b6b"
-                        Margin="0,0,20,0" Click="regBtn_Click"/>
+                        Style="{StaticResource FirstTimeStem}"
+                        Margin="0,0,20,0" 
+                        Click="regBtn_Click"/>
                 <Button x:Name="entryGuestBtn"
                         Content="Войти без аккаунта"
-                        Height="25" Width="125"
-                        BorderThickness="0"
-                        Foreground="White" Background="#214b6b" Click="entryGuestBtn_Click"/>
+                        Style="{StaticResource FirstTimeStem}"
+                        Click="entryGuestBtn_Click"/>
             </StackPanel>
         </StackPanel>
     </Grid>
