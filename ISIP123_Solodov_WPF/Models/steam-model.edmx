@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище SteamMarketModel" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище SteamMarketModelHome" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CS2Market">
           <Key>
             <PropertyRef Name="ID" />
@@ -227,7 +227,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Хранилище SteamMarketModelContainer">
+        <EntityContainer Name="Хранилище SteamMarketModelHomeContainer">
           <EntitySet Name="CS2Market" EntityType="Self.CS2Market" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Inventories" EntityType="Self.Inventories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
@@ -284,7 +284,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="SteamMarketModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="SteamMarketModelHome" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="CS2Market">
           <Key>
             <PropertyRef Name="ID" />
@@ -527,7 +527,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SteamMarketEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SteamMarketEntitiesHome" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CS2Market" EntityType="Self.CS2Market" />
           <EntitySet Name="Inventories" EntityType="Self.Inventories" />
           <EntitySet Name="Items" EntityType="Self.Items" />
@@ -585,9 +585,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище SteamMarketModelContainer" CdmEntityContainer="SteamMarketEntities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище SteamMarketModelHomeContainer" CdmEntityContainer="SteamMarketEntitiesHome">
           <EntitySetMapping Name="CS2Market">
-            <EntityTypeMapping TypeName="SteamMarketModel.CS2Market">
+            <EntityTypeMapping TypeName="SteamMarketModelHome.CS2Market">
               <MappingFragment StoreEntitySet="CS2Market">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="InventoryID" ColumnName="InventoryID" />
@@ -602,7 +602,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Inventories">
-            <EntityTypeMapping TypeName="SteamMarketModel.Inventories">
+            <EntityTypeMapping TypeName="SteamMarketModelHome.Inventories">
               <MappingFragment StoreEntitySet="Inventories">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
@@ -613,7 +613,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Items">
-            <EntityTypeMapping TypeName="SteamMarketModel.Items">
+            <EntityTypeMapping TypeName="SteamMarketModelHome.Items">
               <MappingFragment StoreEntitySet="Items">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -625,7 +625,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Iznos">
-            <EntityTypeMapping TypeName="SteamMarketModel.Iznos">
+            <EntityTypeMapping TypeName="SteamMarketModelHome.Iznos">
               <MappingFragment StoreEntitySet="Iznos">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -635,7 +635,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Operations">
-            <EntityTypeMapping TypeName="SteamMarketModel.Operations">
+            <EntityTypeMapping TypeName="SteamMarketModelHome.Operations">
               <MappingFragment StoreEntitySet="Operations">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -643,7 +643,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Qualities">
-            <EntityTypeMapping TypeName="SteamMarketModel.Qualities">
+            <EntityTypeMapping TypeName="SteamMarketModelHome.Qualities">
               <MappingFragment StoreEntitySet="Qualities">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -651,7 +651,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Status">
-            <EntityTypeMapping TypeName="SteamMarketModel.Status">
+            <EntityTypeMapping TypeName="SteamMarketModelHome.Status">
               <MappingFragment StoreEntitySet="Status">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -659,7 +659,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="SteamMarketModel.sysdiagrams">
+            <EntityTypeMapping TypeName="SteamMarketModelHome.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -670,7 +670,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TransactionsHistory">
-            <EntityTypeMapping TypeName="SteamMarketModel.TransactionsHistory">
+            <EntityTypeMapping TypeName="SteamMarketModelHome.TransactionsHistory">
               <MappingFragment StoreEntitySet="TransactionsHistory">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
@@ -681,7 +681,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Types">
-            <EntityTypeMapping TypeName="SteamMarketModel.Types">
+            <EntityTypeMapping TypeName="SteamMarketModelHome.Types">
               <MappingFragment StoreEntitySet="Types">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -689,7 +689,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="SteamMarketModel.Users">
+            <EntityTypeMapping TypeName="SteamMarketModelHome.Users">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Login" ColumnName="Login" />

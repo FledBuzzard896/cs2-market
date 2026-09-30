@@ -63,25 +63,25 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\CS2Market.cs">
-      <DependentUpon>steam-model-kip.tt</DependentUpon>
+      <DependentUpon>steam-model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Inventories.cs">
-      <DependentUpon>steam-model-kip.tt</DependentUpon>
+      <DependentUpon>steam-model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Items.cs">
-      <DependentUpon>steam-model-kip.tt</DependentUpon>
+      <DependentUpon>steam-model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Iznos.cs">
-      <DependentUpon>steam-model-kip.tt</DependentUpon>
+      <DependentUpon>steam-model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Operations.cs">
-      <DependentUpon>steam-model-kip.tt</DependentUpon>
+      <DependentUpon>steam-model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Qualities.cs">
-      <DependentUpon>steam-model-kip.tt</DependentUpon>
+      <DependentUpon>steam-model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Status.cs">
-      <DependentUpon>steam-model-kip.tt</DependentUpon>
+      <DependentUpon>steam-model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\steam-model-kip.Context.cs">
       <AutoGen>True</AutoGen>
@@ -98,38 +98,38 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>steam-model-kip.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\steam-model.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>steam-model.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\steam-model.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>steam-model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\steam-model.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>steam-model.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>steam-model-kip.tt</DependentUpon>
+      <DependentUpon>steam-model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TransactionsHistory.cs">
-      <DependentUpon>steam-model-kip.tt</DependentUpon>
+      <DependentUpon>steam-model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Types.cs">
-      <DependentUpon>steam-model-kip.tt</DependentUpon>
+      <DependentUpon>steam-model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Users.cs">
-      <DependentUpon>steam-model-kip.tt</DependentUpon>
+      <DependentUpon>steam-model.tt</DependentUpon>
     </Compile>
     <Compile Include="Pages\AuthPage.xaml.cs">
       <DependentUpon>AuthPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Market.xaml.cs">
       <DependentUpon>Market.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="steam-model.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>steam-model.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="steam-model.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>steam-model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="steam-model.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>steam-model.edmx</DependentUpon>
     </Compile>
     <Page Include="Styles\MainStemDictionary.xaml">
       <SubType>Designer</SubType>
@@ -186,23 +186,33 @@
     <None Include="Models\steam-model-kip.edmx.diagram">
       <DependentUpon>steam-model-kip.edmx</DependentUpon>
     </None>
+    <EntityDeploy Include="Models\steam-model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>steam-model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\steam-model.edmx.diagram">
+      <DependentUpon>steam-model.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <EntityDeploy Include="steam-model.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>steam-model.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="steam-model.edmx.diagram">
-      <DependentUpon>steam-model.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Models\steam-model.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>steam-model.edmx</DependentUpon>
+      <LastGenOutput>steam-model.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\steam-model.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>steam-model.edmx</DependentUpon>
+      <LastGenOutput>steam-model.cs</LastGenOutput>
+    </Content>
     <Resource Include="Images\stem-logo-nobg.png" />
     <Resource Include="Images\stem-logo.png" />
     <Resource Include="Images\background-1.png" />
@@ -217,16 +227,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>steam-model-kip.edmx</DependentUpon>
       <LastGenOutput>steam-model-kip.cs</LastGenOutput>
-    </Content>
-    <Content Include="steam-model.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>steam-model.Context.cs</LastGenOutput>
-      <DependentUpon>steam-model.edmx</DependentUpon>
-    </Content>
-    <Content Include="steam-model.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>steam-model.edmx</DependentUpon>
-      <LastGenOutput>steam-model.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

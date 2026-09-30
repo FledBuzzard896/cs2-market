@@ -7,17 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ISIP123_Solodov_WPF
+namespace ISIP123_Solodov_WPF.Models
 {
-    using ISIP123_Solodov_WPF.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class SteamMarketEntities : DbContext
+    public partial class SteamMarketEntitiesHome : DbContext
     {
-        public SteamMarketEntities()
-            : base("name=SteamMarketEntities")
+        public SteamMarketEntitiesHome()
+            : base("name=SteamMarketEntitiesHome")
         {
         }
     

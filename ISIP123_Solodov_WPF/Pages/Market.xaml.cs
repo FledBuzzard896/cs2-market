@@ -38,11 +38,11 @@ namespace ISIP123_Solodov_WPF.Pages
 
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
-            //var market = Core.Context.CS2Market.ToList();
-            //ItemsLB.ItemsSource = market;
-
-            var market = Core.ContextKIP.CS2Market.ToList();
+            var market = Core.Context.CS2Market.ToList();
             ItemsLB.ItemsSource = market;
+
+            //var market = Core.ContextKIP.CS2Market.ToList();
+            //ItemsLB.ItemsSource = market;
         }
 
         private void sellItemBtn_Click(object sender, RoutedEventArgs e)
