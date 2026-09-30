@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -73,6 +74,19 @@ namespace ISIP123_Solodov_WPF.Pages
         private void supportBtn_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            // Безопасный запуск браузера по умолчанию в любой версии .NET
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = e.Uri.AbsoluteUri,
+                UseShellExecute = true
+            });
+
+            // Говорим WPF, что событие обработано и ничего больше делать не нужно
+            e.Handled = true;
         }
 
         private void ListBox_PreviewMouseWheel(object sender, MouseWheelEventArgs e)

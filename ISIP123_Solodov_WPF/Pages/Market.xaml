@@ -132,7 +132,7 @@
                                 <ColumnDefinition Width="94"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Text="НАЗВАНИЕ" Grid.Column="0" Foreground="#afb1b8" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                            <TextBlock Text="НАЗВАНИЕ" Grid.Column="0"  VerticalAlignment="Center" Margin="5,0,0,0" Foreground="#afb1b8"/>
                             <TextBlock Text="КОЛ-ВО" Grid.Column="1" TextAlignment="Center" VerticalAlignment="Center" Foreground="#afb1b8"/>
                             <TextBlock Text="ЦЕНА" Grid.Column="2" TextAlignment="Center" VerticalAlignment="Center" Foreground="#afb1b8"/>
                         </Grid>
@@ -186,92 +186,111 @@
                         </ListBox>
                     </Grid>
 
-                    <Border Grid.Column="1" Background="#101822" VerticalAlignment="Top" Margin="0,5,0,10" Height="750">
-                        <StackPanel  Orientation="Vertical" Margin="10">
-                            <TextBlock Text="Прочтите требования к безопасности для использования Торговой площадки" Foreground="#afb1b8" TextWrapping="Wrap" Margin="0,0,0,10"/>
-                            <TextBlock Text="Поиск предметов" Foreground="#54a5d4" Margin="0,10,0,10"/>
-                            <TextBox x:Name="searchTBox"  BorderThickness="0" Height="30" Background="#3d4450"/>
-                            <TextBlock Text="Сортировать по" Foreground="#54a5d4" Margin="0,20,0,10"/>
-                            <ComboBox Height="30" BorderThickness="0" VerticalContentAlignment="Center">
-                                <ComboBox.Resources>
-                                    <!-- Красим пункты выпадашки -->
-                                    <Style TargetType="ComboBoxItem">
-                                        <Setter Property="Background" Value="#3d4450"/>
-                                        <Setter Property="Foreground" Value="White"/>
-                                        <Setter Property="Padding" Value="8,4"/>
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="ComboBoxItem">
-                                                    <Border x:Name="Bd" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
-                                                        <ContentPresenter/>
-                                                    </Border>
-                                                    <ControlTemplate.Triggers>
-                                                        <Trigger Property="IsHighlighted" Value="True">
-                                                            <Setter TargetName="Bd" Property="Background" Value="#577c22"/>
-                                                        </Trigger>
-                                                    </ControlTemplate.Triggers>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </ComboBox.Resources>
-                                <ComboBoxItem Content=""/>
-                                <ComboBoxItem Content="Название (↑)"/>
-                                <ComboBoxItem Content="Название (↓)"/>
-                                <ComboBoxItem Content="Цена (↑)"/>
-                                <ComboBoxItem Content="Цена (↓)"/>
-                            </ComboBox>
-                            <TextBlock Text="Фильтры" Foreground="#54a5d4" Margin="0,20,0,10"/>
-                            <ComboBox Height="30" BorderThickness="0" VerticalContentAlignment="Center" ItemsSource="{Binding Companies}" DisplayMemberPath="Name">
-                                <ComboBox.Resources>
-                                    <!-- Красим пункты выпадашки -->
-                                    <Style TargetType="ComboBoxItem">
-                                        <Setter Property="Background" Value="#3d4450"/>
-                                        <Setter Property="Foreground" Value="White"/>
-                                        <Setter Property="Padding" Value="8,4"/>
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="ComboBoxItem">
-                                                    <Border x:Name="Bd" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
-                                                        <ContentPresenter/>
-                                                    </Border>
-                                                    <ControlTemplate.Triggers>
-                                                        <Trigger Property="IsHighlighted" Value="True">
-                                                            <Setter TargetName="Bd" Property="Background" Value="#577c22"/>
-                                                        </Trigger>
-                                                    </ControlTemplate.Triggers>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </ComboBox.Resources>
-                            </ComboBox>
-                            <ComboBox Height="30" BorderThickness="0" VerticalContentAlignment="Center" Margin="0,10,0,0" ItemsSource="{Binding Companies}" DisplayMemberPath="Name">
-                                <ComboBox.Resources>
-                                    <!-- Красим пункты выпадашки -->
-                                    <Style TargetType="ComboBoxItem">
-                                        <Setter Property="Background" Value="#3d4450"/>
-                                        <Setter Property="Foreground" Value="White"/>
-                                        <Setter Property="Padding" Value="8,4"/>
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="ComboBoxItem">
-                                                    <Border x:Name="Bd" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
-                                                        <ContentPresenter/>
-                                                    </Border>
-                                                    <ControlTemplate.Triggers>
-                                                        <Trigger Property="IsHighlighted" Value="True">
-                                                            <Setter TargetName="Bd" Property="Background" Value="#577c22"/>
-                                                        </Trigger>
-                                                    </ControlTemplate.Triggers>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </ComboBox.Resources>
-                            </ComboBox>
-                        </StackPanel>
-                    </Border>
+                    <StackPanel Grid.Column="1" VerticalAlignment="Top" Orientation="Vertical">
+                        <Border Background="#101822" Margin="0,5,0,10" Height="350">
+                            <StackPanel  Orientation="Vertical" Margin="10">
+                                <TextBlock Text="Прочтите требования к безопасности для использования Торговой площадки" Foreground="#afb1b8" TextWrapping="Wrap" Margin="0,0,0,10"/>
+                                <TextBlock Text="Поиск предметов" Foreground="#54a5d4" Margin="0,10,0,10"/>
+                                <TextBox x:Name="searchTBox"  BorderThickness="0" Height="30" Background="#3d4450" VerticalContentAlignment="Center"/>
+                                <TextBlock Text="Сортировать по" Foreground="#54a5d4" Margin="0,20,0,10"/>
+                                <ComboBox Height="30" BorderThickness="0" VerticalContentAlignment="Center">
+                                    <ComboBox.Resources>
+                                        <!-- Красим пункты выпадашки -->
+                                        <Style TargetType="ComboBoxItem">
+                                            <Setter Property="Background" Value="#3d4450"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                            <Setter Property="Padding" Value="8,4"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="ComboBoxItem">
+                                                        <Border x:Name="Bd" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                                                            <ContentPresenter/>
+                                                        </Border>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsHighlighted" Value="True">
+                                                                <Setter TargetName="Bd" Property="Background" Value="#577c22"/>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </ComboBox.Resources>
+                                    <ComboBoxItem Content=""/>
+                                    <ComboBoxItem Content="Название (↑)"/>
+                                    <ComboBoxItem Content="Название (↓)"/>
+                                    <ComboBoxItem Content="Цена (↑)"/>
+                                    <ComboBoxItem Content="Цена (↓)"/>
+                                </ComboBox>
+                                <TextBlock Text="Фильтры" Foreground="#54a5d4" Margin="0,20,0,10"/>
+                                <ComboBox Height="30" BorderThickness="0" VerticalContentAlignment="Center" ItemsSource="{Binding Companies}" DisplayMemberPath="Name">
+                                    <ComboBox.Resources>
+                                        <!-- Красим пункты выпадашки -->
+                                        <Style TargetType="ComboBoxItem">
+                                            <Setter Property="Background" Value="#3d4450"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                            <Setter Property="Padding" Value="8,4"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="ComboBoxItem">
+                                                        <Border x:Name="Bd" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                                                            <ContentPresenter/>
+                                                        </Border>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsHighlighted" Value="True">
+                                                                <Setter TargetName="Bd" Property="Background" Value="#577c22"/>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </ComboBox.Resources>
+                                </ComboBox>
+                                <ComboBox Height="30" BorderThickness="0" VerticalContentAlignment="Center" Margin="0,10,0,0" ItemsSource="{Binding Companies}" DisplayMemberPath="Name">
+                                    <ComboBox.Resources>
+                                        <!-- Красим пункты выпадашки -->
+                                        <Style TargetType="ComboBoxItem">
+                                            <Setter Property="Background" Value="#3d4450"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                            <Setter Property="Padding" Value="8,4"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="ComboBoxItem">
+                                                        <Border x:Name="Bd" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                                                            <ContentPresenter/>
+                                                        </Border>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsHighlighted" Value="True">
+                                                                <Setter TargetName="Bd" Property="Background" Value="#577c22"/>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </ComboBox.Resources>
+                                </ComboBox>
+                            </StackPanel>
+                        </Border>
+                        <Border Margin="0,20,0,0" Background="#101822">
+                            <StackPanel Orientation="Vertical" Margin="10">
+                                <TextBlock FontSize="14" Foreground="#afb1b8" TextWrapping="Wrap">
+                                    <Hyperlink NavigateUri="https://help.steampowered.com/ru/faqs/view/61F0-72B7-9A18-C70B" RequestNavigate="Hyperlink_RequestNavigate" Foreground="#afb1b8">
+                                        Частые вопросы
+                                    </Hyperlink>
+                                    о Торговой площадке
+                                </TextBlock>
+                                <TextBlock FontSize="14" Foreground="#afb1b8" TextWrapping="Wrap" Margin="0,15,0,0">
+                                    Вступайте в 
+                                    <Hyperlink NavigateUri="https://steamcommunity.com/groups/community_market" RequestNavigate="Hyperlink_RequestNavigate" Foreground="#afb1b8">
+                                        группу Торговой площадки
+                                    </Hyperlink>
+                                    для обсуждений и официальных объявлений
+                                </TextBlock>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
                 </Grid>
             </Grid>
         </Grid>
