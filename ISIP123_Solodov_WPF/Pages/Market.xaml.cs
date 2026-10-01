@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ISIP123_Solodov_WPF.Dialogs;
+using ISIP123_Solodov_WPF.Models;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -37,15 +39,6 @@ namespace ISIP123_Solodov_WPF.Pages
 
         }
 
-        private void PageLoaded(object sender, RoutedEventArgs e)
-        {
-            var market = Core.Context.CS2Market.ToList();
-            ItemsLB.ItemsSource = market;
-
-            //var market = Core.ContextKIP.CS2Market.ToList();
-            //ItemsLB.ItemsSource = market;
-        }
-
         private void sellItemBtn_Click(object sender, RoutedEventArgs e)
         {
 
@@ -53,42 +46,41 @@ namespace ISIP123_Solodov_WPF.Pages
 
         private void exitBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            Core.CurrentUser = null;
+            NavigationService.Navigate(new AuthPage());
         }
 
-        private void shopBtn_Click(object sender, RoutedEventArgs e)
+        private void ShowError_Dialog(object sender, RoutedEventArgs e)
         {
-
+            Error dialog = new Error();
+            dialog.ShowDialog();
         }
 
         private void communityBtn_Click(object sender, RoutedEventArgs e)
         {
+            string url = "https://steamcommunity.com/market/"; 
 
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = url,
+                UseShellExecute = true 
+            });
         }
 
-        private void informationBtn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void supportBtn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
+        // Открытие ссылки на ресурс
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            // Безопасный запуск браузера по умолчанию в любой версии .NET
             Process.Start(new ProcessStartInfo
             {
                 FileName = e.Uri.AbsoluteUri,
                 UseShellExecute = true
             });
 
-            // Говорим WPF, что событие обработано и ничего больше делать не нужно
             e.Handled = true;
         }
 
+
+        // Настройка для глобального скрола по ListBox
         private void ListBox_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (!e.Handled)
@@ -106,6 +98,38 @@ namespace ISIP123_Solodov_WPF.Pages
                 var parent = ((FrameworkElement)sender).Parent as UIElement;
 
                 parent?.RaiseEvent(eventArg);
+            }
+        }
+
+
+        private void PageLoaded(object sender, RoutedEventArgs e)
+        {
+            // Подгрузка ТП
+            var market = Core.Context.CS2Market.ToList();
+            ItemsLB.ItemsSource = market;
+            //var market = Core.ContextKIP.CS2Market.ToList();
+            //ItemsLB.ItemsSource = market;
+
+
+            // Подкгрузка фильтров
+            var types = Core.Context.Types.Select(x => x.Name).ToList();
+            types.Insert(0, "");
+            TypesCombo.ItemsSource = types;
+
+            var qualities = Core.Context.Qualities.Select(x => x.Name).ToList();
+            qualities.Insert(0, "");
+            QualitesCombo.ItemsSource = qualities;
+
+
+            if (Core.CurrentUser is null)
+            {
+                NicknameTBox.Text = "guest";
+                balance.Text = $"Баланс кошелька: 0 ₽";
+            }
+            else 
+            {
+                NicknameTBox.Text = Core.CurrentUser.Nickname;
+                balance.Text = $"Баланс кошелька: {Core.CurrentUser.Balance.ToString()} ₽";
             }
         }
     }

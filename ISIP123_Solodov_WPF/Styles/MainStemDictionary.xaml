@@ -61,4 +61,57 @@
         <Setter Property="Width" Value="100"/>
         <Setter Property="Margin" Value="10"/>
     </Style>
+    
+    
+    
+    <!-- ===== СТРАНИЦА МАРКЕТА ===== -->
+    <!-- Стиль заднего фона -->
+    <Style x:Key="HeaderBG" TargetType="Border">
+        <Setter Property="Background" Value="#171a21"/>
+    </Style>
+    <Style x:Key="MarketBG" TargetType="Border">
+        <Setter Property="Background" Value="#577c22"/>
+    </Style>
+    
+    <!-- Стиль логотипа Stem на странице ТП -->
+    <Style x:Key="LogoStemMarketPage" TargetType="Image">
+        <Setter Property="Width" Value="175"/>
+        <Setter Property="Height" Value="80"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+    
+    <!-- Стиль StackPanel с кнопками в Header -->
+    <Style x:Key="HeaderNavigations_StackPanel" TargetType="StackPanel">
+        <Setter Property="Orientation" Value="Horizontal"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+    <Style x:Key="HeaderNavigations_Buttons" TargetType="Button">
+        <Setter Property="Margin" Value="7"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+    
+    <!-- Стиль StackPanel с Аккаунтом -->
+    <Style x:Key="AccountAndExit" TargetType="StackPanel">
+        <Setter Property="Orientation" Value="Horizontal"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+    </Style>
+    <Style x:Key="ExitBtn" TargetType="Button">
+        <Setter Property="Width" Value="50"/>
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="#214b6b"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+    <Style x:Key="AccountTBox" TargetType="TextBlock">
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="Foreground" Value="#1999ff"/>
+        <Setter Property="Background" Value="#32353c"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="5,5,0,5"/>
+    </Style>
 </ResourceDictionary>

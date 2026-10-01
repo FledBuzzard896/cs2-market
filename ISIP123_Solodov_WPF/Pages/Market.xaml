@@ -27,49 +27,55 @@
             </Grid.ColumnDefinitions>
             
             <!-- Покраска -->
-            <Border Background="#171a21" Grid.Row="0" Grid.ColumnSpan="3"/>
-            <Border Background="#577c22" Grid.Row="1" Grid.ColumnSpan="3"/>
-            <!-- <Border Background="#1b2838" Grid.Row="2" Grid.ColumnSpan="3"/> -->
+            <Border Style="{StaticResource HeaderBG}" 
+                    Grid.Row="0" Grid.ColumnSpan="3"/>
+            <Border Style="{StaticResource MarketBG}"
+                    Grid.Row="1" Grid.ColumnSpan="3"/>
 
-            <!-- header -->
+            <!-- Header -->
             <Grid Grid.Row="0" Grid.Column="1" Margin="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
-
-                <Image Source="/Images/stem-logo-nobg.png" Width="175" Height="80" HorizontalAlignment="Left" Grid.Column="0"/>
-
-                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" >
-                    <StackPanel.Resources>
-                        <Style TargetType="Button">
-                            <Setter Property="Margin" Value="7"/>
-                        </Style>
-                    </StackPanel.Resources>
-                    <Button x:Name="shopBtn" Content="МАГАЗИН" FontSize="20" Foreground="White" Background="Transparent" BorderThickness="0" Click="shopBtn_Click"/>
-                    <Button x:Name="communityBtn" Content="СООБЩЕСТВО" FontSize="20" Foreground="#1999ff" Background="Transparent" BorderThickness="0" Click="communityBtn_Click"/>
-                    <Button x:Name="informationBtn" Content="ИНФОРМАЦИЯ" FontSize="20" Foreground="White" Background="Transparent" BorderThickness="0" Click="informationBtn_Click"/>
-                    <Button x:Name="supportBtn" Content="ПОДДЕРЖКА" FontSize="20" Foreground="White" Background="Transparent" BorderThickness="0" Click="supportBtn_Click"/>
+                
+                <!-- Лого -->
+                <Image Source="/Images/stem-logo-nobg.png"
+                       Style="{StaticResource LogoStemMarketPage}"
+                       Grid.Column="0"/>
+                
+                <!-- Кнопки -->
+                <StackPanel Grid.Column="1" Style="{StaticResource HeaderNavigations_StackPanel}" >
+                    <Button x:Name="shopBtn" Content="МАГАЗИН"
+                            Style="{StaticResource HeaderNavigations_Buttons}" 
+                            Click="ShowError_Dialog"/>
+                    <Button x:Name="communityBtn" Content="СООБЩЕСТВО" 
+                            Style="{StaticResource HeaderNavigations_Buttons}" 
+                            Foreground="#1999ff"
+                            Click="communityBtn_Click"/>
+                    <Button x:Name="informationBtn" Content="ИНФОРМАЦИЯ" 
+                            Style="{StaticResource HeaderNavigations_Buttons}" 
+                            Click="ShowError_Dialog"/>
+                    <Button x:Name="supportBtn" Content="ПОДДЕРЖКА" 
+                            Style="{StaticResource HeaderNavigations_Buttons}" 
+                            Click="ShowError_Dialog"/>
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="2">
+                
+                <!-- Аккаунт + Кнопка Выйти -->
+                <StackPanel Style="{StaticResource AccountAndExit}" Grid.Column="2">
                     <Button x:Name="exitBtn"
                             Content="Выйти"
-                            Width="50" Height="20"
-                            Foreground="White" Background="#214b6b"
-                            BorderThickness="0" Click="exitBtn_Click"/>
+                            Style="{StaticResource ExitBtn}"
+                            Click="exitBtn_Click"/>
                     <TextBlock x:Name="NicknameTBox"
                                Text="тест"
-                               Width="100" Height="20"
-                               Foreground="#1999ff" Background="#32353c"
-                               TextAlignment="Center"
-                               Margin="5,5,0,5"/>
+                               Style="{StaticResource AccountTBox}"/>
                 </StackPanel>
             </Grid>
 
             <!-- Что такое ТП + кошелёк -->
-            <Grid Grid.Row="1" Grid.Column="1"  Background="#577c22">
+            <Grid Grid.Row="1" Grid.Column="1">
 
                 <Grid Grid.Column="1" Margin="0,10,0,10">
                     <Grid.ColumnDefinitions>
@@ -85,7 +91,7 @@
 
                     <!-- Правая часть -->
                     <Grid Grid.Column="1" Background="#101214" Height="50" Margin="20,0,5,0">
-                        <TextBlock Text="Баланс кошелька ... " FontSize="16"  Foreground="White" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                        <TextBlock x:Name="balance" Text="Баланс кошелька ... " FontSize="16"  Foreground="White" VerticalAlignment="Center" Margin="5,0,5,0"/>
                     </Grid>
                 </Grid>
             </Grid>
@@ -150,6 +156,7 @@
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="ListBoxItem">
                                     <Setter Property="Background" Value="#16202d"/>
+                                    <Setter Property="Foreground" Value="#66c0f4"/>
                                     <!-- Растягиваем элемент по всей ширине ListBox -->
                                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                                     <Setter Property="Padding" Value="5,5,0,5"/>
@@ -161,17 +168,17 @@
                                 <DataTemplate>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="440"/>
+                                            <ColumnDefinition Width="455"/>
                                             <ColumnDefinition Width="81"/>
                                             <ColumnDefinition Width="94"/>
                                         </Grid.ColumnDefinitions>
 
                                         <StackPanel Orientation="Horizontal" Grid.Column="0">
-                                            <Border BorderBrush="#66c0f4" BorderThickness="1">
+                                            <Border x:Name="ImageFrame" BorderBrush="#66c0f4" BorderThickness="1">
                                                 <Image Source="{Binding Inventories.Items.ItemPicture}" Width="64" Height="64" Grid.Column="0" Margin="5"/>
                                             </Border>
                                             <StackPanel Margin="10,0,0,0" Grid.Column="1" Orientation="Vertical">
-                                                <TextBlock Text="{Binding Inventories.Items.Name}" FontWeight="Bold" Foreground="#afb1b8"/>
+                                                <TextBlock x:Name="ItemName" Text="{Binding Inventories.Items.Name}" Foreground="#66c0f4" FontWeight="Bold"/>
                                                 <TextBlock Text="Counter-Strike 2" Foreground="#afb1b8"/>
                                             </StackPanel>
                                         </StackPanel>
@@ -191,7 +198,7 @@
                             <StackPanel  Orientation="Vertical" Margin="10">
                                 <TextBlock Text="Прочтите требования к безопасности для использования Торговой площадки" Foreground="#afb1b8" TextWrapping="Wrap" Margin="0,0,0,10"/>
                                 <TextBlock Text="Поиск предметов" Foreground="#54a5d4" Margin="0,10,0,10"/>
-                                <TextBox x:Name="searchTBox"  BorderThickness="0" Height="30" Background="#3d4450" VerticalContentAlignment="Center"/>
+                                <TextBox x:Name="searchTBox"  BorderThickness="0" Height="30" Background="#3d4450" Foreground="White" VerticalContentAlignment="Center"/>
                                 <TextBlock Text="Сортировать по" Foreground="#54a5d4" Margin="0,20,0,10"/>
                                 <ComboBox Height="30" BorderThickness="0" VerticalContentAlignment="Center">
                                     <ComboBox.Resources>
@@ -223,7 +230,7 @@
                                     <ComboBoxItem Content="Цена (↓)"/>
                                 </ComboBox>
                                 <TextBlock Text="Фильтры" Foreground="#54a5d4" Margin="0,20,0,10"/>
-                                <ComboBox Height="30" BorderThickness="0" VerticalContentAlignment="Center" ItemsSource="{Binding Companies}" DisplayMemberPath="Name">
+                                <ComboBox x:Name="TypesCombo" Height="30" BorderThickness="0" VerticalContentAlignment="Center">
                                     <ComboBox.Resources>
                                         <!-- Красим пункты выпадашки -->
                                         <Style TargetType="ComboBoxItem">
@@ -247,7 +254,7 @@
                                         </Style>
                                     </ComboBox.Resources>
                                 </ComboBox>
-                                <ComboBox Height="30" BorderThickness="0" VerticalContentAlignment="Center" Margin="0,10,0,0" ItemsSource="{Binding Companies}" DisplayMemberPath="Name">
+                                <ComboBox x:Name="QualitesCombo" Height="30" BorderThickness="0" VerticalContentAlignment="Center" Margin="0,10,0,0">
                                     <ComboBox.Resources>
                                         <!-- Красим пункты выпадашки -->
                                         <Style TargetType="ComboBoxItem">
