@@ -64,35 +64,27 @@
                 
                 <!-- Аккаунт + Кнопка Выйти -->
                 <StackPanel Style="{StaticResource AccountAndExit}" Grid.Column="2">
-                    <Button x:Name="exitBtn"
-                            Content="Выйти"
-                            Style="{StaticResource ExitBtn}"
-                            Click="exitBtn_Click"/>
-                    <TextBlock x:Name="NicknameTBox"
-                               Text="тест"
-                               Style="{StaticResource AccountTBox}"/>
+                    <Button x:Name="exitBtn" Content="Выйти" Style="{StaticResource ExitBtn}" Click="exitBtn_Click"/>
+                    <TextBlock x:Name="NicknameTBox" Text="тест" Style="{StaticResource AccountTBox}"/>
                 </StackPanel>
             </Grid>
 
             <!-- Что такое ТП + кошелёк -->
-            <Grid Grid.Row="1" Grid.Column="1">
+            <Grid Grid.Row="1" Grid.Column="1" Margin="0,10,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="1" Margin="0,10,0,10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
+                <!-- Левая часть -->
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock Text="Торговая площадка" Style="{StaticResource MainTittle}" Grid.Row="0"/>
+                    <TextBlock Text="Продавайте и покупайте предметы участников сообщества Stem." Style="{StaticResource SubTittle}" Grid.Row="1"/>
+                </StackPanel>
 
-                    <!-- Левая часть -->
-                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                        <TextBlock Text="Торговая площадка" FontSize="34" Foreground="White" VerticalAlignment="Center" Grid.Row="0"/>
-                        <TextBlock Text="Продавайте и покупайте предметы участников сообщества Stem." FontSize="14" Foreground="#85a45a" Grid.Row="1"/>
-                    </StackPanel>
-
-                    <!-- Правая часть -->
-                    <Grid Grid.Column="1" Background="#101214" Height="50" Margin="20,0,5,0">
-                        <TextBlock x:Name="balance" Text="Баланс кошелька ... " FontSize="16"  Foreground="White" VerticalAlignment="Center" Margin="5,0,5,0"/>
-                    </Grid>
+                <!-- Правая часть -->
+                <Grid Grid.Column="1" Style="{StaticResource BalanceGrid}">
+                    <TextBlock x:Name="balance" Text="Баланс кошелька ... " Style="{StaticResource BalanceTBlock}"/>
                 </Grid>
             </Grid>
 
@@ -103,18 +95,18 @@
                 </Grid.RowDefinitions>
 
                 <!-- Активные лоты + История сделок -->
-                <Grid Grid.Row="0" Background="#101822" Margin="0,30,0,5">
+                <Grid Grid.Row="0" Style="{StaticResource SometingGrid}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Column="0" Height="39"  Orientation="Horizontal">
-                        <Button x:Name="listingsBtn" Content="Активные лоты" FontSize="14" Width="211" Height="39" BorderThickness="0" Background="#577c22" Foreground="White" Margin="0,0,10,0" Click="listingsBtn_Click"/>
-                        <Button x:Name="historyBtn" Content="История сделок" FontSize="14" Width="211" Height="39" BorderThickness="0" Background="#577c22" Foreground="White" Click="historyBtn_Click"/>
+                    <StackPanel Grid.Column="0" Style="{StaticResource SomethingStackPanel}">
+                        <Button x:Name="listingsBtn" Content="Активные лоты" Style="{StaticResource SomethingButtons}" Margin="0,0,10,0" Click="listingsBtn_Click"/>
+                        <Button x:Name="historyBtn" Content="История сделок" Style="{StaticResource SomethingButtons}" Click="historyBtn_Click"/>
                     </StackPanel>
 
-                    <Button x:Name="sellItemBtn" Content="Продать предмет" Grid.Column="1" Margin="0,0,15,0" Width="120" Height="24" Background="#577c22" Foreground="White" BorderThickness="0" Click="sellItemBtn_Click"/>
+                    <Button x:Name="sellItemBtn" Content="Продать предмет" Grid.Column="1" Style="{StaticResource SomethingOneButton}" Click="sellItemBtn_Click"/>
                 </Grid>
 
 
