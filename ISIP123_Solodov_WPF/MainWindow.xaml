@@ -4,14 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ISIP123_Solodov_WPF"
-        
         mc:Ignorable="d"
-       
         Title="MainWindow" 
-        
         Height="750" Width="1500"
         MinHeight="550" MinWidth="1100"
-    
         Loaded="Window_Loaded"
         Closing="Window_Closing">
     <Grid>

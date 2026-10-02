@@ -80,6 +80,12 @@
     <Compile Include="Dialogs\Error.xaml.cs">
       <DependentUpon>Error.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\LastQuestion.xaml.cs">
+      <DependentUpon>LastQuestion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\RegistrationDialog.xaml.cs">
+      <DependentUpon>RegistrationDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\CS2Market.cs">
       <DependentUpon>steam-model.tt</DependentUpon>
     </Compile>
@@ -153,6 +159,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Dialogs\LastQuestion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\RegistrationDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\RegistratinPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\MainStemDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -180,6 +198,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pages\RegistratinPage.xaml.cs">
+      <DependentUpon>RegistratinPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -226,6 +247,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\bummer.png" />
+    <Resource Include="Images\lastquestion.jpg" />
     <Content Include="Models\steam-model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>steam-model.edmx</DependentUpon>

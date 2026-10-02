@@ -130,32 +130,15 @@
                                 <ColumnDefinition Width="94"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Text="НАЗВАНИЕ" Grid.Column="0"  VerticalAlignment="Center" Margin="5,0,0,0" Foreground="#afb1b8"/>
-                            <TextBlock Text="КОЛ-ВО" Grid.Column="1" TextAlignment="Center" VerticalAlignment="Center" Foreground="#afb1b8"/>
-                            <TextBlock Text="ЦЕНА" Grid.Column="2" TextAlignment="Center" VerticalAlignment="Center" Foreground="#afb1b8"/>
+                            <TextBlock Text="НАЗВАНИЕ" Grid.Column="0" Margin="5,0,0,0" Style="{StaticResource ItemNameTittle}"/>
+                            <TextBlock Text="КОЛ-ВО" Grid.Column="1" Style="{StaticResource ItemCountAngPriceTittle}"/>
+                            <TextBlock Text="ЦЕНА" Grid.Column="2" Style="{StaticResource ItemCountAngPriceTittle}"/>
                         </Grid>
 
-                        <ListBox x:Name="ItemsLB"
-                            Grid.Row="1"
-                            BorderThickness="0"
-                            Margin="0,0,15,10"
-                            Background="Transparent"
-                            VirtualizingPanel.ScrollUnit="Pixel"
-                            ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        <ListBox x:Name="ItemsLB" Grid.Row="1"
+                            Style="{StaticResource MainListBox}"
+                            ItemContainerStyle="{StaticResource OneListBoxItem}"
                             PreviewMouseWheel="ListBox_PreviewMouseWheel">
-
-                            <ListBox.ItemContainerStyle>
-                                <Style TargetType="ListBoxItem">
-                                    <Setter Property="Background" Value="#16202d"/>
-                                    <Setter Property="Foreground" Value="#66c0f4"/>
-                                    <!-- Растягиваем элемент по всей ширине ListBox -->
-                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                    <Setter Property="Padding" Value="5,5,0,5"/>
-                                    <Setter Property="Margin" Value="0,0,0,5"/>
-                                </Style>
-                            </ListBox.ItemContainerStyle>
-
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
@@ -166,18 +149,18 @@
                                         </Grid.ColumnDefinitions>
 
                                         <StackPanel Orientation="Horizontal" Grid.Column="0">
-                                            <Border x:Name="ImageFrame" BorderBrush="#66c0f4" BorderThickness="1">
-                                                <Image Source="{Binding Inventories.Items.ItemPicture}" Width="64" Height="64" Grid.Column="0" Margin="5"/>
+                                            <Border x:Name="ImageFrame" Style="{StaticResource ImageFrame}">
+                                                <Image Source="{Binding Inventories.Items.ItemPicture}" Style="{StaticResource ItemIco}" Grid.Column="0"/>
                                             </Border>
                                             <StackPanel Margin="10,0,0,0" Grid.Column="1" Orientation="Vertical">
-                                                <TextBlock x:Name="ItemName" Text="{Binding Inventories.Items.Name}" Foreground="#66c0f4" FontWeight="Bold"/>
+                                                <TextBlock x:Name="ItemName" Text="{Binding Inventories.Items.Name}" Style="{StaticResource ItemName}"/>
                                                 <TextBlock Text="Counter-Strike 2" Foreground="#afb1b8"/>
                                             </StackPanel>
                                         </StackPanel>
-                                        <TextBlock Text="{Binding Inventories.Count}" Foreground="#afb1b8" FontSize="14" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"/>
-                                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Grid.Column="2">
-                                            <TextBlock Text="От" Foreground="#afb1b8" TextAlignment="Center"/>
-                                            <TextBlock Text="{Binding Price, StringFormat={}{0} руб.}" Foreground="White" TextAlignment="Center"/>
+                                        <TextBlock Text="{Binding Inventories.Count}" Style="{StaticResource ItemCount}" Grid.Column="1"/>
+                                        <StackPanel Style="{StaticResource StackPanelPrice}" Grid.Column="2">
+                                            <TextBlock Text="От" Style="{StaticResource OtTextBlock}"/>
+                                            <TextBlock Text="{Binding Price, StringFormat={}{0} руб.}" Style="{StaticResource PriceTextBlock}"/>
                                         </StackPanel>
                                     </Grid>
                                 </DataTemplate>
@@ -185,36 +168,14 @@
                         </ListBox>
                     </Grid>
 
-                    <StackPanel Grid.Column="1" VerticalAlignment="Top" Orientation="Vertical">
-                        <Border Background="#101822" Margin="0,5,0,10" Height="350">
-                            <StackPanel  Orientation="Vertical" Margin="10">
-                                <TextBlock Text="Прочтите требования к безопасности для использования Торговой площадки" Foreground="#afb1b8" TextWrapping="Wrap" Margin="0,0,0,10"/>
-                                <TextBlock Text="Поиск предметов" Foreground="#54a5d4" Margin="0,10,0,10"/>
-                                <TextBox x:Name="searchTBox"  BorderThickness="0" Height="30" Background="#3d4450" Foreground="White" VerticalContentAlignment="Center"/>
-                                <TextBlock Text="Сортировать по" Foreground="#54a5d4" Margin="0,20,0,10"/>
-                                <ComboBox Height="30" BorderThickness="0" VerticalContentAlignment="Center">
-                                    <ComboBox.Resources>
-                                        <!-- Красим пункты выпадашки -->
-                                        <Style TargetType="ComboBoxItem">
-                                            <Setter Property="Background" Value="#3d4450"/>
-                                            <Setter Property="Foreground" Value="White"/>
-                                            <Setter Property="Padding" Value="8,4"/>
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate TargetType="ComboBoxItem">
-                                                        <Border x:Name="Bd" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
-                                                            <ContentPresenter/>
-                                                        </Border>
-                                                        <ControlTemplate.Triggers>
-                                                            <Trigger Property="IsHighlighted" Value="True">
-                                                                <Setter TargetName="Bd" Property="Background" Value="#577c22"/>
-                                                            </Trigger>
-                                                        </ControlTemplate.Triggers>
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </Style>
-                                    </ComboBox.Resources>
+                    <StackPanel Grid.Column="1" Style="{StaticResource SideBar}">
+                        <Border Style="{StaticResource SideBarBorder}">
+                            <StackPanel  Style="{StaticResource SideBarStackPanel}">
+                                <TextBlock Text="Прочтите требования к безопасности для использования Торговой площадки" Style="{StaticResource SideBarInformationTop}"/>
+                                <TextBlock Text="Поиск предметов" Style="{StaticResource SideBarSearchTextBlock}"/>
+                                <TextBox x:Name="searchTBox" Style="{StaticResource SideBarSearchTextBox}"/>
+                                <TextBlock Text="Сортировать по" Style="{StaticResource SideBarSortTextBlock}"/>
+                                <ComboBox Style="{StaticResource SideBarCombo}" ItemContainerStyle="{StaticResource SideBarComboItem}">
                                     <ComboBoxItem Content=""/>
                                     <ComboBoxItem Content="Название (↑)"/>
                                     <ComboBoxItem Content="Название (↓)"/>
@@ -222,65 +183,19 @@
                                     <ComboBoxItem Content="Цена (↓)"/>
                                 </ComboBox>
                                 <TextBlock Text="Фильтры" Foreground="#54a5d4" Margin="0,20,0,10"/>
-                                <ComboBox x:Name="TypesCombo" Height="30" BorderThickness="0" VerticalContentAlignment="Center">
-                                    <ComboBox.Resources>
-                                        <!-- Красим пункты выпадашки -->
-                                        <Style TargetType="ComboBoxItem">
-                                            <Setter Property="Background" Value="#3d4450"/>
-                                            <Setter Property="Foreground" Value="White"/>
-                                            <Setter Property="Padding" Value="8,4"/>
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate TargetType="ComboBoxItem">
-                                                        <Border x:Name="Bd" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
-                                                            <ContentPresenter/>
-                                                        </Border>
-                                                        <ControlTemplate.Triggers>
-                                                            <Trigger Property="IsHighlighted" Value="True">
-                                                                <Setter TargetName="Bd" Property="Background" Value="#577c22"/>
-                                                            </Trigger>
-                                                        </ControlTemplate.Triggers>
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </Style>
-                                    </ComboBox.Resources>
-                                </ComboBox>
-                                <ComboBox x:Name="QualitesCombo" Height="30" BorderThickness="0" VerticalContentAlignment="Center" Margin="0,10,0,0">
-                                    <ComboBox.Resources>
-                                        <!-- Красим пункты выпадашки -->
-                                        <Style TargetType="ComboBoxItem">
-                                            <Setter Property="Background" Value="#3d4450"/>
-                                            <Setter Property="Foreground" Value="White"/>
-                                            <Setter Property="Padding" Value="8,4"/>
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate TargetType="ComboBoxItem">
-                                                        <Border x:Name="Bd" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
-                                                            <ContentPresenter/>
-                                                        </Border>
-                                                        <ControlTemplate.Triggers>
-                                                            <Trigger Property="IsHighlighted" Value="True">
-                                                                <Setter TargetName="Bd" Property="Background" Value="#577c22"/>
-                                                            </Trigger>
-                                                        </ControlTemplate.Triggers>
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </Style>
-                                    </ComboBox.Resources>
-                                </ComboBox>
+                                <ComboBox x:Name="TypesCombo" Style="{StaticResource SideBarCombo}" ItemContainerStyle="{StaticResource SideBarComboItem}"/>
+                                <ComboBox x:Name="QualitesCombo" Style="{StaticResource SideBarCombo}" ItemContainerStyle="{StaticResource SideBarComboItem}" Margin="0,10,0,0"/>
                             </StackPanel>
                         </Border>
-                        <Border Margin="0,20,0,0" Background="#101822">
+                        <Border Style="{StaticResource FAQ}">
                             <StackPanel Orientation="Vertical" Margin="10">
-                                <TextBlock FontSize="14" Foreground="#afb1b8" TextWrapping="Wrap">
+                                <TextBlock Style="{StaticResource SideBarInformationBottom}">
                                     <Hyperlink NavigateUri="https://help.steampowered.com/ru/faqs/view/61F0-72B7-9A18-C70B" RequestNavigate="Hyperlink_RequestNavigate" Foreground="#afb1b8">
                                         Частые вопросы
                                     </Hyperlink>
                                     о Торговой площадке
                                 </TextBlock>
-                                <TextBlock FontSize="14" Foreground="#afb1b8" TextWrapping="Wrap" Margin="0,15,0,0">
+                                <TextBlock Style="{StaticResource SideBarInformationBottom}" Margin="0,15,0,0">
                                     Вступайте в 
                                     <Hyperlink NavigateUri="https://steamcommunity.com/groups/community_market" RequestNavigate="Hyperlink_RequestNavigate" Foreground="#afb1b8">
                                         группу Торговой площадки

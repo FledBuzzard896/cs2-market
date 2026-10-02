@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ISIP123_Solodov_WPF.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,10 +39,17 @@ namespace ISIP123_Solodov_WPF
 
         void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (MessageBox.Show("Вы уверены, что хотите закрыть окно?", "Message", MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.No)
-                e.Cancel = true;
-            else
+            LastQuestion dialog = new LastQuestion();
+            bool? result = dialog.ShowDialog();
+
+            if (result == true)
+            {
                 e.Cancel = false;
+            }
+            else 
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ISIP123_Solodov_WPF.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,24 +28,30 @@ namespace ISIP123_Solodov_WPF.Pages
 
         private void enterBtn_Click(object sender, RoutedEventArgs e)
         {
-            //var usr = Core.Context.Users.FirstOrDefault(x => x.Login == loginBox.Text);
-            //if (usr != null)
-            //{
-            //    MessageBox.Show("Пользователя с таким Login не существует.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
-            //    return;
-            //}
-            //else if (passwordBox.Password != usr.Password) 
-            //{
-            //    MessageBox.Show("Логин или пароль неправильный", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
-            //    return;
-            //}
-            //Core.CurrentUser = usr;
-            //NavigationService.Navigate("");
+            var usr = Core.Context.Users.FirstOrDefault(x => x.Login == loginBox.Text);
+            if (usr == null)
+            {
+                MessageBox.Show("Пользователя с таким Login не существует.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            else if (passwordBox.Password != usr.Password)
+            {
+                MessageBox.Show("Логин или пароль неправильный", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            Core.CurrentUser = usr;
+            NavigationService.Navigate(new Market());
         }
 
         private void regBtn_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate("");
+            RegistrationDialog dialog = new RegistrationDialog();
+            bool? result = dialog.ShowDialog();
+
+            if (result == true)
+            {
+                NavigationService.Navigate(new Market());
+            }
         }
 
         private void entryGuestBtn_Click(object sender, RoutedEventArgs e)

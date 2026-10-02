@@ -25,6 +25,7 @@
         <Setter Property="Background" Value="#32353c"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Margin" Value="0,0,0,5"/>
     </Style>
     <Style x:Key="AuthPassBox" TargetType="PasswordBox">
@@ -33,6 +34,7 @@
         <Setter Property="Background" Value="#32353c"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Margin" Value="0,0,0,5"/>
         <Setter Property="PasswordChar" Value="•"/>
     </Style>
@@ -163,5 +165,134 @@
         <Setter Property="Background" Value="#577c22"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+    
+    <!-- Стиль колонок маркета -->
+    <Style x:Key="ItemNameTittle" TargetType="TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="#afb1b8"/>
+    </Style>
+    <Style x:Key="ItemCountAngPriceTittle" TargetType="TextBlock" BasedOn="{StaticResource ItemNameTittle}">
+        <Setter Property="TextAlignment" Value="Center"/>
+    </Style>
+    
+    <!-- Стиль ListBox со всеми предметами на ТП -->
+    <Style x:Key="MainListBox" TargetType="ListBox">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Margin" Value="0,0,15,10"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="VirtualizingPanel.ScrollUnit" Value="Pixel"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+    </Style>
+    <Style x:Key="OneListBoxItem" TargetType="ListBoxItem">
+        <Setter Property="Background" Value="#16202d"/>
+        <Setter Property="Foreground" Value="#66c0f4"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="Padding" Value="5,5,0,5"/>
+        <Setter Property="Margin" Value="0,0,0,5"/>
+    </Style>
+    
+    <!-- Стиль состовляющих ячейку товара -->
+    <Style x:Key="ImageFrame" TargetType="Border">
+        <Setter Property="BorderBrush" Value="#66c0f4"/>
+        <Setter Property="BorderThickness" Value="1"/>
+    </Style>
+    <Style x:Key="ItemIco" TargetType="Image">
+        <Setter Property="Width" Value="64"/>
+        <Setter Property="Height" Value="64"/>
+        <Setter Property="Margin" Value="5"/>
+    </Style>
+    <Style x:Key="ItemName" TargetType="TextBlock">
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="#66c0f4"/>
+    </Style>
+    <Style x:Key="ItemCount" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#afb1b8"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    <Style x:Key="StackPanelPrice" TargetType="StackPanel">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Orientation" Value="Vertical"/>
+    </Style>
+    <Style x:Key="OtTextBlock" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#afb1b8"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+    </Style>
+    <Style x:Key="PriceTextBlock" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+    </Style>
+    
+    <!-- Стиль SideBar -->
+    <Style x:Key="SideBar" TargetType="StackPanel">
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Orientation" Value="Vertical"/>
+    </Style>
+    <Style x:Key="SideBarBorder" TargetType="Border">
+        <Setter Property="Background" Value="#101822"/>
+        <Setter Property="Margin" Value="0,5,0,10"/>
+        <Setter Property="Height" Value="350"/>
+    </Style>
+    <Style x:Key="SideBarStackPanel" TargetType="StackPanel">
+        <Setter Property="Orientation" Value="Vertical"/>
+        <Setter Property="Margin" Value="10"/>
+    </Style>
+    <Style x:Key="SideBarInformationTop" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#afb1b8"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Margin" Value="0,0,0,10"/>
+    </Style>
+    <Style x:Key="SideBarSearchTextBlock" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#54a5d4"/>
+        <Setter Property="Margin" Value="0,10"/>
+    </Style>
+    <Style x:Key="SideBarSearchTextBox" TargetType="TextBox">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Background" Value="#3d4450"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+    <Style x:Key="SideBarSortTextBlock" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#54a5d4"/>
+        <Setter Property="Margin" Value="0,20,0,10"/>
+    </Style>
+    <Style x:Key="SideBarCombo" TargetType="ComboBox">
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+    <Style x:Key="SideBarComboItem" TargetType="ComboBoxItem">
+        <Setter Property="Background" Value="#3d4450"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Padding" Value="8,4"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBoxItem">
+                    <Border x:Name="Bd" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                        <ContentPresenter/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsHighlighted" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="#577c22"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="FAQ" TargetType="Border">
+        <Setter Property="Margin" Value="0,20,0,0"/>
+        <Setter Property="Background" Value="#101822"/>
+    </Style>
+    <Style x:Key="SideBarInformationBottom" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="#afb1b8"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
     </Style>
 </ResourceDictionary>
