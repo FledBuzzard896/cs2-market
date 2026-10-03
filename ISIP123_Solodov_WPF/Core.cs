@@ -10,10 +10,10 @@ namespace ISIP123_Solodov_WPF
     internal class Core
     {
         // Подключение к локальной БД
-        public static SteamMarketEntitiesHome Context => new SteamMarketEntitiesHome();
+        public static SteamMarketEntitiesHome Context = new SteamMarketEntitiesHome();
 
         // Подключение к БД КИПа
-        public static SteamMarketEntitiesKip ContextKIP => new SteamMarketEntitiesKip();
+        public static SteamMarketEntitiesKip ContextKIP = new SteamMarketEntitiesKip();
 
         // Хранение текущего пользователя
         public static Users CurrentUser = null;

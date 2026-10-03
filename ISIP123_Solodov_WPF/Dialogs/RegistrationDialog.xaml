@@ -6,8 +6,7 @@
         xmlns:local="clr-namespace:ISIP123_Solodov_WPF.Dialogs"
         mc:Ignorable="d"
         Title="RegistrationDialog" Height="450" Width="800"
-        MinHeight="450" MinWidth="800"
-        MaxHeight="450" MaxWidth="800">
+        ResizeMode="NoResize">
     <Grid Background="#181a21">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -21,7 +20,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"/>
             <ColumnDefinition/>
-            <ColumnDefinition Width="150"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Image Source="/Images/stem-logo-nobg.png" Style="{StaticResource LogoStemAuthPage}" Margin="5" Grid.Row="0"/>
         <TextBlock Text="СОЗДАНИЕ АККАУНТА" Foreground="White" FontSize="24" Margin="0,0,0,20" Grid.Row="1" Grid.Column="1"/>
@@ -45,5 +44,6 @@
             <Button x:Name="BackBtn" Content="Назад" Width="75" Height="20" BorderThickness="0" Background="#1999ff" Foreground="White" Margin="0,0,50,0" Click="BackBtn_Click"/>
             <Button x:Name="RegBtn" Content="Создать" Width="75" Height="20" BorderThickness="0" Background="#1999ff" Foreground="White" Click="RegBtn_Click"/>
         </StackPanel>
+        <Image Source="/Images/TheGreatGaben.jpg" Grid.Column="2" Grid.Row="1" Grid.RowSpan="5"  Margin="0,0,10,0"/>
     </Grid>
 </Window>
