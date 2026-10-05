@@ -41,7 +41,12 @@ namespace ISIP123_Solodov_WPF.Pages
 
         private void sellItemBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            if (Core.CurrentUser is null) 
+            {
+                MessageBox.Show("Вы должны зарегистрироваться, чтобы зайти в Инвентарь.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            NavigationService.Navigate(new InventoryPage());
         }
 
         private void exitBtn_Click(object sender, RoutedEventArgs e)
@@ -105,18 +110,16 @@ namespace ISIP123_Solodov_WPF.Pages
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
             // Подгрузка ТП
-            //var market = Core.Context.CS2Market.ToList();
-            //ItemsLB.ItemsSource = market;
-            var market = Core.ContextKIP.CS2Market.ToList();
+            var market = Core.Context.CS2Market.ToList();
             ItemsLB.ItemsSource = market;
 
 
             // Подкгрузка фильтров
-            var types = Core.ContextKIP.Types.Select(x => x.Name).ToList();
+            var types = Core.Context.Types.Select(x => x.Name).ToList();
             types.Insert(0, "");
             TypesCombo.ItemsSource = types;
 
-            var qualities = Core.ContextKIP.Qualities.Select(x => x.Name).ToList();
+            var qualities = Core.Context.Qualities.Select(x => x.Name).ToList();
             qualities.Insert(0, "");
             QualitesCombo.ItemsSource = qualities;
 

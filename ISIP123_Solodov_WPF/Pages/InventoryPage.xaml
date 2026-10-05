@@ -19,7 +19,6 @@
             <RowDefinition Height="104"/>
             <RowDefinition Height="121"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid.Background>
             <ImageBrush ImageSource="/Images/background-1.png" Stretch="UniformToFill"/>
@@ -68,10 +67,57 @@
             </Grid.ColumnDefinitions>
 
             <Border Grid.Column="0" Margin="25,0,25,0" BorderBrush="#6a6a6a" BorderThickness="2" VerticalAlignment="Center">
-                <Image Height="68" Width="68"/>
+                <Image Source="/Images/steam-smile.png" Height="68" Width="68"/>
             </Border>
             <TextBlock Grid.Column="1" x:Name="NicknameTBlock" FontSize="26" Foreground="White" VerticalAlignment="Center"/>
             <TextBlock Grid.Column="2" Text=">> Инвентарь" FontSize="14" Foreground="White" VerticalAlignment="Center"/>
         </Grid>
+        <Border Grid.Row="2" Grid.Column="1" BorderBrush="#6a6a6a" BorderThickness="1" Margin="20">
+            <Grid Background="#1c1f21">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Image Source="/Images/CS2 logo.png" Width="250" HorizontalAlignment="Left" Margin="5,5,0,0" Grid.Row="0"/>
+                <Grid Grid.Row="1" Margin="5,0,5,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Поиск по предметам:" FontSize="14" Foreground="#afb1b8" Grid.Column="0"/>
+                    <TextBox x:Name="SearchItemTBox" FontSize="14" Foreground="#afb1b8" Background="#16191a" BorderBrush="Black" Margin="10,0,0,0" Grid.Column="1"/>
+                    <Expander Header="Показать доп фильтры" FontSize="14" Foreground="White" ExpandDirection="Down" Grid.Column="2">
+                        <Grid Background="#1c1f21">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" Orientation="Vertical">
+                                <TextBlock Text="Тип" Foreground="#afb1b8"/>
+                                <ItemsControl x:Name="CheckBoxTypes">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Content="{Binding Name}" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Orientation="Vertical">
+                                <TextBlock Text="Качество" Foreground="#afb1b8"/>
+                                <ItemsControl x:Name="CheckBoxQualities">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Content="{Binding Name}" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </Grid>
+                    </Expander>
+                </Grid>
+            </Grid>
+        </Border>
     </Grid>
 </Page>

@@ -24,6 +24,7 @@ namespace ISIP123_Solodov_WPF.Pages
         public InventoryPage()
         {
             InitializeComponent();
+            Loaded += PageLoaded;
         }
 
         private void exitBtn_Click(object sender, RoutedEventArgs e)
@@ -41,6 +42,11 @@ namespace ISIP123_Solodov_WPF.Pages
         private void MarketBtn_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Market());
+        }
+
+        private void PageLoaded(object sender, RoutedEventArgs e) 
+        {
+            NicknameTBlock.Text = Core.CurrentUser.Nickname;
         }
     }
 }

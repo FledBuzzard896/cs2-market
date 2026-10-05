@@ -263,6 +263,8 @@
     <Resource Include="Images\bummer.png" />
     <Resource Include="Images\lastquestion.jpg" />
     <Resource Include="Images\TheGreatGaben.jpg" />
+    <Resource Include="Images\steam-smile.png" />
+    <Resource Include="Images\CS2 logo.png" />
     <Content Include="Models\steam-model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>steam-model.edmx</DependentUpon>
