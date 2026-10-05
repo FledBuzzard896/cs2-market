@@ -1,0 +1,77 @@
+﻿<Page x:Class="ISIP123_Solodov_WPF.Pages.InventoryPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ISIP123_Solodov_WPF.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="750" d:DesignWidth="1500"
+      d:MinHeight="550" d:MinWidth="1100"
+      Title="InventoryPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="949"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="104"/>
+            <RowDefinition Height="121"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/background-1.png" Stretch="UniformToFill"/>
+        </Grid.Background>
+
+        <Border Style="{StaticResource HeaderBG}" 
+            Grid.Row="0" Grid.ColumnSpan="3"/>
+
+        <Grid Grid.Row="0" Grid.Column="1" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Image Source="/Images/stem-logo-nobg.png"
+               Style="{StaticResource LogoStemMarketPage}"
+               Grid.Column="0"/>
+
+            <StackPanel Grid.Column="1" Style="{StaticResource HeaderNavigations_StackPanel}" >
+                <Button x:Name="shopBtn" Content="МАГАЗИН"
+                    Style="{StaticResource HeaderNavigations_Buttons}" 
+                    Click="ShowError_Dialog"/>
+                <Button x:Name="communityBtn" Content="МАРКЕТ" 
+                    Style="{StaticResource HeaderNavigations_Buttons}" 
+                    Foreground="#1999ff"
+                    Click="MarketBtn_Click"/>
+                <Button x:Name="informationBtn" Content="ИНФОРМАЦИЯ" 
+                    Style="{StaticResource HeaderNavigations_Buttons}" 
+                    Click="ShowError_Dialog"/>
+                <Button x:Name="supportBtn" Content="ПОДДЕРЖКА" 
+                    Style="{StaticResource HeaderNavigations_Buttons}" 
+                    Click="ShowError_Dialog"/>
+            </StackPanel>
+
+            <StackPanel Style="{StaticResource AccountAndExit}" Grid.Column="2">
+                <Button x:Name="exitBtn" Content="Выйти" Style="{StaticResource ExitBtn}" Click="exitBtn_Click"/>
+                <TextBlock x:Name="NicknameTBox" Text="тест" Style="{StaticResource AccountTBox}"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="1" Background="#2a3340">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Margin="25,0,25,0" BorderBrush="#6a6a6a" BorderThickness="2" VerticalAlignment="Center">
+                <Image Height="68" Width="68"/>
+            </Border>
+            <TextBlock Grid.Column="1" x:Name="NicknameTBlock" FontSize="26" Foreground="White" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="2" Text=">> Инвентарь" FontSize="14" Foreground="White" VerticalAlignment="Center"/>
+        </Grid>
+    </Grid>
+</Page>
