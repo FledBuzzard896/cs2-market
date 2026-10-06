@@ -114,7 +114,7 @@ namespace ISIP123_Solodov_WPF.Pages
             ItemsLB.ItemsSource = market;
 
 
-            // Подкгрузка фильтров
+            // Подгрузка фильтров
             var types = Core.Context.Types.Select(x => x.Name).ToList();
             types.Insert(0, "");
             TypesCombo.ItemsSource = types;
