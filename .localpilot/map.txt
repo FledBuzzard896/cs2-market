@@ -1,5 +1,5 @@
 ## WORKSPACE EXECUTIVE SUMMARY (YAML)
-# Generated: 2026-10-06T18:15:29.8667588+03:00
+# Generated: 2026-10-07T11:00:45.7107840+03:00
 # Root: C:\Users\Антон\Source\Repos\cs2-market
 Architecture:
   Type: Backend (C#/.NET)
@@ -16,6 +16,7 @@ Architecture:
 - File: ISIP123_Solodov_WPF\App.xaml.cs
   Preview: "using System; using System.Collections.Generic; using System.Configuration; using System.Data; using System.Linq; using System.Threading.Tasks; using ..."
 - File: ISIP123_Solodov_WPF\Core.cs
+  Symbols: [Core]
   Preview: "using ISIP123_Solodov_WPF.Models; using System; using System.Collections.Generic; using System.Linq; using System.Text; using System.Threading.Tasks; ..."
 - File: ISIP123_Solodov_WPF\MainWindow.xaml.cs
   Preview: "using ISIP123_Solodov_WPF.Dialogs; using System; using System.Collections.Generic; using System.Linq; using System.Text; using System.Threading.Tasks;..."
@@ -64,6 +65,7 @@ Architecture:
 - File: ISIP123_Solodov_WPF\Pages\AuthPage.xaml.cs
   Preview: "using ISIP123_Solodov_WPF.Dialogs; using System; using System.Collections.Generic; using System.Linq; using System.Text; using System.Threading.Tasks;..."
 - File: ISIP123_Solodov_WPF\Pages\InventoryPage.xaml.cs
+  Symbols: [ListBox_PreviewMouseWheel, MouseWheelEventArgs, ShowError_Dialog, InventoryPage, InventoryPage, MarketBtn_Click, for, PageLoaded, exitBtn_Click]
   Preview: "using ISIP123_Solodov_WPF.Dialogs; using System; using System.Collections.Generic; using System.Linq; using System.Text; using System.Threading.Tasks;..."
 - File: ISIP123_Solodov_WPF\Pages\Market.xaml.cs
   Preview: "using ISIP123_Solodov_WPF.Dialogs; using ISIP123_Solodov_WPF.Models; using System; using System.Collections.Generic; using System.Diagnostics; using S..."

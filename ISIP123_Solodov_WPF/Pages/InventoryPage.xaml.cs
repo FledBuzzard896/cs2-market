@@ -1,4 +1,5 @@
 ﻿using ISIP123_Solodov_WPF.Dialogs;
+using ISIP123_Solodov_WPF.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -77,8 +78,22 @@ namespace ISIP123_Solodov_WPF.Pages
             qualities.Insert(0, "");
             QualitesCombo.ItemsSource = qualities;
             
-            var items = Core.Context.Items.ToList();
-            InventoryItems.ItemsSource = items;
+            var items = Core.Context.Inventories.Where(x => x.UserID == Core.CurrentUser.ID).ToList();
+            var itemsCopy = new List<Inventories>();
+
+            foreach (var item in items.ToList())
+            {
+                itemsCopy.Add(item);
+                if (item.Count > 1)
+                {
+                    for (int i = 1; i < item.Count; i++)
+                    {
+                        itemsCopy.Add(item);
+                    }
+                }
+            }
+            
+            InventoryItems.ItemsSource = itemsCopy;
         }
     }
 }

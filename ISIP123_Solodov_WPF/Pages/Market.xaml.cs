@@ -110,7 +110,7 @@ namespace ISIP123_Solodov_WPF.Pages
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
             // Подгрузка ТП
-            var market = Core.Context.CS2Market.ToList();
+            var market = Core.Context.CS2Market.Where(x => x.StatusID == 1).ToList();  
             ItemsLB.ItemsSource = market;
 
 

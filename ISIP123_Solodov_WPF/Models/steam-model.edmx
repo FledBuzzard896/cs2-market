@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище SteamMarketModelHome" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище SteamMarketModelHome" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CS2Market">
           <Key>
             <PropertyRef Name="ID" />
@@ -39,6 +39,7 @@
           <Property Name="QualityID" Type="int" />
           <Property Name="AveragePrice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="ItemPicture" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Iznos">
           <Key>
@@ -280,8 +281,7 @@
             <End Role="TransactionsHistory" EntitySet="TransactionsHistory" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SteamMarketModelHome" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -329,6 +329,7 @@
           <NavigationProperty Name="Inventories" Relationship="Self.FK_Inventories_Items" FromRole="Items" ToRole="Inventories" />
           <NavigationProperty Name="Qualities" Relationship="Self.FK_Items_Qualities" FromRole="Items" ToRole="Qualities" />
           <NavigationProperty Name="Types" Relationship="Self.FK_Items_Types" FromRole="Items" ToRole="Types" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Iznos">
           <Key>
@@ -615,6 +616,7 @@
           <EntitySetMapping Name="Items">
             <EntityTypeMapping TypeName="SteamMarketModelHome.Items">
               <MappingFragment StoreEntitySet="Items">
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="TypeID" ColumnName="TypeID" />
