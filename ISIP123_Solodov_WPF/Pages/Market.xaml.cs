@@ -107,6 +107,30 @@ namespace ISIP123_Solodov_WPF.Pages
         }
 
 
+                string selectedValue = selectedItem.Content.ToString();
+                switch (selectedValue)
+                {
+                    case "Название (↑)":
+                        sorted_market = market.OrderBy(x => x.Inventories.Items.Name).ToList();
+                        break;
+                    case "Название (↓)":
+                        sorted_market = market.OrderByDescending(x => x.Inventories.Items.Name).ToList();
+                        break;
+                    case "Цена (↑)":
+                        sorted_market = market.OrderBy(x => x.Price).ToList();
+                        break;
+                    case "Цена (↓)":
+                        sorted_market = market.OrderByDescending(x => x.Price).ToList();
+                        break;
+                    default:
+                        sorted_market = market;
+                        break;
+                }
+                ItemsLB.ItemsSource = sorted_market;
+            }
+        }
+
+
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
             // Подгрузка ТП
