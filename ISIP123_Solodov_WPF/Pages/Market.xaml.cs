@@ -130,7 +130,6 @@ namespace ISIP123_Solodov_WPF.Pages
                         sorted_market = market;
                         break;
                 }
-
                 ItemsLB.ItemsSource = sorted_market;
             }
         }
