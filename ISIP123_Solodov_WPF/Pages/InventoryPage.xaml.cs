@@ -101,7 +101,7 @@ namespace ISIP123_Solodov_WPF.Pages
                 ItemCardGrid.DataContext = itemsCopy[0];
 
                 double? flot = itemsCopy[0].Flot;
-                foreach (var str in Core.ContextKIP.Iznos.ToList())
+                foreach (var str in Core.Context.Iznos.ToList())
                 {
                     if (str.MinFlot <= flot && flot < str.MaxFlot)
                     {
@@ -109,7 +109,7 @@ namespace ISIP123_Solodov_WPF.Pages
                     }
                 }
 
-                var list = Core.ContextKIP.CS2Market.Where(x => x.StatusID == 2).ToList();
+                var list = Core.Context.CS2Market.Where(x => x.StatusID == 2).ToList();
                 int i = list.Count() - 1;
                 while (i != 0)
                 {

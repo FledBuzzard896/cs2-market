@@ -111,7 +111,7 @@ namespace ISIP123_Solodov_WPF.Pages
         {
             if (sender is ComboBox comboBox && comboBox.SelectedItem is ComboBoxItem selectedItem)
             {
-                var market = Core.ContextKIP.CS2Market.Where(x => x.StatusID == 1).ToList();
+                var market = Core.Context.CS2Market.Where(x => x.StatusID == 1).ToList();
                 var sorted_market = new List<CS2Market>();
 
                 string selectedValue = selectedItem.Content.ToString();
