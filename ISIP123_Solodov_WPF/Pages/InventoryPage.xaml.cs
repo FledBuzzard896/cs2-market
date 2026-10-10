@@ -94,6 +94,36 @@ namespace ISIP123_Solodov_WPF.Pages
             }
             
             InventoryItems.ItemsSource = itemsCopy;
+
+            if (itemsCopy.Count > 0)
+            {
+                ItemCardGrid.Visibility = Visibility.Visible;
+                ItemCardGrid.DataContext = itemsCopy[0];
+
+                double? flot = itemsCopy[0].Flot;
+                foreach (var str in Core.ContextKIP.Iznos.ToList())
+                {
+                    if (str.MinFlot <= flot && flot < str.MaxFlot)
+                    {
+                        IznosTB.Text = $"Состояние: {str.Name}";
+                    }
+                }
+
+                var list = Core.ContextKIP.CS2Market.Where(x => x.StatusID == 2).ToList();
+                int i = list.Count() - 1;
+                while (i != 0)
+                {
+                    var str = list[i];
+
+                    if (str.Inventories.Items.ID == itemsCopy[0].Items.ID)
+                    {
+                        StartPrice.Text = $"Начальная цена: {str.Price.ToString()} руб.";
+                        break;
+                    }
+
+                    i--;
+                }
+            }
         }
     }
 }

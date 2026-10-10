@@ -106,6 +106,13 @@ namespace ISIP123_Solodov_WPF.Pages
             }
         }
 
+        //Обработка выбора сортировки
+        private void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is ComboBox comboBox && comboBox.SelectedItem is ComboBoxItem selectedItem)
+            {
+                var market = Core.ContextKIP.CS2Market.Where(x => x.StatusID == 1).ToList();
+                var sorted_market = new List<CS2Market>();
 
                 string selectedValue = selectedItem.Content.ToString();
                 switch (selectedValue)
@@ -126,6 +133,7 @@ namespace ISIP123_Solodov_WPF.Pages
                         sorted_market = market;
                         break;
                 }
+
                 ItemsLB.ItemsSource = sorted_market;
             }
         }
