@@ -175,9 +175,7 @@
                                 <TextBlock Text="Поиск предметов" Style="{StaticResource SideBarSearchTextBlock}"/>
                                 <TextBox x:Name="searchTBox" Style="{StaticResource SideBarSearchTextBox}"/>
                                 <TextBlock Text="Сортировать по" Style="{StaticResource SideBarSortTextBlock}"/>
-                                <ComboBox Style="{StaticResource SideBarCombo}"
-                                          ItemContainerStyle="{StaticResource SideBarComboItem}"
-                                          SelectionChanged="SortComboBox_SelectionChanged">
+                                <ComboBox Style="{StaticResource SideBarCombo}" ItemContainerStyle="{StaticResource SideBarComboItem}">
                                     <ComboBoxItem Content=""/>
                                     <ComboBoxItem Content="Название (↑)"/>
                                     <ComboBoxItem Content="Название (↓)"/>

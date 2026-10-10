@@ -38,14 +38,14 @@ namespace ISIP123_Solodov_WPF.Dialogs
                 MessageBox.Show("Заполните поле Логин.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            else if (Core.ContextKIP.Users.FirstOrDefault(x => x.Login == LoginBox.Text) is null) 
+            else if (Core.Context.Users.FirstOrDefault(x => x.Login == LoginBox.Text) is null) 
             {
                 MessageBox.Show("Пользователь с таким логином не найден.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             else
             {
-                var usr = Core.ContextKIP.Users.FirstOrDefault(x => x.Login == LoginBox.Text);
+                var usr = Core.Context.Users.FirstOrDefault(x => x.Login == LoginBox.Text);
 
                 if (string.IsNullOrEmpty(firstPassBox.Password) || string.IsNullOrEmpty(secondPassBox.Password))
                 {
@@ -61,7 +61,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
                     }
 
                     usr.Password = firstPassBox.Password;
-                    Core.ContextKIP.SaveChanges();
+                    Core.Context.SaveChanges();
 
                     Core.CurrentUser = usr;
 

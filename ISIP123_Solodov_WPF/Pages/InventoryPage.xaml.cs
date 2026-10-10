@@ -70,15 +70,15 @@ namespace ISIP123_Solodov_WPF.Pages
             NicknameTBlock.Text = Core.CurrentUser.Nickname;
             NicknameTBlock_2.Text = Core.CurrentUser.Nickname;
 
-            var types = Core.ContextKIP.Types.Select(x => x.Name).ToList();
+            var types = Core.Context.Types.Select(x => x.Name).ToList();
             types.Insert(0, "");
             TypesCombo.ItemsSource = types;
 
-            var qualities = Core.ContextKIP.Qualities.Select(x => x.Name).ToList();
+            var qualities = Core.Context.Qualities.Select(x => x.Name).ToList();
             qualities.Insert(0, "");
             QualitesCombo.ItemsSource = qualities;
             
-            var items = Core.ContextKIP.Inventories.Where(x => x.UserID == Core.CurrentUser.ID).ToList();
+            var items = Core.Context.Inventories.Where(x => x.UserID == Core.CurrentUser.ID).ToList();
             var itemsCopy = new List<Inventories>();
 
             foreach (var item in items.ToList())
@@ -94,36 +94,6 @@ namespace ISIP123_Solodov_WPF.Pages
             }
             
             InventoryItems.ItemsSource = itemsCopy;
-
-            if (itemsCopy.Count > 0) 
-            {
-                ItemCardGrid.Visibility = Visibility.Visible;
-                ItemCardGrid.DataContext = itemsCopy[0];
-
-                double? flot = itemsCopy[0].Flot;
-                foreach (var str in Core.ContextKIP.Iznos.ToList()) 
-                {
-                    if (str.MinFlot <= flot && flot < str.MaxFlot) 
-                    {
-                        IznosTB.Text = $"Состояние: {str.Name}";
-                    }
-                }
-
-                var list = Core.ContextKIP.CS2Market.Where(x => x.StatusID == 2).ToList();
-                int i = list.Count() - 1;
-                while (i != 0)  
-                {
-                    var str = list[i];
-
-                    if (str.Inventories.Items.ID == itemsCopy[0].Items.ID) 
-                    {
-                        StartPrice.Text = $"Начальная цена: {str.Price.ToString()} руб.";
-                        break;
-                    }
-
-                    i--;
-                }
-            }
         }
     }
 }
