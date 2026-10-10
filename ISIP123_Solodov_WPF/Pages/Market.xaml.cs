@@ -29,38 +29,35 @@ namespace ISIP123_Solodov_WPF.Pages
             Loaded += PageLoaded;
         }
 
+
+        // Кнопки навигации
         private void listingsBtn_Click(object sender, RoutedEventArgs e)
         {
 
         }
-
         private void historyBtn_Click(object sender, RoutedEventArgs e)
         {
 
         }
-
         private void sellItemBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (Core.CurrentUser is null) 
+            if (Core.CurrentUser is null)
             {
                 MessageBox.Show("Вы должны зарегистрироваться, чтобы зайти в Инвентарь.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             NavigationService.Navigate(new InventoryPage());
         }
-
         private void exitBtn_Click(object sender, RoutedEventArgs e)
         {
             Core.CurrentUser = null;
             NavigationService.Navigate(new AuthPage());
         }
-
         private void ShowError_Dialog(object sender, RoutedEventArgs e)
         {
             Error dialog = new Error();
             dialog.ShowDialog();
         }
-
         private void communityBtn_Click(object sender, RoutedEventArgs e)
         {
             string url = "https://steamcommunity.com/market/"; 
@@ -71,6 +68,7 @@ namespace ISIP123_Solodov_WPF.Pages
                 UseShellExecute = true 
             });
         }
+
 
         // Открытие ссылки на ресурс
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
@@ -83,7 +81,6 @@ namespace ISIP123_Solodov_WPF.Pages
 
             e.Handled = true;
         }
-
 
         // Настройка для глобального скрола по ListBox
         private void ListBox_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
@@ -106,20 +103,52 @@ namespace ISIP123_Solodov_WPF.Pages
             }
         }
 
+        //Обработка выбора сортировки
+        private void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is ComboBox comboBox && comboBox.SelectedItem is ComboBoxItem selectedItem)
+            {
+                var market = Core.ContextKIP.CS2Market.Where(x => x.StatusID == 1).ToList();
+                var sorted_market = new List<CS2Market>();
+
+                string selectedValue = selectedItem.Content.ToString();
+                switch (selectedValue)
+                {
+                    case "Название (↑)":
+                        sorted_market = market.OrderBy(x => x.Inventories.Items.Name).ToList();
+                        break;
+                    case "Название (↓)":
+                        sorted_market = market.OrderByDescending(x => x.Inventories.Items.Name).ToList();
+                        break;
+                    case "Цена (↑)":
+                        sorted_market = market.OrderBy(x => x.Price).ToList();
+                        break;
+                    case "Цена (↓)":
+                        sorted_market = market.OrderByDescending(x => x.Price).ToList();
+                        break;
+                    default:
+                        sorted_market = market;
+                        break;
+                }
+
+                ItemsLB.ItemsSource = sorted_market;
+            }
+        }
+
 
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
             // Подгрузка ТП
-            var market = Core.Context.CS2Market.Where(x => x.StatusID == 1).ToList();  
+            var market = Core.ContextKIP.CS2Market.Where(x => x.StatusID == 1).ToList();  
             ItemsLB.ItemsSource = market;
 
 
             // Подгрузка фильтров
-            var types = Core.Context.Types.Select(x => x.Name).ToList();
+            var types = Core.ContextKIP.Types.Select(x => x.Name).ToList();
             types.Insert(0, "");
             TypesCombo.ItemsSource = types;
 
-            var qualities = Core.Context.Qualities.Select(x => x.Name).ToList();
+            var qualities = Core.ContextKIP.Qualities.Select(x => x.Name).ToList();
             qualities.Insert(0, "");
             QualitesCombo.ItemsSource = qualities;
 

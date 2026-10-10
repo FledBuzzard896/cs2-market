@@ -90,25 +90,25 @@
       <DependentUpon>RegistrationDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\CS2Market.cs">
-      <DependentUpon>steam-model.tt</DependentUpon>
+      <DependentUpon>steam-model-kip.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Inventories.cs">
-      <DependentUpon>steam-model.tt</DependentUpon>
+      <DependentUpon>steam-model-kip.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Items.cs">
-      <DependentUpon>steam-model.tt</DependentUpon>
+      <DependentUpon>steam-model-kip.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Iznos.cs">
-      <DependentUpon>steam-model.tt</DependentUpon>
+      <DependentUpon>steam-model-kip.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Operations.cs">
-      <DependentUpon>steam-model.tt</DependentUpon>
+      <DependentUpon>steam-model-kip.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Qualities.cs">
-      <DependentUpon>steam-model.tt</DependentUpon>
+      <DependentUpon>steam-model-kip.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Status.cs">
-      <DependentUpon>steam-model.tt</DependentUpon>
+      <DependentUpon>steam-model-kip.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\steam-model-kip.Context.cs">
       <AutoGen>True</AutoGen>
@@ -141,16 +141,16 @@
       <DependentUpon>steam-model.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>steam-model.tt</DependentUpon>
+      <DependentUpon>steam-model-kip.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TransactionsHistory.cs">
-      <DependentUpon>steam-model.tt</DependentUpon>
+      <DependentUpon>steam-model-kip.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Types.cs">
-      <DependentUpon>steam-model.tt</DependentUpon>
+      <DependentUpon>steam-model-kip.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Users.cs">
-      <DependentUpon>steam-model.tt</DependentUpon>
+      <DependentUpon>steam-model-kip.tt</DependentUpon>
     </Compile>
     <Compile Include="Pages\AuthPage.xaml.cs">
       <DependentUpon>AuthPage.xaml</DependentUpon>

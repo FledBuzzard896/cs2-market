@@ -139,39 +139,47 @@
                             <TextBlock Text="1 из 1" Foreground="#afb1b8" FontSize="14" Margin="5,0,5,0"/>
                             <Button x:Name="rightBtn" Content=">" Width="35"/>
                         </StackPanel>
-                        <Grid Grid.RowSpan="2" Grid.Column="1" Margin="10,5,5,5">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="175"/> <!-- Картинка -->
-                                <RowDefinition Height="auto"/> <!-- Название -->
-                                <RowDefinition Height="auto"/> <!-- КС2 -->
-                                <RowDefinition Height="auto"/> <!-- Состояние, Редкость, Флот -->
-                                <RowDefinition Height="auto"/> <!-- Описание -->
-                                <RowDefinition Height="auto"/> <!-- Bar продажи и цены -->
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Image Source="{Binding Items.ItemPicture}" Grid.Row="0"/>
-                            <TextBlock Text="{Binding Item.Name}" FontSize="26" TextWrapping="Wrap" Grid.Row="1" Margin="0,5,0,0"/>
-                            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,5,0,0">
-                                <Image Source="/Images/CS2 ico.jpg" Width="25"/>
-                                <TextBlock Text="Counter-Strike 2" FontSize="14" Foreground="#D2D2D2" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                            </StackPanel>
-                            <StackPanel Grid.Row="3" Orientation="Vertical" Margin="0,5,0,0">
-                                <TextBlock Text="{Binding Item.QualityID, StringFormat={}Состояние: {0}}" FontSize="14" Foreground="#666666" Margin="0,0,0,3"/>
-                                <TextBlock Text="{Binding Item.TypeID, StringFormat={}Тип: {0}}" FontSize="14" Foreground="#666666" Margin="0,0,0,3"/>
-                                <TextBlock Text="Качество: " FontSize="14" Foreground="#666666" Margin="0,0,0,3"/>
-                                <TextBlock Text="{Binding Flot, StringFormat={}Степень износа: {0}}" FontSize="14" Foreground="#666666"/>
-                            </StackPanel>
-                            <TextBlock Grid.Row="4" Margin="0,5,0,0" Text="{Binding Item.Description}" TextWrapping="Wrap" FontSize="14" Foreground="#666666"/>
-
-                            <Grid Grid.Row="5" Background="#141a21">
+                        <Border x:Name="ItemCardGrid" Visibility="Hidden" Grid.RowSpan="2" Grid.Column="1" BorderThickness="2" BorderBrush="#66c0f4" Margin="10,0,5,5" VerticalAlignment="Top">
+                            <Grid>
                                 <Grid.RowDefinitions>
+                                    <RowDefinition Height="175"/>
+                                    <!-- Картинка -->
                                     <RowDefinition Height="auto"/>
+                                    <!-- Название -->
                                     <RowDefinition Height="auto"/>
+                                    <!-- КС2 -->
+                                    <RowDefinition Height="auto"/>
+                                    <!-- Состояние, Редкость, Флот -->
+                                    <RowDefinition Height="auto"/>
+                                    <!-- Описание -->
+                                    <RowDefinition Height="auto"/>
+                                    <!-- Bar продажи и цены -->
+                                    <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
-                                <TextBlock x:Name="StartPrice" FontSize="14" Foreground="#D2D2D2" HorizontalAlignment="Left" Margin="10"/>
-                                <Button Content="Продать" Background="#577c22" Foreground="White" BorderThickness="0" Width="75" Height="25" HorizontalAlignment="Left" Margin="10,0,0,10"/>
+                                <Image Source="{Binding Items.ItemPicture}" Grid.Row="0"/>
+                                <TextBlock Text="{Binding Items.Name}" FontSize="26" FontWeight="Bold" Foreground="#66c0f4" TextWrapping="Wrap" Grid.Row="1" Margin="0,5,0,0"/>
+                                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,5,0,0">
+                                    <Image Source="/Images/CS2 ico.jpg" Width="25"/>
+                                    <TextBlock Text="Counter-Strike 2" FontSize="14" Foreground="#D2D2D2" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="3" Orientation="Vertical" Margin="0,5,0,0">
+                                    <TextBlock x:Name="IznosTB" Text="Состояние: " FontSize="14" Foreground="#666666" Margin="0,0,0,3"/>
+                                    <TextBlock Text="{Binding Items.Types.Name, StringFormat={}Тип: {0}}" FontSize="14" Foreground="#666666" Margin="0,0,0,3"/>
+                                    <TextBlock Text="{Binding Items.Qualities.Name, StringFormat={}Качество: {0}}" FontSize="14" Foreground="#666666" Margin="0,0,0,3"/>
+                                    <TextBlock Text="{Binding Flot, StringFormat={}Степень износа: {0}}" FontSize="14" Foreground="#666666"/>
+                                </StackPanel>
+                                <TextBlock Grid.Row="4" Margin="0,5,0,0" Text="{Binding Items.Description}" TextWrapping="Wrap" FontSize="14" Foreground="#D2D2D2"/>
+
+                                <Grid Grid.Row="5" Background="#141a21">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock x:Name="StartPrice" Text="тест" FontSize="14" Foreground="#D2D2D2" HorizontalAlignment="Left" Margin="10" Grid.Row="0"/>
+                                    <Button Content="Продать" Background="#577c22" Foreground="White" BorderThickness="0" Width="75" Height="25" HorizontalAlignment="Left" Margin="10,0,0,10" Grid.Row="1"/>
+                                </Grid>
                             </Grid>
-                        </Grid>
+                        </Border>
                     </Grid>
                 </Grid>
             </Border>
