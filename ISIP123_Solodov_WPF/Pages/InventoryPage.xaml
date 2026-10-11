@@ -118,6 +118,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
                         <ListBox x:Name="InventoryItems" Grid.Row="0" Grid.Column="0" Width="538" Height="538" VerticalAlignment="Top" HorizontalAlignment="Left" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" PreviewMouseWheel="ListBox_PreviewMouseWheel">
@@ -134,13 +135,13 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="5" HorizontalAlignment="Right">
+                        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Right">
                             <Button x:Name="leftBtn" Content="&lt;" Width="35"/>
                             <TextBlock Text="1 из 1" Foreground="#afb1b8" FontSize="14" Margin="5,0,5,0"/>
                             <Button x:Name="rightBtn" Content=">" Width="35"/>
                         </StackPanel>
                         <Border x:Name="ItemCardGrid" Visibility="Hidden" Grid.RowSpan="2" Grid.Column="1" BorderThickness="2" BorderBrush="#66c0f4" Margin="10,0,5,5" VerticalAlignment="Top">
-                            <Grid>
+                            <Grid Margin="10">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="175"/>
                                     <!-- Картинка -->
@@ -168,7 +169,7 @@
                                     <TextBlock Text="{Binding Items.Qualities.Name, StringFormat={}Качество: {0}}" FontSize="14" Foreground="#666666" Margin="0,0,0,3"/>
                                     <TextBlock Text="{Binding Flot, StringFormat={}Степень износа: {0}}" FontSize="14" Foreground="#666666"/>
                                 </StackPanel>
-                                <TextBlock Grid.Row="4" Margin="0,5,0,0" Text="{Binding Items.Description}" TextWrapping="Wrap" FontSize="14" Foreground="#D2D2D2"/>
+                                <TextBlock Grid.Row="4" Margin="0,10,0,5" Text="{Binding Items.Description}" TextWrapping="Wrap" FontSize="14" Foreground="#D2D2D2"/>
 
                                 <Grid Grid.Row="5" Background="#141a21">
                                     <Grid.RowDefinitions>
