@@ -80,6 +80,9 @@
     <Compile Include="Dialogs\Error.xaml.cs">
       <DependentUpon>Error.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\HistoryDialog.xaml.cs">
+      <DependentUpon>HistoryDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\IForgotPasswordDialog.xaml.cs">
       <DependentUpon>IForgotPasswordDialog.xaml</DependentUpon>
     </Compile>
@@ -162,6 +165,10 @@
       <DependentUpon>Market.xaml</DependentUpon>
     </Compile>
     <Page Include="Dialogs\Error.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\HistoryDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

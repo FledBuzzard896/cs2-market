@@ -36,7 +36,15 @@ namespace ISIP123_Solodov_WPF.Pages
 
         private void historyBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            if (Core.CurrentUser != null)
+            {
+                HistoryDialog dialog = new HistoryDialog();
+                dialog.ShowDialog();
+            }
+            else 
+            {
+                MessageBox.Show("Чтобы посмотреть вашу историю на Торговой Площадке, вам нужно зайти в аккаунт", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void sellItemBtn_Click(object sender, RoutedEventArgs e)

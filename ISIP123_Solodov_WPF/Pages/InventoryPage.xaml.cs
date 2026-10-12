@@ -109,6 +109,7 @@ namespace ISIP123_Solodov_WPF.Pages
                     }
                 }
 
+                // Поиск цены скина (стоимости при последней продаже)
                 var list = Core.Context.CS2Market.Where(x => x.StatusID == 2).ToList();
                 int i = list.Count() - 1;
                 while (i != 0)
@@ -122,6 +123,12 @@ namespace ISIP123_Solodov_WPF.Pages
                     }
 
                     i--;
+                }
+
+                // Исключение: базовая цена скина (на ТП его никто не продавал)
+                if (StartPrice.Text == "тест") 
+                {
+                    StartPrice.Text = $"Начальная цена: {itemsCopy[0].Items.AveragePrice.ToString()} руб.";
                 }
             }
         }
