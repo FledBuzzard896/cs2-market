@@ -31,7 +31,15 @@ namespace ISIP123_Solodov_WPF.Pages
 
         private void listingsBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            if (Core.CurrentUser != null)
+            {
+                ActiveDialog dialog = new ActiveDialog();
+                dialog.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Чтобы посмотреть ваши лоты на Торговой Площадке, вам нужно зайти в аккаунт", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void historyBtn_Click(object sender, RoutedEventArgs e)
@@ -106,46 +114,120 @@ namespace ISIP123_Solodov_WPF.Pages
                     Source = sender
                 };
 
-                // 1. Приводим к FrameworkElement (у него есть .Parent)
-                // 2. Используем safe-cast к UIElement для вызова RaiseEvent
                 var parent = ((FrameworkElement)sender).Parent as UIElement;
 
                 parent?.RaiseEvent(eventArg);
             }
         }
 
+        // Обработка поиска
+        private void searchTBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ApplyFilters();
+        }
+        
         //Обработка выбора сортировки
         private void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (sender is ComboBox comboBox && comboBox.SelectedItem is ComboBoxItem selectedItem)
-            {
-                var market = Core.Context.CS2Market.Where(x => x.StatusID == 1).ToList();
-                var sorted_market = new List<CS2Market>();
+            //if (sender is ComboBox comboBox && comboBox.SelectedItem is ComboBoxItem selectedItem)
+            //{
+            //    var market = Core.Context.CS2Market.Where(x => x.StatusID == 1).ToList();
+            //    var sorted_market = new List<CS2Market>();
 
-                string selectedValue = selectedItem.Content.ToString();
-                switch (selectedValue)
-                {
-                    case "Название (↑)":
-                        sorted_market = market.OrderBy(x => x.Inventories.Items.Name).ToList();
-                        break;
-                    case "Название (↓)":
-                        sorted_market = market.OrderByDescending(x => x.Inventories.Items.Name).ToList();
-                        break;
-                    case "Цена (↑)":
-                        sorted_market = market.OrderBy(x => x.Price).ToList();
-                        break;
-                    case "Цена (↓)":
-                        sorted_market = market.OrderByDescending(x => x.Price).ToList();
-                        break;
-                    default:
-                        sorted_market = market;
-                        break;
-                }
+            //    string selectedValue = selectedItem.Content.ToString();
+            //    switch (selectedValue)
+            //    {
+            //        case "Название (↑)":
+            //            sorted_market = market.OrderBy(x => x.Inventories.Items.Name).ToList();
+            //            break;
+            //        case "Название (↓)":
+            //            sorted_market = market.OrderByDescending(x => x.Inventories.Items.Name).ToList();
+            //            break;
+            //        case "Цена (↑)":
+            //            sorted_market = market.OrderBy(x => x.Price).ToList();
+            //            break;
+            //        case "Цена (↓)":
+            //            sorted_market = market.OrderByDescending(x => x.Price).ToList();
+            //            break;
+            //        default:
+            //            sorted_market = market;
+            //            break;
+            //    }
 
-                ItemsLB.ItemsSource = sorted_market;
-            }
+            //    ItemsLB.ItemsSource = sorted_market;
+            //}
+            ApplyFilters();
         }
 
+        private void ApplyFilters() 
+        {
+            // Берем весь список предметов
+            var market = Core.Context.CS2Market.Where(x => x.StatusID == 1).ToList();
+            var changed_dataList = market.ToList();
+
+            // Поиск по названию
+            string search = searchTBox.Text.Trim().ToLower();
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                changed_dataList = changed_dataList.Where(x =>
+                    x.Inventories.Items.Name.ToLower().StartsWith(search) ||
+                    x.Inventories.Items.Name.ToLower().Contains(search)
+                ).ToList();
+            }
+
+            // Фильтрация
+            if (QualitesCombo.SelectedItem is ComboBoxItem qualityItem)
+            {
+                string selectedQuality = qualityItem.Content.ToString();
+
+                // Проверяем, что строка не пустая и не равна "Все"
+                if (!string.IsNullOrEmpty(selectedQuality) && selectedQuality != "Все")
+                {
+                    changed_dataList = changed_dataList
+                        .Where(x => x.Inventories.Items.Qualities.Name == selectedQuality)
+                        .ToList();
+                }
+            }
+
+            if (TypesCombo.SelectedItem is ComboBoxItem typeItem)
+            {
+                string selectedType = typeItem.Content.ToString();
+
+                if (!string.IsNullOrEmpty(selectedType) && selectedType != "Все")
+                {
+                    changed_dataList = changed_dataList
+                        .Where(x => x.Inventories.Items.Types.Name == selectedType)
+                        .ToList();
+                }
+            }
+
+            // Сортировка
+            if (SortingCombo.SelectedItem is ComboBoxItem sortItem)
+            {
+                string sortValue = sortItem.Content.ToString();
+                switch (sortValue)
+                {
+                    case "Название (↑)":
+                        changed_dataList = changed_dataList.OrderBy(x => x.Inventories.Items.Name).ToList();
+                        break;
+                    case "Название (↓)":
+                        changed_dataList = changed_dataList.OrderByDescending(x => x.Inventories.Items.Name).ToList();
+                        break;
+                    case "Цена (↑)":
+                        changed_dataList = changed_dataList.OrderBy(x => x.Price).ToList();
+                        break;
+                    case "Цена (↓)":
+                        changed_dataList = changed_dataList.OrderByDescending(x => x.Price).ToList();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            
+            // Подгружает отфильтрованный список    
+            ItemsLB.ItemsSource = changed_dataList;
+        }
 
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
@@ -156,11 +238,11 @@ namespace ISIP123_Solodov_WPF.Pages
 
             // Подгрузка фильтров
             var types = Core.Context.Types.Select(x => x.Name).ToList();
-            types.Insert(0, "");
+            types.Insert(0, "Все");
             TypesCombo.ItemsSource = types;
 
             var qualities = Core.Context.Qualities.Select(x => x.Name).ToList();
-            qualities.Insert(0, "");
+            qualities.Insert(0, "Все");
             QualitesCombo.ItemsSource = qualities;
 
 

@@ -173,9 +173,9 @@
                             <StackPanel  Style="{StaticResource SideBarStackPanel}">
                                 <TextBlock Text="Прочтите требования к безопасности для использования Торговой площадки" Style="{StaticResource SideBarInformationTop}"/>
                                 <TextBlock Text="Поиск предметов" Style="{StaticResource SideBarSearchTextBlock}"/>
-                                <TextBox x:Name="searchTBox" Style="{StaticResource SideBarSearchTextBox}"/>
+                                <TextBox x:Name="searchTBox" Style="{StaticResource SideBarSearchTextBox}" TextChanged="searchTBox_TextChanged"/>
                                 <TextBlock Text="Сортировать по" Style="{StaticResource SideBarSortTextBlock}"/>
-                                <ComboBox Style="{StaticResource SideBarCombo}"
+                                <ComboBox x:Name="SortingCombo" Style="{StaticResource SideBarCombo}"
                                           ItemContainerStyle="{StaticResource SideBarComboItem}"
                                           SelectionChanged="SortComboBox_SelectionChanged">
                                     <ComboBoxItem Content=""/>

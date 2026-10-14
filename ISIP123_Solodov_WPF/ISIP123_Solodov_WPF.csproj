@@ -77,6 +77,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Dialogs\ActiveDialog.xaml.cs">
+      <DependentUpon>ActiveDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\Error.xaml.cs">
       <DependentUpon>Error.xaml</DependentUpon>
     </Compile>
@@ -164,6 +167,10 @@
     <Compile Include="Pages\Market.xaml.cs">
       <DependentUpon>Market.xaml</DependentUpon>
     </Compile>
+    <Page Include="Dialogs\ActiveDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\Error.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
