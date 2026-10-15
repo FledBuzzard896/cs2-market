@@ -41,7 +41,6 @@ namespace ISIP123_Solodov_WPF.Pages
                 MessageBox.Show("Чтобы посмотреть ваши лоты на Торговой Площадке, вам нужно зайти в аккаунт", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
         private void historyBtn_Click(object sender, RoutedEventArgs e)
         {
             if (Core.CurrentUser != null)
@@ -55,6 +54,7 @@ namespace ISIP123_Solodov_WPF.Pages
             }
         }
 
+
         private void sellItemBtn_Click(object sender, RoutedEventArgs e)
         {
             if (Core.CurrentUser is null) 
@@ -65,18 +65,19 @@ namespace ISIP123_Solodov_WPF.Pages
             NavigationService.Navigate(new InventoryPage());
         }
 
+
         private void exitBtn_Click(object sender, RoutedEventArgs e)
         {
             Core.CurrentUser = null;
             NavigationService.Navigate(new AuthPage());
         }
 
+
         private void ShowError_Dialog(object sender, RoutedEventArgs e)
         {
             Error dialog = new Error();
             dialog.ShowDialog();
         }
-
         private void communityBtn_Click(object sender, RoutedEventArgs e)
         {
             string url = "https://steamcommunity.com/market/"; 
@@ -87,6 +88,7 @@ namespace ISIP123_Solodov_WPF.Pages
                 UseShellExecute = true 
             });
         }
+
 
         // Открытие ссылки на ресурс
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
@@ -99,7 +101,6 @@ namespace ISIP123_Solodov_WPF.Pages
 
             e.Handled = true;
         }
-
 
         // Настройка для глобального скрола по ListBox
         private void ListBox_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
@@ -120,44 +121,30 @@ namespace ISIP123_Solodov_WPF.Pages
             }
         }
 
-        // Обработка поиска
+        // Обработка клика по нику 
+        private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            // открытие страницы профиля с инфой и пополнением кошелька
+        }
+
+
         private void searchTBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             ApplyFilters();
         }
-        
-        //Обработка выбора сортировки
         private void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //if (sender is ComboBox comboBox && comboBox.SelectedItem is ComboBoxItem selectedItem)
-            //{
-            //    var market = Core.Context.CS2Market.Where(x => x.StatusID == 1).ToList();
-            //    var sorted_market = new List<CS2Market>();
-
-            //    string selectedValue = selectedItem.Content.ToString();
-            //    switch (selectedValue)
-            //    {
-            //        case "Название (↑)":
-            //            sorted_market = market.OrderBy(x => x.Inventories.Items.Name).ToList();
-            //            break;
-            //        case "Название (↓)":
-            //            sorted_market = market.OrderByDescending(x => x.Inventories.Items.Name).ToList();
-            //            break;
-            //        case "Цена (↑)":
-            //            sorted_market = market.OrderBy(x => x.Price).ToList();
-            //            break;
-            //        case "Цена (↓)":
-            //            sorted_market = market.OrderByDescending(x => x.Price).ToList();
-            //            break;
-            //        default:
-            //            sorted_market = market;
-            //            break;
-            //    }
-
-            //    ItemsLB.ItemsSource = sorted_market;
-            //}
             ApplyFilters();
         }
+        private void TypesCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ApplyFilters();
+        }
+        private void QualitesCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ApplyFilters();
+        }
+
 
         private void ApplyFilters() 
         {
@@ -176,10 +163,10 @@ namespace ISIP123_Solodov_WPF.Pages
                 ).ToList();
             }
 
-            // Фильтрация
-            if (QualitesCombo.SelectedItem is ComboBoxItem qualityItem)
+            // Фильтрация по качеству предмета
+            if (QualitesCombo.SelectedItem != null) 
             {
-                string selectedQuality = qualityItem.Content.ToString();
+                string selectedQuality = QualitesCombo.SelectedItem.ToString();
 
                 // Проверяем, что строка не пустая и не равна "Все"
                 if (!string.IsNullOrEmpty(selectedQuality) && selectedQuality != "Все")
@@ -190,9 +177,10 @@ namespace ISIP123_Solodov_WPF.Pages
                 }
             }
 
-            if (TypesCombo.SelectedItem is ComboBoxItem typeItem)
+            // Фильтрация по типу предмета
+            if (TypesCombo.SelectedItem != null)    
             {
-                string selectedType = typeItem.Content.ToString();
+                string selectedType = TypesCombo.SelectedItem.ToString();
 
                 if (!string.IsNullOrEmpty(selectedType) && selectedType != "Все")
                 {
@@ -229,6 +217,7 @@ namespace ISIP123_Solodov_WPF.Pages
             ItemsLB.ItemsSource = changed_dataList;
         }
 
+
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
             // Подгрузка ТП
@@ -257,5 +246,7 @@ namespace ISIP123_Solodov_WPF.Pages
                 balance.Text = $"Баланс кошелька: {Core.CurrentUser.Balance.ToString()} ₽";
             }
         }
+
+
     }
 }
