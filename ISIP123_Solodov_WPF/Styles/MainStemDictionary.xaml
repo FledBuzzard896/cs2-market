@@ -191,6 +191,7 @@
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="Padding" Value="5,5,0,5"/>
         <Setter Property="Margin" Value="0,0,0,5"/>
+        <EventSetter Event="MouseDoubleClick" Handler="ListBoxItem_MouseDoubleClick"/>
     </Style>
     
     <!-- Стиль состовляющих ячейку товара -->

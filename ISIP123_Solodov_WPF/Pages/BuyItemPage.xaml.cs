@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace ISIP123_Solodov_WPF.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для RegistratinPage.xaml
+    /// Логика взаимодействия для BuyItemPage.xaml
     /// </summary>
-    public partial class RegistratinPage : Page
+    public partial class BuyItemPage : Page
     {
-        public RegistratinPage()
+        public BuyItemPage()
         {
             InitializeComponent();
-        }
-
-        private void BackBtn_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

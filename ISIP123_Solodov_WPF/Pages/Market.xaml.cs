@@ -124,7 +124,25 @@ namespace ISIP123_Solodov_WPF.Pages
         // Обработка клика по нику 
         private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            // открытие страницы профиля с инфой и пополнением кошелька
+            if (Core.CurrentUser == null) 
+            {
+                MessageBox.Show("Войдите в аккаунт, чтобы посмотреть свой профиль", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            ProfileDialog dialog = new ProfileDialog();
+            dialog.ShowDialog();
+
+            balance.Text = $"Баланс кошелька: {Core.CurrentUser.Balance.ToString()} ₽";
+        }
+
+        // Выбор элемента для покупки
+        private void ListBoxItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is ListBoxItem item && item.DataContext is Users user)
+            {
+                NavigationService.Navigate();
+            }
         }
 
 
@@ -144,8 +162,6 @@ namespace ISIP123_Solodov_WPF.Pages
         {
             ApplyFilters();
         }
-
-
         private void ApplyFilters() 
         {
             // Берем весь список предметов

@@ -92,6 +92,9 @@
     <Compile Include="Dialogs\LastQuestion.xaml.cs">
       <DependentUpon>LastQuestion.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\ProfileDialog.xaml.cs">
+      <DependentUpon>ProfileDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\RegistrationDialog.xaml.cs">
       <DependentUpon>RegistrationDialog.xaml</DependentUpon>
     </Compile>
@@ -161,6 +164,9 @@
     <Compile Include="Pages\AuthPage.xaml.cs">
       <DependentUpon>AuthPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\BuyItemPage.xaml.cs">
+      <DependentUpon>BuyItemPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\InventoryPage.xaml.cs">
       <DependentUpon>InventoryPage.xaml</DependentUpon>
     </Compile>
@@ -187,15 +193,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Dialogs\ProfileDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\RegistrationDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\InventoryPage.xaml">
+    <Page Include="Pages\BuyItemPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\RegistratinPage.xaml">
+    <Page Include="Pages\InventoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -226,9 +236,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Pages\RegistratinPage.xaml.cs">
-      <DependentUpon>RegistratinPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -1,0 +1,29 @@
+﻿<Page x:Class="ISIP123_Solodov_WPF.Pages.BuyItemPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ISIP123_Solodov_WPF.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="750" d:DesignWidth="1500"
+      d:MinHeight="550" d:MinWidth="1100"
+      Title="BuyItemPage">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Image Source="/Images/stem-logo-nobg.png" Margin="10" Style="{StaticResource LogoStemMarketPage}"/>
+        <TextBlock Text="ПОКУПКА ПРЕДМЕТА" FontSize="34" Foreground="White" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+    </Grid>
+</Page>
