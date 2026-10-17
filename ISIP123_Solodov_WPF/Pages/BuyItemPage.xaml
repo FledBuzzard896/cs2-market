@@ -45,6 +45,6 @@
         <TextBlock Text="{Binding Inventories.Items.Types.Name, StringFormat={}ТИП: {0}}" FontSize="16" Foreground="#afb1b8" Grid.Column="1" Grid.Row="5" Margin="10,5,0,0"/>
         <TextBlock Text="{Binding Inventories.Items.Qualities.Name, StringFormat={}КАЧЕСТВО: {0}}" FontSize="16" Foreground="#afb1b8" Grid.Column="1" Grid.Row="6" Margin="10,5,0,0"/>
         <TextBlock Text="{Binding Inventories.Flot, StringFormat={}СТЕПЕНЬ ИЗНОСА: {0}}" FontSize="16" Foreground="#afb1b8" Grid.Column="1" Grid.Row="7" Margin="10,5,0,0"/>
-        <TextBlock x:Name="Price" FontSize="16" Foreground="#577c22" Grid.Column="1" Grid.Row="8" Margin="10,15,0,0"/>
+        <TextBlock x:Name="Price" Text="тест" FontSize="16" Foreground="#577c22" Grid.Column="1" Grid.Row="8" Margin="10,15,0,0"/>
     </Grid>
 </Page>

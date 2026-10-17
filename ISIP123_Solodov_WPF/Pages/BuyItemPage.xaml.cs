@@ -44,6 +44,28 @@ namespace ISIP123_Solodov_WPF.Pages
                         Sostoianie.Text = $"СОСТОЯНИЕ: {str.Name}"; ;
                     }
                 }
+
+                // Поиск цены скина (стоимости при последней продаже)
+                var list = Core.ContextKIP.CS2Market.Where(x => x.StatusID == 2).ToList();
+                int i = list.Count() - 1;
+                while (i != 0)
+                {
+                    var str = list[i];
+
+                    if (str.Inventories.Items.ID == _item.Inventories.Items.ID)
+                    {
+                        Price.Text = $"Начальная цена: {str.Price.ToString()} руб.";
+                        break;
+                    }
+
+                    i--;
+                }
+
+                // Исключение: базовая цена скина (на ТП его никто не продавал)
+                if (Price.Text == "тест")
+                {
+                    Price.Text = $"Начальная цена: {_item.Inventories.Items.AveragePrice.ToString()} руб.";
+                }
             }
         }
     }
