@@ -137,11 +137,12 @@ namespace ISIP123_Solodov_WPF.Pages
         }
 
         // Выбор элемента для покупки
-        private void ListBoxItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void ItemsLB_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (sender is ListBoxItem item && item.DataContext is Users user)
+            if (ItemsLB.SelectedItem is CS2Market selectedMarketItem)
             {
-                NavigationService.Navigate();
+                // Передаем объект на страницу покупки
+                NavigationService.Navigate(new BuyItemPage(selectedMarketItem));
             }
         }
 
@@ -165,7 +166,7 @@ namespace ISIP123_Solodov_WPF.Pages
         private void ApplyFilters() 
         {
             // Берем весь список предметов
-            var market = Core.Context.CS2Market.Where(x => x.StatusID == 1).ToList();
+            var market = Core.ContextKIP.CS2Market.Where(x => x.StatusID == 1).ToList();
             var changed_dataList = market.ToList();
 
             // Поиск по названию
@@ -237,16 +238,16 @@ namespace ISIP123_Solodov_WPF.Pages
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
             // Подгрузка ТП
-            var market = Core.Context.CS2Market.Where(x => x.StatusID == 1).ToList();  
+            var market = Core.ContextKIP.CS2Market.Where(x => x.StatusID == 1).ToList();  
             ItemsLB.ItemsSource = market;
 
 
             // Подгрузка фильтров
-            var types = Core.Context.Types.Select(x => x.Name).ToList();
+            var types = Core.ContextKIP.Types.Select(x => x.Name).ToList();
             types.Insert(0, "Все");
             TypesCombo.ItemsSource = types;
 
-            var qualities = Core.Context.Qualities.Select(x => x.Name).ToList();
+            var qualities = Core.ContextKIP.Qualities.Select(x => x.Name).ToList();
             qualities.Insert(0, "Все");
             QualitesCombo.ItemsSource = qualities;
 

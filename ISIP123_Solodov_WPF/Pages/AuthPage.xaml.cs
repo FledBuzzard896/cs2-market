@@ -28,7 +28,7 @@ namespace ISIP123_Solodov_WPF.Pages
 
         private void enterBtn_Click(object sender, RoutedEventArgs e)
         {
-            var usr = Core.Context.Users.FirstOrDefault(x => x.Login == loginBox.Text);
+            var usr = Core.ContextKIP.Users.FirstOrDefault(x => x.Login == loginBox.Text);
             if (usr == null)
             {
                 MessageBox.Show("Пользователя с таким Login не существует.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);

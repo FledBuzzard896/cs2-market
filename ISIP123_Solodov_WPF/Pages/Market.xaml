@@ -138,7 +138,8 @@
                         <ListBox x:Name="ItemsLB" Grid.Row="1"
                             Style="{StaticResource MainListBox}"
                             ItemContainerStyle="{StaticResource OneListBoxItem}"
-                            PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                            PreviewMouseWheel="ListBox_PreviewMouseWheel"
+                            MouseDoubleClick="ItemsLB_MouseDoubleClick">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>

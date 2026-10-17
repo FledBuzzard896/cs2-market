@@ -38,8 +38,8 @@ namespace ISIP123_Solodov_WPF.Dialogs
                     {
                         MessageBox.Show($"Вы сняли {item.Inventories.Items.Name} с продажи", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                        Core.Context.CS2Market.Remove(item);
-                        Core.Context.SaveChanges();
+                        Core.ContextKIP.CS2Market.Remove(item);
+                        Core.ContextKIP.SaveChanges();
 
                         PageLoaded(null, null);
                     }
@@ -49,7 +49,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
 
         private void PageLoaded(object sender, RoutedEventArgs e) 
         {
-            var lst = Core.Context.CS2Market.Where(x => x.SellerID == Core.CurrentUser.ID && x.BuyerID == null).ToList();
+            var lst = Core.ContextKIP.CS2Market.Where(x => x.SellerID == Core.CurrentUser.ID && x.BuyerID == null).ToList();
             MarketActivityLB.ItemsSource = lst;
         }
     }

@@ -70,15 +70,15 @@ namespace ISIP123_Solodov_WPF.Pages
             NicknameTBlock.Text = Core.CurrentUser.Nickname;
             NicknameTBlock_2.Text = Core.CurrentUser.Nickname;
 
-            var types = Core.Context.Types.Select(x => x.Name).ToList();
+            var types = Core.ContextKIP.Types.Select(x => x.Name).ToList();
             types.Insert(0, "");
             TypesCombo.ItemsSource = types;
 
-            var qualities = Core.Context.Qualities.Select(x => x.Name).ToList();
+            var qualities = Core.ContextKIP.Qualities.Select(x => x.Name).ToList();
             qualities.Insert(0, "");
             QualitesCombo.ItemsSource = qualities;
             
-            var items = Core.Context.Inventories.Where(x => x.UserID == Core.CurrentUser.ID).ToList();
+            var items = Core.ContextKIP.Inventories.Where(x => x.UserID == Core.CurrentUser.ID).ToList();
             var itemsCopy = new List<Inventories>();
 
             foreach (var item in items.ToList())
@@ -101,7 +101,7 @@ namespace ISIP123_Solodov_WPF.Pages
                 ItemCardGrid.DataContext = itemsCopy[0];
 
                 double? flot = itemsCopy[0].Flot;
-                foreach (var str in Core.Context.Iznos.ToList())
+                foreach (var str in Core.ContextKIP.Iznos.ToList())
                 {
                     if (str.MinFlot <= flot && flot < str.MaxFlot)
                     {
@@ -110,7 +110,7 @@ namespace ISIP123_Solodov_WPF.Pages
                 }
 
                 // Поиск цены скина (стоимости при последней продаже)
-                var list = Core.Context.CS2Market.Where(x => x.StatusID == 2).ToList();
+                var list = Core.ContextKIP.CS2Market.Where(x => x.StatusID == 2).ToList();
                 int i = list.Count() - 1;
                 while (i != 0)
                 {

@@ -28,7 +28,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
         private void TopUpBalance_Click(object sender, RoutedEventArgs e)
         {
             Core.CurrentUser.Balance = 1000000;
-            Core.Context.SaveChanges();
+            Core.ContextKIP.SaveChanges();
 
             PageLoaded(null, null);
         }
@@ -37,7 +37,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
         {
             LoginTBox.Text = Core.CurrentUser.Login;
             NicknameTBox.Text = Core.CurrentUser.Nickname;
-            BalanceTBox.Text = Core.CurrentUser.Balance.ToString();
+            BalanceTBox.Text = $"{Core.CurrentUser.Balance.ToString()} ₽";
         }
     }
 }
