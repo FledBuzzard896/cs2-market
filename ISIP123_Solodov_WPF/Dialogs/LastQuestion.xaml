@@ -15,8 +15,8 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Image Source="/Images/stem-logo-nobg.png" Width="100" Grid.Row="0" HorizontalAlignment="Right" Margin="10"/>
+        <Image Source="/Images/lastquestion.jpg" Grid.Row="1" Grid.RowSpan="3" Stretch="Fill"/>
         <TextBlock Text="Вы уверены, что хотите закрыть окно?" Foreground="White" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10" Grid.Row="1"/>
-        <Image Source="/Images/lastquestion.jpg" Grid.Row="2" Stretch="Fill"/>
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
             <Button x:Name="YesBtn" Content="Да" BorderThickness="0" Width="75" Background="#5076a3" Foreground="White" Click="YesBtn_Click"/>
             <Button x:Name="NoBtn" Content="Нет" BorderThickness="0" Width="75" Background="#5076a3" Foreground="White" Margin="100,0,0,0" Click="NoBtn_Click"/>

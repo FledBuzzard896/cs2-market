@@ -1,4 +1,5 @@
-﻿using ISIP123_Solodov_WPF.Models;
+﻿using ISIP123_Solodov_WPF.Dialogs;
+using ISIP123_Solodov_WPF.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,7 +48,7 @@ namespace ISIP123_Solodov_WPF.Pages
                 }
 
                 // Поиск цены скина (стоимости при последней продаже)
-                var list = Core.ContextKIP.CS2Market.Where(x => x.StatusID == 2).ToList();
+                var list = Core.ContextKIP.CS2Market.Where(x => x.StatusID == 1).ToList();
                 int i = list.Count() - 1;
                 while (i != 0)
                 {
@@ -98,7 +99,8 @@ namespace ISIP123_Solodov_WPF.Pages
 
         private void BuyButton_Click(object sender, RoutedEventArgs e)
         {
-
+            TransactionConfirmation dialog = new TransactionConfirmation(_item, _itemCount);
+            dialog.ShowDialog();
         }
     }
 }
