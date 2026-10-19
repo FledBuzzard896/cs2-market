@@ -22,6 +22,7 @@ namespace ISIP123_Solodov_WPF.Pages
     public partial class BuyItemPage : Page
     {
         private CS2Market _item;
+        private int _itemCount = 1;
         public BuyItemPage(CS2Market item)
         {
             _item = item;
@@ -35,7 +36,7 @@ namespace ISIP123_Solodov_WPF.Pages
             if (_item != null) 
             {
                 ItemGrid.DataContext = _item;
-
+                CountOfSkin.Text = _itemCount.ToString();
 
                 foreach (var str in Core.ContextKIP.Iznos.ToList())
                 {
@@ -67,6 +68,37 @@ namespace ISIP123_Solodov_WPF.Pages
                     Price.Text = $"Начальная цена: {_item.Inventories.Items.AveragePrice.ToString()} руб.";
                 }
             }
+        }
+
+        private void Minus_Click(object sender, RoutedEventArgs e)
+        {
+            if (_itemCount > 1)
+            {
+                _itemCount--;
+                CountOfSkin.Text = _itemCount.ToString();
+            }
+            else 
+            {
+                Minus.IsEnabled = false;
+            }
+        }
+
+        private void Plus_Click(object sender, RoutedEventArgs e)
+        {
+            if (_item.Count > 1 && (_itemCount + 1) <= _item.Count)
+            {
+                _itemCount++;
+                CountOfSkin.Text = _itemCount.ToString();
+            }
+            else
+            {
+                Plus.IsEnabled = false;
+            }
+        }
+
+        private void BuyButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
