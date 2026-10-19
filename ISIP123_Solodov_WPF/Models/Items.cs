@@ -25,7 +25,6 @@ namespace ISIP123_Solodov_WPF.Models
         public Nullable<int> QualityID { get; set; }
         public decimal AveragePrice { get; set; }
         public string ItemPicture { get; set; }
-        public string Description { get; set; }
     
         public virtual ICollection<Inventories> Inventories { get; set; }
         public virtual Qualities Qualities { get; set; }

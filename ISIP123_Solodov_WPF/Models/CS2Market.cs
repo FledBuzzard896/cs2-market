@@ -23,6 +23,7 @@ namespace ISIP123_Solodov_WPF.Models
         public Nullable<System.DateTime> DateOfDeal { get; set; }
         public System.DateTime DateOfCreatingOffer { get; set; }
         public int StatusID { get; set; }
+        public Nullable<int> Count { get; set; }
     
         public virtual Users Users { get; set; }
         public virtual Inventories Inventories { get; set; }
