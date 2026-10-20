@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ISIP123_Solodov_WPF.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,8 +28,18 @@ namespace ISIP123_Solodov_WPF.Dialogs
 
         private void TopUpBalance_Click(object sender, RoutedEventArgs e)
         {
-            Core.CurrentUser.Balance = 1000000;
-            Core.ContextKIP.SaveChanges();
+            Core.CurrentUser.Balance += Convert.ToDecimal(1000000.0);
+
+            // запись транзакции как "пополнение"
+            var newStr = new TransactionsHistory 
+            {
+                UserID = Core.CurrentUser.ID,
+                OperationID = 1, // пополнение
+                TransactionSum = 1000000,
+                DateOfTransaction = DateTime.Now,
+            };
+            Core.Context.TransactionsHistory.Add(newStr);
+            Core.Context.SaveChanges();
 
             PageLoaded(null, null);
         }

@@ -27,7 +27,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
 
         private void PageLoaded(object sender, RoutedEventArgs e) 
         {
-            var marketHistory = Core.ContextKIP.CS2Market.Where(x => x.BuyerID == Core.CurrentUser.ID || (x.SellerID == Core.CurrentUser.ID && x.BuyerID != null)).ToList()
+            var marketHistory = Core.Context.CS2Market.Where(x => x.BuyerID == Core.CurrentUser.ID || (x.SellerID == Core.CurrentUser.ID && x.BuyerID != null)).ToList()
                 .Select(x => new
                 {
                     Transaction = x,

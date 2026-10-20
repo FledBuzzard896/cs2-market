@@ -39,7 +39,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
             }
             else 
             {
-                if (Core.ContextKIP.Users.Where(x => x.Login == NewUserLoginTB.Text.Trim()).Count() != 0)
+                if (Core.Context.Users.Where(x => x.Login == NewUserLoginTB.Text.Trim()).Count() != 0)
                 {
                     MessageBox.Show("Пользователь с таким Login уже существует.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
@@ -72,8 +72,8 @@ namespace ISIP123_Solodov_WPF.Dialogs
                             Balance = 0,
                         };
 
-                        Core.ContextKIP.Users.Add(newUser);
-                        Core.ContextKIP.SaveChanges();
+                        Core.Context.Users.Add(newUser);
+                        Core.Context.SaveChanges();
 
                         Core.CurrentUser = newUser;
                         this.DialogResult = true;

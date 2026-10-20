@@ -39,18 +39,19 @@ namespace ISIP123_Solodov_WPF.Pages
                 ItemGrid.DataContext = _item;
                 CountOfSkin.Text = _itemCount.ToString();
 
-                foreach (var str in Core.ContextKIP.Iznos.ToList())
+                foreach (var str in Core.Context.Iznos.ToList())
                 {
                     if (str.MinFlot <= _item.Inventories.Flot && _item.Inventories.Flot < str.MaxFlot)
                     {
-                        Sostoianie.Text = $"СОСТОЯНИЕ: {str.Name}"; ;
+                        Sostoianie.Text = $"СОСТОЯНИЕ: {str.Name}";
+                        break;
                     }
                 }
 
                 // Поиск цены скина (стоимости при последней продаже)
-                var list = Core.ContextKIP.CS2Market.Where(x => x.StatusID == 1).ToList();
+                var list = Core.Context.CS2Market.Where(x => x.StatusID == 1).ToList();
                 int i = list.Count() - 1;
-                while (i != 0)
+                while (i >= 0)
                 {
                     var str = list[i];
 
@@ -99,8 +100,20 @@ namespace ISIP123_Solodov_WPF.Pages
 
         private void BuyButton_Click(object sender, RoutedEventArgs e)
         {
-            TransactionConfirmation dialog = new TransactionConfirmation(_item, _itemCount);
-            dialog.ShowDialog();
+            if (Core.CurrentUser != null) 
+            {
+                TransactionConfirmation dialog = new TransactionConfirmation(_item, _itemCount);
+                dialog.ShowDialog();
+
+                return;
+            }
+
+            MessageBox.Show("Войдите в аккаунт, чтобы совершать покупки на Торговой площадке Stem", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        private void CloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }

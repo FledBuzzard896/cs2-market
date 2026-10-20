@@ -18,6 +18,7 @@
           <Property Name="DateOfDeal" Type="datetime" />
           <Property Name="DateOfCreatingOffer" Type="datetime" Nullable="false" />
           <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="Count" Type="int" />
         </EntityType>
         <EntityType Name="Inventories">
           <Key>
@@ -302,6 +303,7 @@
           <NavigationProperty Name="Inventories" Relationship="Self.FK_CS2Market_Inventories" FromRole="CS2Market" ToRole="Inventories" />
           <NavigationProperty Name="Users1" Relationship="Self.FK_CS2Market_Seller" FromRole="CS2Market" ToRole="Users" />
           <NavigationProperty Name="Status" Relationship="Self.FK_CS2Market_Status" FromRole="CS2Market" ToRole="Status" />
+          <Property Name="Count" Type="Int32" />
         </EntityType>
         <EntityType Name="Inventories">
           <Key>
@@ -590,6 +592,7 @@
           <EntitySetMapping Name="CS2Market">
             <EntityTypeMapping TypeName="SteamMarketModelHome.CS2Market">
               <MappingFragment StoreEntitySet="CS2Market">
+                <ScalarProperty Name="Count" ColumnName="Count" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="InventoryID" ColumnName="InventoryID" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
