@@ -90,7 +90,7 @@
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Поиск по предметам:" FontSize="14" Foreground="#afb1b8" Grid.Column="0"/>
-                        <TextBox x:Name="SearchItemTBox" FontSize="14" Foreground="#afb1b8" Background="#16191a" BorderBrush="Black" Margin="10,0,0,0" Grid.Column="1"/>
+                        <TextBox x:Name="SearchItemTBox" FontSize="14" Foreground="#afb1b8" Background="#16191a" BorderBrush="Black" Margin="10,0,0,0" Grid.Column="1" TextChanged="SearchItemTBox_TextChanged"/>
                     </Grid>
                     <Grid Margin="5,0,5,5" Grid.Row="2">
                         <Grid.ColumnDefinitions>
@@ -99,7 +99,7 @@
                             <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Тип:" FontSize="14" Foreground="#afb1b8" Grid.Column="0"/>
-                        <ComboBox x:Name="TypesCombo" Style="{StaticResource SideBarCombo}" ItemContainerStyle="{StaticResource SideBarComboItem}" Margin="10,0,0,0" Height="20" Width="150" Grid.Column="1"/>
+                        <ComboBox x:Name="TypesCombo" Style="{StaticResource SideBarCombo}" ItemContainerStyle="{StaticResource SideBarComboItem}" Margin="10,0,0,0" Height="20" Width="150" Grid.Column="1" SelectionChanged="TypesCombo_SelectionChanged"/>
                     </Grid>
                     <Grid Margin="5,0,5,5" Grid.Row="3">
                         <Grid.ColumnDefinitions>
@@ -108,7 +108,7 @@
                             <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Редкость:" FontSize="14" Foreground="#afb1b8" Grid.Column="0"/>
-                        <ComboBox x:Name="QualitesCombo" Style="{StaticResource SideBarCombo}" ItemContainerStyle="{StaticResource SideBarComboItem}" Margin="10,0,0,0" Height="20" Width="150" Grid.Column="1"/>
+                        <ComboBox x:Name="QualitesCombo" Style="{StaticResource SideBarCombo}" ItemContainerStyle="{StaticResource SideBarComboItem}" Margin="10,0,0,0" Height="20" Width="150" Grid.Column="1" SelectionChanged="QualitesCombo_SelectionChanged" IsEnabled="False"/>
                     </Grid>
                     <Grid Grid.Row="4" Margin="5">
                         <Grid.ColumnDefinitions>
@@ -121,7 +121,7 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <ListBox x:Name="InventoryItems" Grid.Row="0" Grid.Column="0" Width="538" Height="538" VerticalAlignment="Top" HorizontalAlignment="Left" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                        <ListBox x:Name="InventoryItems" Grid.Row="0" Grid.Column="0" Width="538" Height="538" VerticalAlignment="Top" HorizontalAlignment="Left" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" PreviewMouseWheel="ListBox_PreviewMouseWheel" SelectionChanged="InventoryItems_SelectionChanged">
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <UniformGrid Columns="5" Rows="5" Background="Black"/>
@@ -136,9 +136,9 @@
                             </ListBox.ItemTemplate>
                         </ListBox>
                         <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Right">
-                            <Button x:Name="leftBtn" Content="&lt;" Width="35"/>
-                            <TextBlock Text="1 из 1" Foreground="#afb1b8" FontSize="14" Margin="5,0,5,0"/>
-                            <Button x:Name="rightBtn" Content=">" Width="35"/>
+                            <Button x:Name="leftBtn" Content="&lt;" Width="35" IsEnabled="False" Click="leftBtn_Click"/>
+                            <TextBlock x:Name="count" Text="1 из 1" Foreground="#afb1b8" FontSize="14" Margin="5,0,5,0"/>
+                            <Button x:Name="rightBtn" Content=">" Width="35" IsEnabled="False" Click="rightBtn_Click"/>
                         </StackPanel>
                         <Border x:Name="ItemCardGrid" Visibility="Hidden" Grid.RowSpan="2" Grid.Column="1" BorderThickness="2" BorderBrush="#66c0f4" Margin="10,0,5,5" VerticalAlignment="Top">
                             <Grid Margin="10">
@@ -164,10 +164,10 @@
                                     <TextBlock Text="Counter-Strike 2" FontSize="14" Foreground="#D2D2D2" Margin="5,0,0,0" VerticalAlignment="Center"/>
                                 </StackPanel>
                                 <StackPanel Grid.Row="3" Orientation="Vertical" Margin="0,5,0,0">
-                                    <TextBlock x:Name="IznosTB" Text="Состояние: " FontSize="14" Foreground="#666666" Margin="0,0,0,3"/>
+                                    <TextBlock x:Name="IznosTblock" Text="Состояние: " FontSize="14" Foreground="#666666" Margin="0,0,0,3" Visibility="Visible"/>
                                     <TextBlock Text="{Binding Items.Types.Name, StringFormat={}Тип: {0}}" FontSize="14" Foreground="#666666" Margin="0,0,0,3"/>
                                     <TextBlock Text="{Binding Items.Qualities.Name, StringFormat={}Качество: {0}}" FontSize="14" Foreground="#666666" Margin="0,0,0,3"/>
-                                    <TextBlock Text="{Binding Flot, StringFormat={}Степень износа: {0}}" FontSize="14" Foreground="#666666"/>
+                                    <TextBlock x:Name="FlotTblock" Text="{Binding Flot, StringFormat={}Степень износа: {0}}" FontSize="14" Foreground="#666666" Visibility="Visible"/>
                                 </StackPanel>
                                 <TextBlock Grid.Row="4" Margin="0,10,0,5" Text="{Binding Items.Description}" TextWrapping="Wrap" FontSize="14" Foreground="#D2D2D2"/>
 
@@ -177,7 +177,7 @@
                                         <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
                                     <TextBlock x:Name="StartPrice" Text="тест" FontSize="14" Foreground="#D2D2D2" HorizontalAlignment="Left" Margin="10" Grid.Row="0"/>
-                                    <Button Content="Продать" Background="#577c22" Foreground="White" BorderThickness="0" Width="75" Height="25" HorizontalAlignment="Left" Margin="10,0,0,10" Grid.Row="1"/>
+                                    <Button Content="Продать" Background="#577c22" Foreground="White" BorderThickness="0" Width="75" Height="25" HorizontalAlignment="Left" Margin="10,0,0,10" Grid.Row="1" Click="SellItemButton_Click"/>
                                 </Grid>
                             </Grid>
                         </Border>

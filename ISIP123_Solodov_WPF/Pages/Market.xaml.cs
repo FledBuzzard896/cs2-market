@@ -238,7 +238,11 @@ namespace ISIP123_Solodov_WPF.Pages
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
             // Подгрузка ТП
-            var market = Core.Context.CS2Market.Where(x => x.StatusID == 1 && x.Users1.ID != Core.CurrentUser.ID).ToList();  
+            var market = Core.Context.CS2Market.Where(x => x.StatusID == 1).ToList();
+            if (Core.CurrentUser != null)
+            {
+                market = market.Where(x => x.Users1.ID != Core.CurrentUser.ID).ToList();
+            }
             ItemsLB.ItemsSource = market;
 
 
