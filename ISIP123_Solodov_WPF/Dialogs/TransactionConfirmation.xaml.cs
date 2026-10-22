@@ -129,7 +129,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
             MainGrid.DataContext = _item;
 
             // Поиск цены скина (стоимости при последней продаже)
-            var list = Core.Context.CS2Market.Where(x => x.StatusID == 1).ToList();
+            var list = Core.Context.CS2Market.Where(x => x.StatusID == 2).ToList();
             int i = list.Count() - 1;
             while (i >= 0)
             {

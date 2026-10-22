@@ -253,7 +253,8 @@ namespace ISIP123_Solodov_WPF.Pages
         {
             if (InventoryItems.SelectedItem is Inventories selectedItem)
             {
-
+                SellDialog dialog = new SellDialog(selectedItem);
+                dialog.ShowDialog();
             }
         }
 
