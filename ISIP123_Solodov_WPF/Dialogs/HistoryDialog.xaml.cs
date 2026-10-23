@@ -25,15 +25,20 @@ namespace ISIP123_Solodov_WPF.Dialogs
             Loaded += PageLoaded;
         }
 
-        private void PageLoaded(object sender, RoutedEventArgs e) 
+        private void PageLoaded(object sender, RoutedEventArgs e)
         {
-            var marketHistory = Core.Context.CS2Market.Where(x => x.BuyerID == Core.CurrentUser.ID || (x.SellerID == Core.CurrentUser.ID && x.BuyerID != null)).ToList()
+            var marketHistory = Core.Context.MarketListings
+                .Where(x => x.BuyerID == Core.CurrentUser.ID || (x.SellerID == Core.CurrentUser.ID && x.BuyerID != null))
+                .ToList()
                 .Select(x => new
                 {
-                    Transaction = x,
-                    // Если мы SellerID — мы продали (Плюс), иначе купили (Минус)
-                    OperationSign = x.SellerID == Core.CurrentUser.ID ? "-" : "+",
+                    OperationSign = x.SellerID == Core.CurrentUser.ID ? "-" : "+    ",
+                    ItemName = x.InventoryItems?.Items?.Name ?? "Неизвестный предмет",
+                    CreatedAt = x.CreatedAt,
+                    SoldAt = x.SoldAt,
+                    Price = x.Price
                 })
+                .OrderByDescending(x => x.SoldAt ?? x.CreatedAt)
                 .ToList();
 
             MarketHistoryLB.ItemsSource = marketHistory;

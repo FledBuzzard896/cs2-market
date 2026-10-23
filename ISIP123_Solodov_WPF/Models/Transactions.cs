@@ -12,16 +12,15 @@ namespace ISIP123_Solodov_WPF.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Status
+    public partial class Transactions
     {
-        public Status()
-        {
-            this.CS2Market = new HashSet<CS2Market>();
-        }
-    
         public int ID { get; set; }
-        public string Name { get; set; }
+        public int UserID { get; set; }
+        public int OperationID { get; set; }
+        public decimal Amount { get; set; }
+        public System.DateTime TransactionDate { get; set; }
     
-        public virtual ICollection<CS2Market> CS2Market { get; set; }
+        public virtual OperationTypes OperationTypes { get; set; }
+        public virtual Users Users { get; set; }
     }
 }

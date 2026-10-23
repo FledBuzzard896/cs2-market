@@ -28,19 +28,37 @@ namespace ISIP123_Solodov_WPF.Pages
 
         private void enterBtn_Click(object sender, RoutedEventArgs e)
         {
-            var usr = Core.Context.Users.FirstOrDefault(x => x.Login == loginBox.Text);
-            if (usr == null)
+            if (string.IsNullOrEmpty(loginBox.Text.Trim()) || string.IsNullOrEmpty(passwordBox.Password.Trim()))
             {
-                MessageBox.Show("Пользователя с таким Login не существует.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Введите логин и пароль.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            else if (passwordBox.Password != usr.Password)
+
+            // Защита от двойного клика
+            enterBtn.IsEnabled = false;
+
+            try
             {
-                MessageBox.Show("Логин или пароль неправильный", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                var usr = Core.Context.Users.FirstOrDefault(x => x.Login == loginBox.Text.Trim());
+
+                if (usr == null || usr.Password != passwordBox.Password.Trim())
+                {
+                    MessageBox.Show("Неверный логин или пароль", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                Core.CurrentUser = usr;
+                NavigationService.Navigate(new Market());
             }
-            Core.CurrentUser = usr;
-            NavigationService.Navigate(new Market());
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка подключения: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                // Включаем кнопку обратно, если мы остались на этой странице (не перешли на маркет)
+                enterBtn.IsEnabled = true;
+            }
         }
 
         private void regBtn_Click(object sender, RoutedEventArgs e)

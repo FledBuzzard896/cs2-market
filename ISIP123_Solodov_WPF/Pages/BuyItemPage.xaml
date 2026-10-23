@@ -10,57 +10,113 @@
       Title="BuyItemPage">
 
     <ScrollViewer VerticalScrollBarVisibility="Hidden">
-        <Grid x:Name="ItemGrid">
+        <Grid>
             <Grid.Background>
                 <ImageBrush ImageSource="/Images/background-1.png" Stretch="UniformToFill"/>
             </Grid.Background>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="25"/>
-            </Grid.RowDefinitions>
 
-            <Border Grid.ColumnSpan="3" Grid.Row="0" Background="#171a21"/>
-            <Border Grid.Column="1" Grid.Row="2" Grid.RowSpan="9" Background="#101822"/>
+            <Grid Margin="0,20,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="900"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-            <Button x:Name="CloseBtn" Background="Transparent" Content="Зыкрыть" Margin="25" Height="20" Width="75" BorderThickness="0" Foreground="#afb1b8" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="2" Click="CloseBtn_Click"/>
-            <Image Source="/Images/stem-logo-nobg.png" Margin="10" Style="{StaticResource LogoStemMarketPage}"/>
-            <TextBlock Text="ПОКУПКА ПРЕДМЕТА" FontSize="34" Foreground="White" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <!-- Основной контейнер карточки товара -->
+                <Border Grid.Column="1" Style="{StaticResource BuyPageContainer}">
+                    <Grid x:Name="ItemGrid">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
 
-            <Border Style="{StaticResource ImageFrame}" BorderThickness="2" Background="#3d4450" HorizontalAlignment="Center" Margin="10" Grid.Column="1" Grid.Row="1">
-                <Image Source="{Binding Inventories.Items.ItemPicture}" Width="300" Margin="10"/>
-            </Border>
+                        <!-- 1. ХЕДЕР СТРАНИЦЫ -->
+                        <Grid Grid.Row="0" Style="{StaticResource BuyPageHeader}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
 
-            <TextBlock Text="{Binding Inventories.Items.Name, StringFormat={}НАЗВАНИЕ: {0}}" FontSize="16" Foreground="#afb1b8" Grid.Column="1" Grid.Row="2" Margin="10,10,0,0"/>
-            <TextBlock Text="{Binding Inventories.Items.Description, StringFormat={}ОПИСАНИЕ: {0}}" FontSize="16" TextWrapping="Wrap" Foreground="#afb1b8" Grid.Column="1" Grid.Row="3" Margin="10,3,10,0"/>
-            <TextBlock x:Name="Sostoianie" FontSize="16" Foreground="#afb1b8" Grid.Column="1" Grid.Row="4" Margin="10,10,0,0"/>
-            <TextBlock Text="{Binding Inventories.Items.Types.Name, StringFormat={}ТИП: {0}}" FontSize="16" Foreground="#afb1b8" Grid.Column="1" Grid.Row="5" Margin="10,3,0,0"/>
-            <TextBlock Text="{Binding Inventories.Items.Qualities.Name, StringFormat={}КАЧЕСТВО: {0}}" FontSize="16" Foreground="#afb1b8" Grid.Column="1" Grid.Row="6" Margin="10,3,0,0"/>
-            <TextBlock Text="{Binding Inventories.Flot, StringFormat={}СТЕПЕНЬ ИЗНОСА: {0}}" FontSize="16" Foreground="#afb1b8" Grid.Column="1" Grid.Row="7" Margin="10,3,0,0"/>
-            <TextBlock x:Name="Price" Text="тест" FontSize="16" Foreground="#577c22" Grid.Column="1" Grid.Row="8" Margin="10,15,0,0"/>
-            <TextBlock Text="{Binding Users1.Nickname, StringFormat={}Продавец: {0}}" FontSize="16" Foreground="#afb1b8" Grid.Column="1" Grid.Row="9" Margin="10,3,0,0"/>
-            <StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="10" Grid.Column="1">
-                <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
-                    <Button x:Name="Minus" Content="–" FontSize="16" FontWeight="Bold" Foreground="White" BorderThickness="0" Background="DarkRed" Width="25" Height="25" Click="Minus_Click"/>
-                    <TextBlock x:Name="CountOfSkin" Text="1" FontSize="16" FontWeight="Bold" Foreground="White" Height="25" Margin="10,0,10,0"/>
-                    <Button x:Name="Plus" Content="+" FontSize="16" FontWeight="Bold" Foreground="White" BorderThickness="0" Background="#577c22" Width="25" Height="25" Click="Plus_Click"/>
-                </StackPanel>
-                <Button x:Name="BuyButton" Content="Купить" Width="100" Height="25" FontSize="16" BorderThickness="0" VerticalContentAlignment="Center" Background="#577c22" Foreground="White" Click="BuyButton_Click"/>
-            </StackPanel>
+                            <Image Source="/Images/stem-logo-nobg.png" Margin="10" Style="{StaticResource LogoStemMarketPage}" Grid.Column="0"/>
+                            <TextBlock Text="ПОКУПКА ПРЕДМЕТА" Style="{StaticResource BuyPageTitle}" Grid.Column="1"/>
+                            <Button x:Name="CloseBtn" Content="✖ Закрыть" Style="{StaticResource BuyPageCloseButton}" Click="CloseBtn_Click" Grid.Column="2"/>
+                        </Grid>
+
+                        <!-- 2. ОСНОВНОЙ КОНТЕНТ -->
+                        <Grid Grid.Row="1" Margin="20,0,20,20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="400"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Левая часть: Картинка -->
+                            <Border Style="{StaticResource BuyPageImageBorder}">
+                                <Image Source="{Binding InventoryItems.Items.ItemPicture}" Stretch="Uniform"/>
+                            </Border>
+
+                            <!-- Правая часть: Информация -->
+                            <StackPanel Grid.Column="1" VerticalAlignment="Top">
+                                <TextBlock Text="{Binding InventoryItems.Items.Name}" Style="{StaticResource BuyPageItemTitle}"/>
+                                <TextBlock Text="{Binding InventoryItems.Items.Description}" Style="{StaticResource BuyPageItemDescription}"/>
+
+                                <Border Style="{StaticResource BuyPageInfoBorder}">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding InventoryItems.Items.ItemTypes.Name, StringFormat={}Тип: {0}}" Style="{StaticResource BuyPageInfoText}"/>
+                                        <TextBlock Text="{Binding InventoryItems.Items.Qualities.Name, StringFormat={}Качество: {0}}" Style="{StaticResource BuyPageInfoText}"/>
+
+                                        <!-- Износ скрывается, если это не скин -->
+                                        <TextBlock Text="{Binding InventoryItems.FloatValue, StringFormat={}Износ: {0}}">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock" BasedOn="{StaticResource BuyPageInfoText}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding InventoryItems.FloatValue}" Value="{x:Null}">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+
+                                        <TextBlock x:Name="Sostoianie" Style="{StaticResource BuyPageInfoText}" Margin="0"/>
+                                    </StackPanel>
+                                </Border>
+
+                                <TextBlock Text="{Binding Users.Nickname, StringFormat={}Продавец: {0}}" Style="{StaticResource BuyPageSellerText}"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- 3. ПОДВАЛ (Цена и Кнопки) -->
+                        <Border Grid.Row="2" Style="{StaticResource BuyPageFooter}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                    <TextBlock x:Name="Price" Text="Загрузка..." Style="{StaticResource BuyPagePrice}"/>
+
+                                    <!-- Панель количества -->
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button x:Name="Minus" Content="–" Style="{StaticResource BuyPageMinusButton}" Click="Minus_Click"/>
+
+                                        <Border Style="{StaticResource BuyPageCountBorder}">
+                                            <TextBlock x:Name="CountOfSkin" Text="1" Style="{StaticResource BuyPageCountText}"/>
+                                        </Border>
+
+                                        <Button x:Name="Plus" Content="+" Style="{StaticResource BuyPagePlusButton}" Click="Plus_Click"/>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <!-- Кнопка Купить -->
+                                <Button x:Name="BuyButton" Grid.Column="1" Content="Купить" Style="{StaticResource BuyPageBuyButton}" Click="BuyButton_Click"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Border>
+            </Grid>
         </Grid>
     </ScrollViewer>
 </Page>

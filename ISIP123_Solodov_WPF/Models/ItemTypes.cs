@@ -12,16 +12,16 @@ namespace ISIP123_Solodov_WPF.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Operations
+    public partial class ItemTypes
     {
-        public Operations()
+        public ItemTypes()
         {
-            this.TransactionsHistory = new HashSet<TransactionsHistory>();
+            this.Items = new HashSet<Items>();
         }
     
         public int ID { get; set; }
         public string Name { get; set; }
     
-        public virtual ICollection<TransactionsHistory> TransactionsHistory { get; set; }
+        public virtual ICollection<Items> Items { get; set; }
     }
 }

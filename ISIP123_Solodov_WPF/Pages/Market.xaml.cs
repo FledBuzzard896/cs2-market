@@ -18,9 +18,6 @@ using System.Windows.Shapes;
 
 namespace ISIP123_Solodov_WPF.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для Market.xaml
-    /// </summary>
     public partial class Market : Page
     {
         public Market()
@@ -29,6 +26,40 @@ namespace ISIP123_Solodov_WPF.Pages
             Loaded += PageLoaded;
         }
 
+        // Выход с аккаунта / Просмотр аккаунта
+        private void exitBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Core.CurrentUser = null;
+            NavigationService.Navigate(new AuthPage());
+        }
+        private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (Core.CurrentUser == null)
+            {
+                MessageBox.Show("Войдите в аккаунт, чтобы посмотреть свой профиль", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            ProfileDialog dialog = new ProfileDialog();
+            dialog.ShowDialog();
+            balance.Text = $"Баланс кошелька: {Core.CurrentUser.Balance} ₽";
+        }
+
+
+        // Навигационная плашка
+        private void ShowError_Dialog(object sender, RoutedEventArgs e)
+        {
+            Error dialog = new Error();
+            dialog.ShowDialog();
+        }
+        private void communityBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string url = "https://steamcommunity.com/market/";
+            Process.Start(new ProcessStartInfo { FileName = url, UseShellExecute = true });
+        }
+
+
+        // Активные лоты, история сделок и продава предмета
         private void listingsBtn_Click(object sender, RoutedEventArgs e)
         {
             if (Core.CurrentUser != null)
@@ -48,16 +79,14 @@ namespace ISIP123_Solodov_WPF.Pages
                 HistoryDialog dialog = new HistoryDialog();
                 dialog.ShowDialog();
             }
-            else 
+            else
             {
                 MessageBox.Show("Чтобы посмотреть вашу историю на Торговой Площадке, вам нужно зайти в аккаунт", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
-
         private void sellItemBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (Core.CurrentUser is null) 
+            if (Core.CurrentUser is null)
             {
                 MessageBox.Show("Вы должны зарегистрироваться, чтобы зайти в Инвентарь.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -66,188 +95,136 @@ namespace ISIP123_Solodov_WPF.Pages
         }
 
 
-        private void exitBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Core.CurrentUser = null;
-            NavigationService.Navigate(new AuthPage());
-        }
-
-
-        private void ShowError_Dialog(object sender, RoutedEventArgs e)
-        {
-            Error dialog = new Error();
-            dialog.ShowDialog();
-        }
-        private void communityBtn_Click(object sender, RoutedEventArgs e)
-        {
-            string url = "https://steamcommunity.com/market/"; 
-
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = url,
-                UseShellExecute = true 
-            });
-        }
-
-
-        // Открытие ссылки на ресурс
+        // ВСПОМОГАЛКА: Открытие ссылки на ресурс
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = e.Uri.AbsoluteUri,
-                UseShellExecute = true
-            });
-
+            Process.Start(new ProcessStartInfo { FileName = e.Uri.AbsoluteUri, UseShellExecute = true });
             e.Handled = true;
         }
 
-        // Настройка для глобального скрола по ListBox
+        // ВСПОМОГАЛКА: Прокрутка страницы на LitBox
         private void ListBox_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (!e.Handled)
             {
                 e.Handled = true;
-
                 var eventArg = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta)
                 {
                     RoutedEvent = UIElement.MouseWheelEvent,
                     Source = sender
                 };
-
                 var parent = ((FrameworkElement)sender).Parent as UIElement;
-
                 parent?.RaiseEvent(eventArg);
             }
         }
 
-        // Обработка клика по нику 
-        private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            if (Core.CurrentUser == null) 
-            {
-                MessageBox.Show("Войдите в аккаунт, чтобы посмотреть свой профиль", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
 
-            ProfileDialog dialog = new ProfileDialog();
-            dialog.ShowDialog();
-
-            balance.Text = $"Баланс кошелька: {Core.CurrentUser.Balance.ToString()} ₽";
-        }
-
-        // Выбор элемента для покупки
+        // ВЫБОР ПРЕДМЕТА ДЛЯ ПОКУПКИ
         private void ItemsLB_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (ItemsLB.SelectedItem is CS2Market selectedMarketItem)
+            if (ItemsLB.SelectedItem != null)
             {
-                // Передаем объект на страницу покупки
-                NavigationService.Navigate(new BuyItemPage(selectedMarketItem));
+                // Так как мы используем анонимный тип для группировки, берем самый дешевый лот из группы
+                dynamic selectedGroup = ItemsLB.SelectedItem;
+                MarketListings cheapestListing = selectedGroup.CheapestListing;
+
+                NavigationService.Navigate(new BuyItemPage(cheapestListing));
             }
         }
 
+        private void SearchTBox_TextChanged(object sender, TextChangedEventArgs e) => ApplyFilters();
+        private void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) => ApplyFilters();
+        private void TypesCombo_SelectionChanged(object sender, SelectionChangedEventArgs e) => ApplyFilters();
+        private void QualitesCombo_SelectionChanged(object sender, SelectionChangedEventArgs e) => ApplyFilters();
 
-        private void searchTBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void ApplyFilters()
         {
-            ApplyFilters();
-        }
-        private void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ApplyFilters();
-        }
-        private void TypesCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ApplyFilters();
-        }
-        private void QualitesCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ApplyFilters();
-        }
-        private void ApplyFilters() 
-        {
-            // Берем весь список предметов
-            var market = Core.Context.CS2Market.Where(x => x.StatusID == 1).ToList();
-            var changed_dataList = market.ToList();
+            // Берем все активные лоты из новой таблицы
+            var market = Core.Context.MarketListings.Where(x => x.StatusID == 1).ToList();
 
-            // Поиск по названию
-            string search = searchTBox.Text.Trim().ToLower();
+            // Скрываем лоты текущего пользователя (чтобы он не купил сам у себя)
+            if (Core.CurrentUser != null)
+            {
+                market = market.Where(x => x.SellerID != Core.CurrentUser.ID).ToList();
+            }
 
+            var changedDataList = market.ToList();
+
+            // 1. Поиск по названию
+            string search = SearchTBox.Text.Trim().ToLower();
             if (!string.IsNullOrEmpty(search))
             {
-                changed_dataList = changed_dataList.Where(x =>
-                    x.Inventories.Items.Name.ToLower().StartsWith(search) ||
-                    x.Inventories.Items.Name.ToLower().Contains(search)
+                changedDataList = changedDataList.Where(x =>
+                    x.InventoryItems.Items.Name.ToLower().Contains(search)
                 ).ToList();
             }
 
-            // Фильтрация по качеству предмета
-            if (QualitesCombo.SelectedItem != null) 
+            // 2. Фильтрация по качеству
+            if (QualitesCombo.SelectedItem != null)
             {
                 string selectedQuality = QualitesCombo.SelectedItem.ToString();
-
-                // Проверяем, что строка не пустая и не равна "Все"
                 if (!string.IsNullOrEmpty(selectedQuality) && selectedQuality != "Все")
                 {
-                    changed_dataList = changed_dataList
-                        .Where(x => x.Inventories.Items.Qualities.Name == selectedQuality)
+                    changedDataList = changedDataList
+                        .Where(x => x.InventoryItems.Items.Qualities.Name == selectedQuality)
                         .ToList();
                 }
             }
 
-            // Фильтрация по типу предмета
-            if (TypesCombo.SelectedItem != null)    
+            // 3. Фильтрация по типу
+            if (TypesCombo.SelectedItem != null)
             {
                 string selectedType = TypesCombo.SelectedItem.ToString();
-
                 if (!string.IsNullOrEmpty(selectedType) && selectedType != "Все")
                 {
-                    changed_dataList = changed_dataList
-                        .Where(x => x.Inventories.Items.Types.Name == selectedType)
+                    changedDataList = changedDataList
+                        .Where(x => x.InventoryItems.Items.ItemTypes.Name == selectedType)
                         .ToList();
                 }
             }
 
-            // Сортировка
+            // 4. Группировка
+            var groupedList = changedDataList
+                .GroupBy(x => x.InventoryItems.ItemID) // Группируем по ID предмета
+                .Select(g => new
+                {
+                    ItemID = g.Key,
+                    ItemName = g.First().InventoryItems.Items.Name,
+                    ItemPicture = g.First().InventoryItems.Items.ItemPicture,
+                    Price = g.Min(x => x.Price), // Показываем самую дешевую цену
+                    TotalCount = g.Count(), // Общее количество таких предметов
+                    CheapestListing = g.OrderBy(x => x.Price).First() // Запоминаем самый дешевый лот для покупки
+                })
+                .ToList();
+
+            // 5. Сортировка
             if (SortingCombo.SelectedItem is ComboBoxItem sortItem)
             {
                 string sortValue = sortItem.Content.ToString();
                 switch (sortValue)
                 {
                     case "Название (↑)":
-                        changed_dataList = changed_dataList.OrderBy(x => x.Inventories.Items.Name).ToList();
+                        groupedList = groupedList.OrderBy(x => x.ItemName).ToList();
                         break;
                     case "Название (↓)":
-                        changed_dataList = changed_dataList.OrderByDescending(x => x.Inventories.Items.Name).ToList();
+                        groupedList = groupedList.OrderByDescending(x => x.ItemName).ToList();
                         break;
                     case "Цена (↑)":
-                        changed_dataList = changed_dataList.OrderBy(x => x.Price).ToList();
+                        groupedList = groupedList.OrderBy(x => x.Price).ToList();
                         break;
                     case "Цена (↓)":
-                        changed_dataList = changed_dataList.OrderByDescending(x => x.Price).ToList();
-                        break;
-                    default:
+                        groupedList = groupedList.OrderByDescending(x => x.Price).ToList();
                         break;
                 }
             }
-            
-            // Подгружает отфильтрованный список    
-            ItemsLB.ItemsSource = changed_dataList;
-        }
 
+            ItemsLB.ItemsSource = groupedList;
+        }
 
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
-            // Подгрузка ТП
-            var market = Core.Context.CS2Market.Where(x => x.StatusID == 1).ToList();
-            if (Core.CurrentUser != null)
-            {
-                market = market.Where(x => x.Users1.ID != Core.CurrentUser.ID).ToList();
-            }
-            ItemsLB.ItemsSource = market;
-
-
             // Подгрузка фильтров
-            var types = Core.Context.Types.Select(x => x.Name).ToList();
+            var types = Core.Context.ItemTypes.Select(x => x.Name).ToList(); // Было Types
             types.Insert(0, "Все");
             TypesCombo.ItemsSource = types;
 
@@ -255,19 +232,19 @@ namespace ISIP123_Solodov_WPF.Pages
             qualities.Insert(0, "Все");
             QualitesCombo.ItemsSource = qualities;
 
-
             if (Core.CurrentUser is null)
             {
                 NicknameTBox.Text = "guest";
                 balance.Text = $"Баланс кошелька: 0 ₽";
             }
-            else 
+            else
             {
                 NicknameTBox.Text = Core.CurrentUser.Nickname;
-                balance.Text = $"Баланс кошелька: {Core.CurrentUser.Balance.ToString()} ₽";
+                balance.Text = $"Баланс кошелька: {Core.CurrentUser.Balance} ₽";
             }
+
+            // Загружаем предметы
+            ApplyFilters();
         }
-
-
     }
 }

@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace ISIP123_Solodov_WPF.Dialogs
 {
-    /// <summary>
-    /// Логика взаимодействия для IForgotPasswordDialog.xaml
-    /// </summary>
     public partial class IForgotPasswordDialog : Window
     {
         public IForgotPasswordDialog()
@@ -28,47 +25,54 @@ namespace ISIP123_Solodov_WPF.Dialogs
         private void backBtn_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = false;
-            this.Close();
         }
 
         private void changePasswordBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(LoginBox.Text))
+            // 1. Проверка на пустой логин
+            if (string.IsNullOrWhiteSpace(LoginBox.Text))
             {
                 MessageBox.Show("Заполните поле Логин.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            else if (Core.Context.Users.FirstOrDefault(x => x.Login == LoginBox.Text) is null) 
+
+            // 2. Ищем пользователя
+            var usr = Core.Context.Users.FirstOrDefault(x => x.Login == LoginBox.Text);
+
+            if (usr == null)
             {
                 MessageBox.Show("Пользователь с таким логином не найден.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            else
+
+            // 3. Проверка на пустые пароли
+            if (string.IsNullOrWhiteSpace(firstPassBox.Password) || string.IsNullOrWhiteSpace(secondPassBox.Password))
             {
-                var usr = Core.Context.Users.FirstOrDefault(x => x.Login == LoginBox.Text);
+                MessageBox.Show("Заполните поле Пароль.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
-                if (string.IsNullOrEmpty(firstPassBox.Password) || string.IsNullOrEmpty(secondPassBox.Password))
-                {
-                    MessageBox.Show("Заполните поле Пароль.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-                else
-                {
-                    if (firstPassBox.Password != secondPassBox.Password)
-                    {
-                        MessageBox.Show("Пароли не совпадают.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
+            // 4. Проверка на совпадение паролей
+            if (firstPassBox.Password != secondPassBox.Password)
+            {
+                MessageBox.Show("Пароли не совпадают.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
-                    usr.Password = firstPassBox.Password;
-                    Core.Context.SaveChanges();
+            // 5. Сохраняем изменения
+            try
+            {
+                usr.Password = firstPassBox.Password;
+                Core.Context.SaveChanges();
 
-                    Core.CurrentUser = usr;
+                Core.CurrentUser = usr;
 
-                    MessageBox.Show("Пароль изменён.", "Проходите", MessageBoxButton.OK, MessageBoxImage.Information);
-                    this.DialogResult = true;
-                    this.Close();
-                }
+                MessageBox.Show("Пароль изменён.", "Проходите", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.DialogResult = true;
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show($"Ошибка при сохранении: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

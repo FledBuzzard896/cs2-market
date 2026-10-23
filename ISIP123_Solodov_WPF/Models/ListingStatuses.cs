@@ -12,16 +12,16 @@ namespace ISIP123_Solodov_WPF.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Types
+    public partial class ListingStatuses
     {
-        public Types()
+        public ListingStatuses()
         {
-            this.Items = new HashSet<Items>();
+            this.MarketListings = new HashSet<MarketListings>();
         }
     
         public int ID { get; set; }
         public string Name { get; set; }
     
-        public virtual ICollection<Items> Items { get; set; }
+        public virtual ICollection<MarketListings> MarketListings { get; set; }
     }
 }

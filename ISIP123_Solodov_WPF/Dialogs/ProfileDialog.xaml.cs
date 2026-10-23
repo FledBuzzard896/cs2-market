@@ -28,27 +28,53 @@ namespace ISIP123_Solodov_WPF.Dialogs
 
         private void TopUpBalance_Click(object sender, RoutedEventArgs e)
         {
-            Core.CurrentUser.Balance += Convert.ToDecimal(1000000.0);
-
-            // запись транзакции как "пополнение"
-            var newStr = new TransactionsHistory 
+            try
             {
-                UserID = Core.CurrentUser.ID,
-                OperationID = 1, // пополнение
-                TransactionSum = 1000000,
-                DateOfTransaction = DateTime.Now,
-            };
-            Core.Context.TransactionsHistory.Add(newStr);
-            Core.Context.SaveChanges();
+                Core.CurrentUser.Balance += Convert.ToDecimal(1000000.0);
 
-            PageLoaded(null, null);
+                var newTransaction = new Transactions
+                {
+                    UserID = Core.CurrentUser.ID,
+                    OperationID = 1, // Пополнение
+                    Amount = 1000000, 
+                    TransactionDate = DateTime.Now, 
+                };
+
+                Core.Context.Transactions.Add(newTransaction); 
+                Core.Context.SaveChanges();
+
+                // Обновляем интерфейс
+                UpdateUI();
+
+                MessageBox.Show("Баланс успешно пополнен на 1 000 000 ₽!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при пополнении баланса: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        private void PageLoaded(object sender, RoutedEventArgs e) 
+        private void SwitchThemeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            // Меняем тему на противоположную
+            Core.ChangeTheme(!Core.IsDarkTheme);
+
+            MessageBox.Show("Тема успешно изменена! Перезапустите приложение или вернитесь назад, чтобы увидеть изменения.",
+                            "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            this.Close(); // Закрываем профиль, чтобы пользователь увидел новый маркет
+        }
+
+        private void PageLoaded(object sender, RoutedEventArgs e)
+        {
+            UpdateUI();
+        }
+
+        private void UpdateUI()
         {
             LoginTBox.Text = Core.CurrentUser.Login;
             NicknameTBox.Text = Core.CurrentUser.Nickname;
-            BalanceTBox.Text = $"{Core.CurrentUser.Balance.ToString()} ₽";
+            BalanceTBox.Text = $"{Core.CurrentUser.Balance} ₽"; 
         }
     }
 }

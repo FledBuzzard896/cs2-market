@@ -25,12 +25,10 @@
                 <ColumnDefinition Width="949"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            
+
             <!-- Покраска -->
-            <Border Style="{StaticResource HeaderBG}" 
-                    Grid.Row="0" Grid.ColumnSpan="3"/>
-            <Border Style="{StaticResource MarketBG}"
-                    Grid.Row="1" Grid.ColumnSpan="3"/>
+            <Border Style="{StaticResource HeaderBG}" Grid.Row="0" Grid.ColumnSpan="3"/>
+            <Border Style="{StaticResource MarketBG}" Grid.Row="1" Grid.ColumnSpan="3"/>
 
             <!-- Header -->
             <Grid Grid.Row="0" Grid.Column="1" Margin="5">
@@ -39,29 +37,18 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
-                
+
                 <!-- Лого -->
-                <Image Source="/Images/stem-logo-nobg.png"
-                       Style="{StaticResource LogoStemMarketPage}"
-                       Grid.Column="0"/>
-                
+                <Image Source="/Images/stem-logo-nobg.png" Style="{StaticResource LogoStemMarketPage}" Grid.Column="0"/>
+
                 <!-- Кнопки -->
                 <StackPanel Grid.Column="1" Style="{StaticResource HeaderNavigations_StackPanel}" >
-                    <Button x:Name="shopBtn" Content="МАГАЗИН"
-                            Style="{StaticResource HeaderNavigations_Buttons}" 
-                            Click="ShowError_Dialog"/>
-                    <Button x:Name="communityBtn" Content="СООБЩЕСТВО" 
-                            Style="{StaticResource HeaderNavigations_Buttons}" 
-                            Foreground="#1999ff"
-                            Click="communityBtn_Click"/>
-                    <Button x:Name="informationBtn" Content="ИНФОРМАЦИЯ" 
-                            Style="{StaticResource HeaderNavigations_Buttons}" 
-                            Click="ShowError_Dialog"/>
-                    <Button x:Name="supportBtn" Content="ПОДДЕРЖКА" 
-                            Style="{StaticResource HeaderNavigations_Buttons}" 
-                            Click="ShowError_Dialog"/>
+                    <Button x:Name="shopBtn" Content="МАГАЗИН" Style="{StaticResource HeaderNavigations_Buttons}" Click="ShowError_Dialog"/>
+                    <Button x:Name="communityBtn" Content="СООБЩЕСТВО" Style="{StaticResource HeaderNavigations_Buttons}" Foreground="#1999ff" Click="communityBtn_Click"/>
+                    <Button x:Name="informationBtn" Content="ИНФОРМАЦИЯ" Style="{StaticResource HeaderNavigations_Buttons}" Click="ShowError_Dialog"/>
+                    <Button x:Name="supportBtn" Content="ПОДДЕРЖКА" Style="{StaticResource HeaderNavigations_Buttons}" Click="ShowError_Dialog"/>
                 </StackPanel>
-                
+
                 <!-- Аккаунт + Кнопка Выйти -->
                 <StackPanel Style="{StaticResource AccountAndExit}" Grid.Column="2">
                     <Button x:Name="exitBtn" Content="Выйти" Style="{StaticResource ExitBtn}" Click="exitBtn_Click"/>
@@ -109,7 +96,6 @@
                     <Button x:Name="sellItemBtn" Content="Продать предмет" Grid.Column="1" Style="{StaticResource SomethingOneButton}" Click="sellItemBtn_Click"/>
                 </Grid>
 
-
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="654"/>
@@ -123,7 +109,7 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <Grid Grid.Row="0" Background="#16202d" Margin="0,5,15,5">
+                        <Grid Grid.Row="0" Style="{StaticResource MarketListHeader}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="455"/>
                                 <ColumnDefinition Width="81"/>
@@ -136,10 +122,10 @@
                         </Grid>
 
                         <ListBox x:Name="ItemsLB" Grid.Row="1"
-                            Style="{StaticResource MainListBox}"
-                            ItemContainerStyle="{StaticResource OneListBoxItem}"
-                            PreviewMouseWheel="ListBox_PreviewMouseWheel"
-                            MouseDoubleClick="ItemsLB_MouseDoubleClick">
+                        Style="{StaticResource MainListBox}"
+                        ItemContainerStyle="{StaticResource OneListBoxItem}"
+                        PreviewMouseWheel="ListBox_PreviewMouseWheel"
+                        MouseDoubleClick="ItemsLB_MouseDoubleClick">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
@@ -151,14 +137,16 @@
 
                                         <StackPanel Orientation="Horizontal" Grid.Column="0">
                                             <Border x:Name="ImageFrame" Style="{StaticResource ImageFrame}">
-                                                <Image Source="{Binding Inventories.Items.ItemPicture}" Style="{StaticResource ItemIco}" Grid.Column="0"/>
+                                                <Image Source="{Binding ItemPicture}" Style="{StaticResource ItemIco}" Grid.Column="0"/>
                                             </Border>
                                             <StackPanel Margin="10,0,0,0" Grid.Column="1" Orientation="Vertical">
-                                                <TextBlock x:Name="ItemName" Text="{Binding Inventories.Items.Name}" Style="{StaticResource ItemName}"/>
-                                                <TextBlock Text="Counter-Strike 2" Foreground="#afb1b8"/>
+                                                <TextBlock x:Name="ItemName" Text="{Binding ItemName}" Style="{StaticResource ItemName}"/>
+                                                <TextBlock Text="Counter-Strike 2" Style="{StaticResource MarketItemSubTitle}"/>
                                             </StackPanel>
                                         </StackPanel>
-                                        <TextBlock Text="{Binding Inventories.Count}" Style="{StaticResource ItemCount}" Grid.Column="1"/>
+
+                                        <TextBlock Text="{Binding TotalCount}" Style="{StaticResource ItemCount}" Grid.Column="1"/>
+
                                         <StackPanel Style="{StaticResource StackPanelPrice}" Grid.Column="2">
                                             <TextBlock Text="От" Style="{StaticResource OtTextBlock}"/>
                                             <TextBlock Text="{Binding Price, StringFormat={}{0} руб.}" Style="{StaticResource PriceTextBlock}"/>
@@ -171,21 +159,24 @@
 
                     <StackPanel Grid.Column="1" Style="{StaticResource SideBar}">
                         <Border Style="{StaticResource SideBarBorder}">
-                            <StackPanel  Style="{StaticResource SideBarStackPanel}">
+                            <StackPanel Style="{StaticResource SideBarStackPanel}">
                                 <TextBlock Text="Прочтите требования к безопасности для использования Торговой площадки" Style="{StaticResource SideBarInformationTop}"/>
                                 <TextBlock Text="Поиск предметов" Style="{StaticResource SideBarSearchTextBlock}"/>
-                                <TextBox x:Name="searchTBox" Style="{StaticResource SideBarSearchTextBox}" TextChanged="searchTBox_TextChanged"/>
+                                <TextBox x:Name="SearchTBox" Style="{StaticResource SideBarSearchTextBox}" TextChanged="SearchTBox_TextChanged"/>
                                 <TextBlock Text="Сортировать по" Style="{StaticResource SideBarSortTextBlock}"/>
                                 <ComboBox x:Name="SortingCombo" Style="{StaticResource SideBarCombo}"
-                                          ItemContainerStyle="{StaticResource SideBarComboItem}"
-                                          SelectionChanged="SortComboBox_SelectionChanged">
+                                      ItemContainerStyle="{StaticResource SideBarComboItem}"
+                                      SelectionChanged="SortComboBox_SelectionChanged">
                                     <ComboBoxItem Content=""/>
                                     <ComboBoxItem Content="Название (↑)"/>
                                     <ComboBoxItem Content="Название (↓)"/>
                                     <ComboBoxItem Content="Цена (↑)"/>
                                     <ComboBoxItem Content="Цена (↓)"/>
                                 </ComboBox>
-                                <TextBlock Text="Фильтры" Foreground="#54a5d4" Margin="0,20,0,10"/>
+
+                                <!-- Применен новый стиль SideBarFilterTextBlock -->
+                                <TextBlock Text="Фильтры" Style="{StaticResource SideBarFilterTextBlock}"/>
+
                                 <ComboBox x:Name="TypesCombo" Style="{StaticResource SideBarCombo}" ItemContainerStyle="{StaticResource SideBarComboItem}" SelectionChanged="TypesCombo_SelectionChanged"/>
                                 <ComboBox x:Name="QualitesCombo" Style="{StaticResource SideBarCombo}" ItemContainerStyle="{StaticResource SideBarComboItem}" Margin="0,10,0,0" SelectionChanged="QualitesCombo_SelectionChanged"/>
                             </StackPanel>
@@ -193,17 +184,17 @@
                         <Border Style="{StaticResource FAQ}" Margin="0,20,0,20">
                             <StackPanel Orientation="Vertical" Margin="10">
                                 <TextBlock Style="{StaticResource SideBarInformationBottom}">
-                                    <Hyperlink NavigateUri="https://help.steampowered.com/ru/faqs/view/61F0-72B7-9A18-C70B" RequestNavigate="Hyperlink_RequestNavigate" Foreground="#afb1b8">
-                                        Частые вопросы
-                                    </Hyperlink>
-                                    о Торговой площадке
+                                <Hyperlink NavigateUri="https://help.steampowered.com/ru/faqs/view/61F0-72B7-9A18-C70B" RequestNavigate="Hyperlink_RequestNavigate" Foreground="#afb1b8">
+                                    Частые вопросы
+                                </Hyperlink>
+                                о Торговой площадке
                                 </TextBlock>
                                 <TextBlock Style="{StaticResource SideBarInformationBottom}" Margin="0,15,0,0">
-                                    Вступайте в 
-                                    <Hyperlink NavigateUri="https://steamcommunity.com/groups/community_market" RequestNavigate="Hyperlink_RequestNavigate" Foreground="#afb1b8">
-                                        группу Торговой площадки
-                                    </Hyperlink>
-                                    для обсуждений и официальных объявлений
+                                Вступайте в 
+                                <Hyperlink NavigateUri="https://steamcommunity.com/groups/community_market" RequestNavigate="Hyperlink_RequestNavigate" Foreground="#afb1b8">
+                                    группу Торговой площадки
+                                </Hyperlink>
+                                для обсуждений и официальных объявлений
                                 </TextBlock>
                             </StackPanel>
                         </Border>

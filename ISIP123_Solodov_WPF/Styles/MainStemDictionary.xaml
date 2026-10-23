@@ -1,24 +1,56 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
-    <!-- ===== СТРАНИЦА ВХОДА В STEM ===== -->
-    <!-- Стиль кнопок при первом входе в Stem -->
-    <Style x:Key="FirstTimeStem" TargetType="Button">
-        <Setter Property="Height" Value="25"/>
-        <Setter Property="Width" Value="125"/>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Foreground" Value="White"/>
-        <Setter Property="Background" Value="#214b6b"/>
+
+    <!-- ===== СТИЛИ ДЛЯ ДИАЛОГОВЫХ ОКОН (Активные лоты, История и т.д.) ===== -->
+
+    <!--#region СТИЛЬ СТРАНИЦЫ "АВТОРИЗАЦИЯ"-->
+
+    <!-- Общие элементы страницы -->
+    <Style x:Key="LogoStemAuthPage" TargetType="Image">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="Margin" Value="10"/>
     </Style>
-    <Style x:Key="EnterButton" TargetType="Button">
-        <Setter Property="Height" Value="35"/>
-        <Setter Property="Margin" Value="100,20,100,10"/>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Foreground" Value="White"/>
-        <Setter Property="Background" Value="#1999ff"/>
+
+    <Style x:Key="GrayBorder" TargetType="Border">
+        <Setter Property="BorderBrush" Value="#32353c"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
-    
-    <!-- Стиль полей для ввода при авторизации/регистрации -->
+
+    <!-- Картинки персонажей по бокам -->
+    <Style x:Key="AuthSideImageLeft" TargetType="Image">
+        <Setter Property="Width" Value="400"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Setter Property="Grid.RowSpan" Value="5"/>
+    </Style>
+
+    <Style x:Key="AuthSideImageRight" TargetType="Image" BasedOn="{StaticResource AuthSideImageLeft}">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+    </Style>
+
+    <!-- Тексты -->
+    <Style x:Key="AuthHeaderText" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#1999ff"/>
+    </Style>
+
+    <Style x:Key="AuthLabelText" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#afb1b8"/>
+        <Setter Property="Margin" Value="0,10,0,0"/>
+    </Style>
+
+    <Style x:Key="FirstTimeStemTBlock" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="10"/>
+    </Style>
+
+    <!-- Поля ввода -->
     <Style x:Key="AuthTextBox" TargetType="TextBox">
         <Setter Property="Height" Value="35"/>
         <Setter Property="Width" Value="400"/>
@@ -28,6 +60,7 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Margin" Value="0,0,0,5"/>
     </Style>
+
     <Style x:Key="AuthPassBox" TargetType="PasswordBox">
         <Setter Property="Height" Value="35"/>
         <Setter Property="Width" Value="400"/>
@@ -38,51 +71,73 @@
         <Setter Property="Margin" Value="0,0,0,5"/>
         <Setter Property="PasswordChar" Value="•"/>
     </Style>
-    
-    <!-- Стиль границы области информации о входе -->
-    <Style x:Key="GrayBorder" TargetType="Border">
-        <Setter Property="BorderBrush" Value="#32353c"/>
-        <Setter Property="BorderThickness" Value="2"/>
-        <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-    </Style>
-    
-    <!-- Стиль плашки "Первый раз в Stem?" -->
-    <Style x:Key="FirstTimeStemTBlock" TargetType="TextBlock">
+
+    <!-- Кнопки -->
+    <Style x:Key="EnterButton" TargetType="Button">
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="Margin" Value="100,20,100,10"/>
+        <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Foreground" Value="White"/>
-        <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="FontSize" Value="18"/>
-        <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="Margin" Value="10"/>
+        <Setter Property="Background" Value="#1999ff"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#1078c9"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
-    <!-- Стиль лого Stem на странице авторизации/регистрации -->
-    <Style x:Key="LogoStemAuthPage" TargetType="Image">
-        <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="VerticalAlignment" Value="Top"/>
-        <Setter Property="Width" Value="100"/>
-        <Setter Property="Margin" Value="10"/>
+    <Style x:Key="FirstTimeStem" TargetType="Button">
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="Width" Value="125"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="#214b6b"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#1999ff"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
-    
-    
-    
-    <!-- ===== СТРАНИЦА МАРКЕТА ===== -->
-    <!-- Стиль заднего фона -->
+
+    <Style x:Key="AuthLinkButton" TargetType="Button">
+        <Setter Property="Foreground" Value="#afb1b8"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- QR-код -->
+    <Style x:Key="AuthQrCodeImage" TargetType="Image">
+        <Setter Property="Margin" Value="0,20,20,20"/>
+        <Setter Property="Width" Value="200"/>
+    </Style>
+
+    <!-- #endregion -->
+
+    <!--#region СТИЛЬ СТРАНИЦЫ "МАРКЕТ"-->
+
+    <!-- Общие фоны -->
     <Style x:Key="HeaderBG" TargetType="Border">
         <Setter Property="Background" Value="#171a21"/>
     </Style>
     <Style x:Key="MarketBG" TargetType="Border">
         <Setter Property="Background" Value="#577c22"/>
     </Style>
-    
-    <!-- Стиль логотипа Stem на странице ТП -->
+
+    <!-- Шапка (Header) -->
     <Style x:Key="LogoStemMarketPage" TargetType="Image">
         <Setter Property="Width" Value="175"/>
         <Setter Property="Height" Value="80"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
     </Style>
-    
-    <!-- Стиль StackPanel с кнопками в Header -->
     <Style x:Key="HeaderNavigations_StackPanel" TargetType="StackPanel">
         <Setter Property="Orientation" Value="Horizontal"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -93,9 +148,13 @@
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="#1999ff"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
-    
-    <!-- Стиль StackPanel с Аккаунтом -->
     <Style x:Key="AccountAndExit" TargetType="StackPanel">
         <Setter Property="Orientation" Value="Horizontal"/>
         <Setter Property="HorizontalAlignment" Value="Right"/>
@@ -107,6 +166,12 @@
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="Background" Value="#214b6b"/>
         <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#1999ff"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
     <Style x:Key="AccountTBox" TargetType="TextBlock">
         <Setter Property="Width" Value="100"/>
@@ -116,8 +181,8 @@
         <Setter Property="TextAlignment" Value="Center"/>
         <Setter Property="Margin" Value="5,5,0,5"/>
     </Style>
-    
-    <!-- Стиль зеленой плашки "Торговая площадка" -->
+
+    <!-- Верхняя плашка (Заголовок + Баланс) -->
     <Style x:Key="MainTittle" TargetType="TextBlock">
         <Setter Property="FontSize" Value="34"/>
         <Setter Property="Foreground" Value="White"/>
@@ -127,8 +192,6 @@
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Foreground" Value="#85a45a"/>
     </Style>
-    
-    <!-- Стиль плашки баланса кошелька -->
     <Style x:Key="BalanceGrid" TargetType="Grid">
         <Setter Property="Background" Value="#101214"/>
         <Setter Property="Height" Value="50"/>
@@ -140,8 +203,8 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Margin" Value="5,0"/>
     </Style>
-    
-    <!-- Плашка "Активные лоты" + "История сделок" -->
+
+    <!-- Кнопки (Активные лоты, История, Продать) -->
     <Style x:Key="SometingGrid" TargetType="Grid">
         <Setter Property="Background" Value="#101822"/>
         <Setter Property="Margin" Value="0,30,0,5"/>
@@ -157,6 +220,12 @@
         <Setter Property="Background" Value="#577c22"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#6c9b2a"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
     <Style x:Key="SomethingButtons" TargetType="Button">
         <Setter Property="FontSize" Value="14"/>
@@ -165,9 +234,19 @@
         <Setter Property="Background" Value="#577c22"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#6c9b2a"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
-    
-    <!-- Стиль колонок маркета -->
+
+    <!-- Таблица предметов (Шапка и Список) -->
+    <Style x:Key="MarketListHeader" TargetType="Grid">
+        <Setter Property="Background" Value="#16202d"/>
+        <Setter Property="Margin" Value="0,5,15,5"/>
+    </Style>
     <Style x:Key="ItemNameTittle" TargetType="TextBlock">
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Foreground" Value="#afb1b8"/>
@@ -175,8 +254,6 @@
     <Style x:Key="ItemCountAngPriceTittle" TargetType="TextBlock" BasedOn="{StaticResource ItemNameTittle}">
         <Setter Property="TextAlignment" Value="Center"/>
     </Style>
-    
-    <!-- Стиль ListBox со всеми предметами на ТП -->
     <Style x:Key="MainListBox" TargetType="ListBox">
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Margin" Value="0,0,15,10"/>
@@ -191,9 +268,18 @@
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="Padding" Value="5,5,0,5"/>
         <Setter Property="Margin" Value="0,0,0,5"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#1d2b3a"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
-    
-    <!-- Стиль состовляющих ячейку товара -->
+    <Style x:Key="MarketItemSubTitle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#afb1b8"/>
+    </Style>
+
+    <!-- Элементы внутри карточки товара -->
     <Style x:Key="ImageFrame" TargetType="Border">
         <Setter Property="BorderBrush" Value="#66c0f4"/>
         <Setter Property="BorderThickness" Value="1"/>
@@ -227,8 +313,8 @@
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="TextAlignment" Value="Center"/>
     </Style>
-    
-    <!-- Стиль SideBar -->
+
+    <!-- Сайдбар (Поиск, Фильтры, FAQ) -->
     <Style x:Key="SideBar" TargetType="StackPanel">
         <Setter Property="VerticalAlignment" Value="Top"/>
         <Setter Property="Orientation" Value="Vertical"/>
@@ -259,6 +345,10 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
     <Style x:Key="SideBarSortTextBlock" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#54a5d4"/>
+        <Setter Property="Margin" Value="0,20,0,10"/>
+    </Style>
+    <Style x:Key="SideBarFilterTextBlock" TargetType="TextBlock">
         <Setter Property="Foreground" Value="#54a5d4"/>
         <Setter Property="Margin" Value="0,20,0,10"/>
     </Style>
@@ -295,4 +385,793 @@
         <Setter Property="Foreground" Value="#afb1b8"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
     </Style>
+    <!-- #endregion -->
+
+    <!--#region СТИЛЬ СТРАНИЦЫ "ПОКУПКА ПРЕДМЕТА"-->
+
+    <!-- Основной контейнер -->
+    <Style x:Key="BuyPageContainer" TargetType="Border">
+        <Setter Property="Background" Value="#16202d"/>
+    </Style>
+
+    <!-- Хедер -->
+    <Style x:Key="BuyPageHeader" TargetType="Grid">
+        <Setter Property="Background" Value="#171a21"/>
+        <Setter Property="Margin" Value="0,0,0,10"/>
+    </Style>
+    <Style x:Key="BuyPageTitle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+    <Style x:Key="BuyPageCloseButton" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Foreground" Value="#afb1b8"/>
+        <Setter Property="Margin" Value="10,0,10,0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Блок с картинкой и информацией -->
+    <Style x:Key="BuyPageImageBorder" TargetType="Border">
+        <Setter Property="Background" Value="#101822"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value="#3d4450"/>
+        <Setter Property="Padding" Value="20"/>
+        <Setter Property="Margin" Value="0,0,20,0"/>
+    </Style>
+    <Style x:Key="BuyPageItemTitle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="#66c0f4"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Margin" Value="0,0,0,5"/>
+    </Style>
+    <Style x:Key="BuyPageItemDescription" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="#afb1b8"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Margin" Value="0,0,0,20"/>
+    </Style>
+    <Style x:Key="BuyPageInfoBorder" TargetType="Border">
+        <Setter Property="Background" Value="#101822"/>
+        <Setter Property="Padding" Value="15"/>
+    </Style>
+    <Style x:Key="BuyPageInfoText" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="#afb1b8"/>
+        <Setter Property="Margin" Value="0,0,0,8"/>
+    </Style>
+    <Style x:Key="BuyPageSellerText" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="#afb1b8"/>
+        <Setter Property="Margin" Value="0,15,0,0"/>
+    </Style>
+
+    <!-- Подвал (цена и кнопки) -->
+    <Style x:Key="BuyPageFooter" TargetType="Border">
+        <Setter Property="Background" Value="#171a21"/>
+        <Setter Property="Padding" Value="20"/>
+    </Style>
+    <Style x:Key="BuyPagePrice" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="#577c22"/>
+        <Setter Property="Margin" Value="0,0,0,10"/>
+    </Style>
+
+    <!-- Кнопки изменения количества -->
+    <Style x:Key="BuyPageCountButton" TargetType="Button">
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Width" Value="35"/>
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" Padding="5">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="BuyPageMinusButton" TargetType="Button" BasedOn="{StaticResource BuyPageCountButton}">
+        <Setter Property="Background" Value="#2a3f5a"/>
+    </Style>
+    <Style x:Key="BuyPagePlusButton" TargetType="Button" BasedOn="{StaticResource BuyPageCountButton}">
+        <Setter Property="Background" Value="#577c22"/>
+    </Style>
+
+    <!-- Текст количества -->
+    <Style x:Key="BuyPageCountBorder" TargetType="Border">
+        <Setter Property="Background" Value="#101822"/>
+        <Setter Property="Width" Value="50"/>
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="Margin" Value="5,0"/>
+    </Style>
+    <Style x:Key="BuyPageCountText" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- Кнопка "Купить" -->
+    <Style x:Key="BuyPageBuyButton" TargetType="Button">
+        <Setter Property="Width" Value="200"/>
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="#577c22"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" Padding="10">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#6c9b2a"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!-- #endregion -->
+
+    <!--#region СТИЛЬ СТРАНИЦЫ "ИНВЕНТАРЬ"-->
+
+    <!-- Плашка профиля (сверху) -->
+    <Style x:Key="InventoryProfilePanel" TargetType="Grid">
+        <Setter Property="Background" Value="#2a3340"/>
+    </Style>
+    <Style x:Key="InventoryAvatarBorder" TargetType="Border">
+        <Setter Property="BorderBrush" Value="#6a6a6a"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="25,0,25,0"/>
+    </Style>
+    <Style x:Key="InventoryProfileName" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="26"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    <Style x:Key="InventoryBreadcrumb" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="10,0,0,0"/>
+    </Style>
+
+    <!-- Основной контент (рамка и фон) -->
+    <Style x:Key="InventoryMainBorder" TargetType="Border">
+        <Setter Property="BorderBrush" Value="#6a6a6a"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Margin" Value="20"/>
+    </Style>
+    <Style x:Key="InventoryMainGrid" TargetType="Grid">
+        <Setter Property="Background" Value="#1c1f21"/>
+    </Style>
+
+    <!-- Фильтры и поиск -->
+    <Style x:Key="InventoryFilterLabel" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="#afb1b8"/>
+    </Style>
+    <Style x:Key="InventorySearchBox" TargetType="TextBox">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="#afb1b8"/>
+        <Setter Property="Background" Value="#16191a"/>
+        <Setter Property="BorderBrush" Value="Black"/>
+    </Style>
+
+    <!-- Сетка инвентаря (UniformGrid и ячейки) -->
+    <Style x:Key="InventoryListBox" TargetType="ListBox">
+        <Setter Property="Width" Value="538"/>
+        <Setter Property="Height" Value="538"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+    </Style>
+    <Style x:Key="InventoryUniformGrid" TargetType="UniformGrid">
+        <Setter Property="Columns" Value="5"/>
+        <Setter Property="Rows" Value="5"/>
+        <Setter Property="Background" Value="Black"/>
+    </Style>
+    <Style x:Key="InventoryCellBorder" TargetType="Border">
+        <Setter Property="Background" Value="#454545"/>
+        <Setter Property="BorderBrush" Value="#66c0f4"/>
+        <Setter Property="BorderThickness" Value="1"/>
+    </Style>
+    <Style x:Key="InventoryCellImage" TargetType="Image">
+        <Setter Property="Width" Value="95"/>
+        <Setter Property="Height" Value="95"/>
+    </Style>
+
+    <!-- Пагинация -->
+    <Style x:Key="InventoryPageButton" TargetType="Button">
+        <Setter Property="Width" Value="35"/>
+        <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style x:Key="InventoryPageText" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#afb1b8"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Margin" Value="5,0,5,0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- Карточка предмета (справа) -->
+    <Style x:Key="InventoryCardBorder" TargetType="Border">
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value="#66c0f4"/>
+        <Setter Property="Margin" Value="10,0,5,5"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+    </Style>
+    <Style x:Key="InventoryCardTitle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="26"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="#66c0f4"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Margin" Value="0,5,0,0"/>
+    </Style>
+    <Style x:Key="InventoryCardGameText" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="#D2D2D2"/>
+        <Setter Property="Margin" Value="5,0,0,0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    <Style x:Key="InventoryCardStatText" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="#666666"/>
+        <Setter Property="Margin" Value="0,0,0,3"/>
+    </Style>
+    <Style x:Key="InventoryCardDescription" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="#D2D2D2"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+    <Style x:Key="InventoryCardBottomBar" TargetType="Grid">
+        <Setter Property="Background" Value="#141a21"/>
+    </Style>
+    <Style x:Key="InventoryCardPriceText" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="#D2D2D2"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Margin" Value="10"/>
+    </Style>
+    <Style x:Key="InventoryCardSellButton" TargetType="Button">
+        <Setter Property="Background" Value="#577c22"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Width" Value="75"/>
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Margin" Value="10,0,0,10"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#6c9b2a"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!-- #endregion -->
+
+    <!-- ===== СТИЛИ ДЛЯ ДИАЛОГОВЫХ ОКОН (Активные лоты, История и т.д.) ===== -->
+
+    <!--#region СТИЛЬ ДИАЛОГА "АКТИВНЫЕ ЛОТЫ"-->
+    <!-- Фон диалогового окна -->
+    <SolidColorBrush x:Key="DialogBackground" Color="#181a21"/>
+
+    <!-- Заголовки таблицы -->
+    <Style x:Key="DialogHeaderText" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="#afb1b8"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    <Style x:Key="DialogHeaderTextCenter" TargetType="TextBlock" BasedOn="{StaticResource DialogHeaderText}">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- Стили для списка -->
+    <Style x:Key="DialogListBox" TargetType="ListBox">
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"/>
+        <Setter Property="VirtualizingPanel.ScrollUnit" Value="Pixel"/>
+    </Style>
+
+    <Style x:Key="DialogListBoxItem" TargetType="ListBoxItem">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Border Background="{TemplateBinding Background}" 
+                            Padding="{TemplateBinding Padding}" 
+                            Margin="{TemplateBinding Margin}">
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="DialogRowBorder" TargetType="Border">
+        <Setter Property="Background" Value="#16202d"/>
+        <Setter Property="CornerRadius" Value="4"/>
+        <Setter Property="Margin" Value="0,0,0,6"/>
+        <Setter Property="Height" Value="40"/>
+    </Style>
+
+    <Style x:Key="DialogItemTitle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="#66c0f4"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    <Style x:Key="DialogItemText" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="#afb1b8"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    <Style x:Key="DialogItemPrice" TargetType="TextBlock" BasedOn="{StaticResource DialogItemText}">
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <Style x:Key="DialogActionButton" TargetType="Button">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="#66c0f4"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!-- #endregion -->
+
+    <!--#region СТИЛЬ ДИАЛОГА "ОШИБКА"-->
+    <Style x:Key="ErrorLogo" TargetType="Image">
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Margin" Value="10"/>
+    </Style>
+
+    <Style x:Key="ErrorTitle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="ErrorSubtitle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="5"/>
+    </Style>
+
+    <Style x:Key="ErrorCloseButton" TargetType="Button">
+        <Setter Property="Background" Value="#214b6b"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#1999ff"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!-- #endregion -->
+
+    <!--#region СТИЛЬ ДИАЛОГА "ИСТОРИЯ СДЕЛОК"-->
+    <!-- Знак операции (+ или -) -->
+    <Style x:Key="DialogOperationSign" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="#577c22"/>
+    </Style>
+    <!-- #endregion -->
+
+    <!--#region СТИЛЬ ДИАЛОГА "ВОССТАНОВЛЕНИЕ ПАРОЛЯ"-->
+    <!-- Заголовок окна -->
+    <Style x:Key="SupportTitle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <!-- Темная плашка контента -->
+    <Style x:Key="SupportContentBorder" TargetType="Border">
+        <Setter Property="Background" Value="#0c1827"/>
+        <Setter Property="Margin" Value="0,0,0,20"/>
+    </Style>
+
+    <!-- Синий заголовок внутри формы -->
+    <Style x:Key="SupportHeaderText" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Foreground" Value="#1999ff"/>
+    </Style>
+
+    <!-- Подписи к полям ввода -->
+    <Style x:Key="SupportInputLabel" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Margin" Value="0,0,0,5"/>
+    </Style>
+
+    <!-- Поля ввода (TextBox) -->
+    <Style x:Key="SupportInputBox" TargetType="TextBox">
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="300"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="#32353c"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,0,0,10"/>
+    </Style>
+
+    <!-- Поля ввода (PasswordBox) -->
+    <Style x:Key="SupportPasswordBox" TargetType="PasswordBox">
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="300"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="#32353c"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,0,0,10"/>
+    </Style>
+
+    <!-- Синие кнопки (Назад, Сменить) -->
+    <Style x:Key="SupportActionButton" TargetType="Button">
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="#1999ff"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#1078c9"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!-- #endregion -->
+
+    <!--#region СТИЛЬ ДИАЛОГА "ПОДТВЕРЖДЕНИЕ ЗАКРЫТИЯ"-->
+    <!-- Специфичный фон для этого окна -->
+    <SolidColorBrush x:Key="LastQuestionBackground" Color="#262626"/>
+
+    <Style x:Key="LastQuestionLogo" TargetType="Image">
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Margin" Value="10"/>
+    </Style>
+
+    <Style x:Key="LastQuestionTitle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,0,0,10"/>
+    </Style>
+
+    <!-- Кнопки "Да" и "Нет" -->
+    <Style x:Key="LastQuestionButton" TargetType="Button">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Width" Value="75"/>
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="Background" Value="#5076a3"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#3d5d82"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!-- #endregion -->
+
+    <!--#region СТИЛЬ ДИАЛОГА "ПРОФИЛЬ"-->
+    <!-- Текст подписей (Логин, Никнейм, Баланс) -->
+    <Style x:Key="ProfileLabelText" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Foreground" Value="#afb1b8"/>
+        <Setter Property="Margin" Value="0,0,0,10"/>
+    </Style>
+
+    <!-- Текст значений (справа) -->
+    <Style x:Key="ProfileValueText" TargetType="TextBlock" BasedOn="{StaticResource ProfileLabelText}">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+    </Style>
+
+    <!-- Кнопка "Пополнить" -->
+    <Style x:Key="ProfileActionButton" TargetType="Button">
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="#1999ff"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#1078c9"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!-- #endregion -->
+
+    <!--#region СТИЛЬ ДИАЛОГА "РЕГИСТРАЦИЯ"-->
+    <!-- Заголовок окна -->
+    <Style x:Key="RegistrationTitle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="Margin" Value="0,0,0,20"/>
+    </Style>
+
+    <!-- Подписи к полям -->
+    <Style x:Key="RegistrationLabel" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#afb1b8"/>
+    </Style>
+
+    <!-- Поля ввода (TextBox) -->
+    <Style x:Key="RegistrationTextBox" TargetType="TextBox">
+        <Setter Property="Width" Value="200"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="#32353c"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+
+    <!-- Поля паролей (PasswordBox) -->
+    <Style x:Key="RegistrationPasswordBox" TargetType="PasswordBox">
+        <Setter Property="Width" Value="200"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="#32353c"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="PasswordChar" Value="•"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+
+    <!-- Кнопки "Назад" и "Создать" -->
+    <Style x:Key="RegistrationButton" TargetType="Button">
+        <Setter Property="Width" Value="75"/>
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="#1999ff"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#1078c9"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!-- #endregion -->
+
+    <!--#region СТИЛЬ ДИАЛОГА "ВЫСТАВЛЕНИЕ НА ПРОДАЖУ"-->
+    <!-- Заголовок окна -->
+    <Style x:Key="SellDialogTitle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Margin" Value="0,0,0,10"/>
+    </Style>
+
+    <!-- Название предмета в шапке -->
+    <Style x:Key="SellDialogItemName" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Foreground" Value="#1999ff"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+    </Style>
+
+    <!-- Разделительная линия -->
+    <Style x:Key="DialogSeparator" TargetType="Separator">
+        <Setter Property="Background" Value="#afb1b8"/>
+        <Setter Property="Height" Value="1"/>
+    </Style>
+
+    <!-- Текст с ценами (Средняя, Последняя) -->
+    <Style x:Key="SellDialogPriceText" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Foreground" Value="#afb1b8"/>
+    </Style>
+
+    <!-- Кнопки "+" и "-" -->
+    <Style x:Key="CountButton" TargetType="Button">
+        <Setter Property="Width" Value="20"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="#577c22"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#6c9b2a"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Текст количества -->
+    <Style x:Key="CountText" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#afb1b8"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Margin" Value="15,0,15,0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- Предупреждение о невозможности продажи нескольких штук -->
+    <Style x:Key="WarningText" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="DarkRed"/>
+        <Setter Property="Margin" Value="20,0,0,0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- Подписи к полям цен (Вы получите / Покупатель заплатит) -->
+    <Style x:Key="PriceInputLabel" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- Текстовые поля для ввода цен -->
+    <Style x:Key="PriceInputBox" TargetType="TextBox">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="#171717"/>
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="Height" Value="22"/>
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- Чекбокс соглашения -->
+    <Style x:Key="AgreementCheckBox" TargetType="CheckBox">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- Главная зеленая кнопка подтверждения -->
+    <Style x:Key="GreenActionButton" TargetType="Button">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="#577c22"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Height" Value="24"/>
+        <Setter Property="Width" Value="200"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#6c9b2a"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!-- #endregion -->
+
+    <!--#region СТИЛЬ ДИАЛОГА "ПОКУПКА ПРЕДМЕТОВ"-->
+    <!-- Заголовок окна -->
+    <Style x:Key="BuyDialogTitle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+
+    <!-- Название предмета и цена в шапке -->
+    <Style x:Key="BuyDialogItemName" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Foreground" Value="#1999ff"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    <Style x:Key="BuyDialogItemPrice" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- Тексты в блоке итогов (Промежуточный итог, Комиссия, Итого) -->
+    <Style x:Key="BuyDialogSummaryLabel" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="#afb1b8"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+    </Style>
+    <Style x:Key="BuyDialogSummaryValue" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    <Style x:Key="BuyDialogSummaryFinal" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="#afb1b8"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- Блок оплаты -->
+    <Style x:Key="BuyDialogPaymentLabel" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="#afb1b8"/>
+    </Style>
+    <Style x:Key="BuyDialogPaymentValue" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="#afb1b8"/>
+    </Style>
+    <Style x:Key="BuyDialogPaymentValueGreen" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="#577c22"/>
+    </Style>
+
+    <!-- Чекбокс и кнопка -->
+    <Style x:Key="BuyDialogAgreement" TargetType="CheckBox">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="10,15,0,0"/>
+    </Style>
+    <Style x:Key="BuyDialogButton" TargetType="Button">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="#577c22"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Width" Value="75"/>
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Setter Property="Margin" Value="20"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#6c9b2a"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!-- #endregion -->
+
 </ResourceDictionary>

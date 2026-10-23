@@ -12,15 +12,21 @@ namespace ISIP123_Solodov_WPF.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TransactionsHistory
+    public partial class InventoryItems
     {
+        public InventoryItems()
+        {
+            this.MarketListings = new HashSet<MarketListings>();
+        }
+    
         public int ID { get; set; }
         public int UserID { get; set; }
-        public int OperationID { get; set; }
-        public decimal TransactionSum { get; set; }
-        public System.DateTime DateOfTransaction { get; set; }
+        public int ItemID { get; set; }
+        public Nullable<double> FloatValue { get; set; }
+        public bool IsListed { get; set; }
     
-        public virtual Operations Operations { get; set; }
+        public virtual Items Items { get; set; }
         public virtual Users Users { get; set; }
+        public virtual ICollection<MarketListings> MarketListings { get; set; }
     }
 }

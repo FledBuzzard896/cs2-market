@@ -1,0 +1,727 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище SteamCS2MarketModel" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="InventoryItems">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="ItemID" Type="int" Nullable="false" />
+          <Property Name="FloatValue" Type="float" />
+          <Property Name="IsListed" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Items">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TypeID" Type="int" Nullable="false" />
+          <Property Name="QualityID" Type="int" />
+          <Property Name="AveragePrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ItemPicture" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="ItemTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ListingStatuses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MarketListings">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InventoryID" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Commission" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="BuyerID" Type="int" />
+          <Property Name="SoldAt" Type="datetime2" Precision="7" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="SellerID" Type="int" />
+        </EntityType>
+        <EntityType Name="OperationTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Qualities">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Transactions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="OperationID" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TransactionDate" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Nickname" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Balance" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WearCategories">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="MinFloat" Type="float" Nullable="false" />
+          <Property Name="MaxFloat" Type="float" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Inventory_Items">
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
+          <End Role="InventoryItems" Type="Self.InventoryItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="InventoryItems">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Inventory_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="InventoryItems" Type="Self.InventoryItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="InventoryItems">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Items_ItemTypes">
+          <End Role="ItemTypes" Type="Self.ItemTypes" Multiplicity="1" />
+          <End Role="Items" Type="Self.Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Items">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Items_Qualities">
+          <End Role="Qualities" Type="Self.Qualities" Multiplicity="0..1" />
+          <End Role="Items" Type="Self.Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Qualities">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Items">
+              <PropertyRef Name="QualityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Market_Buyer">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="MarketListings" Type="Self.MarketListings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MarketListings">
+              <PropertyRef Name="BuyerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Market_Inventory">
+          <End Role="InventoryItems" Type="Self.InventoryItems" Multiplicity="1" />
+          <End Role="MarketListings" Type="Self.MarketListings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InventoryItems">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MarketListings">
+              <PropertyRef Name="InventoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Market_Seller">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="MarketListings" Type="Self.MarketListings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MarketListings">
+              <PropertyRef Name="SellerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Market_Status">
+          <End Role="ListingStatuses" Type="Self.ListingStatuses" Multiplicity="1" />
+          <End Role="MarketListings" Type="Self.MarketListings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ListingStatuses">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MarketListings">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_Operation">
+          <End Role="OperationTypes" Type="Self.OperationTypes" Multiplicity="1" />
+          <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OperationTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="OperationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище SteamCS2MarketModelContainer">
+          <EntitySet Name="InventoryItems" EntityType="Self.InventoryItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemTypes" EntityType="Self.ItemTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ListingStatuses" EntityType="Self.ListingStatuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MarketListings" EntityType="Self.MarketListings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OperationTypes" EntityType="Self.OperationTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Qualities" EntityType="Self.Qualities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WearCategories" EntityType="Self.WearCategories" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Inventory_Items" Association="Self.FK_Inventory_Items">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="InventoryItems" EntitySet="InventoryItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inventory_Users" Association="Self.FK_Inventory_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="InventoryItems" EntitySet="InventoryItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Items_ItemTypes" Association="Self.FK_Items_ItemTypes">
+            <End Role="ItemTypes" EntitySet="ItemTypes" />
+            <End Role="Items" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Items_Qualities" Association="Self.FK_Items_Qualities">
+            <End Role="Qualities" EntitySet="Qualities" />
+            <End Role="Items" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Market_Buyer" Association="Self.FK_Market_Buyer">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="MarketListings" EntitySet="MarketListings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Market_Inventory" Association="Self.FK_Market_Inventory">
+            <End Role="InventoryItems" EntitySet="InventoryItems" />
+            <End Role="MarketListings" EntitySet="MarketListings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Market_Seller" Association="Self.FK_Market_Seller">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="MarketListings" EntitySet="MarketListings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Market_Status" Association="Self.FK_Market_Status">
+            <End Role="ListingStatuses" EntitySet="ListingStatuses" />
+            <End Role="MarketListings" EntitySet="MarketListings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_Operation" Association="Self.FK_Transactions_Operation">
+            <End Role="OperationTypes" EntitySet="OperationTypes" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_Users" Association="Self.FK_Transactions_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SteamCS2MarketModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="InventoryItems">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="ItemID" Type="Int32" Nullable="false" />
+          <Property Name="FloatValue" Type="Double" />
+          <Property Name="IsListed" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Items" Relationship="Self.FK_Inventory_Items" FromRole="InventoryItems" ToRole="Items" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Inventory_Users" FromRole="InventoryItems" ToRole="Users" />
+          <NavigationProperty Name="MarketListings" Relationship="Self.FK_Market_Inventory" FromRole="InventoryItems" ToRole="MarketListings" />
+        </EntityType>
+        <EntityType Name="Items">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TypeID" Type="Int32" Nullable="false" />
+          <Property Name="QualityID" Type="Int32" />
+          <Property Name="AveragePrice" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ItemPicture" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="InventoryItems" Relationship="Self.FK_Inventory_Items" FromRole="Items" ToRole="InventoryItems" />
+          <NavigationProperty Name="ItemTypes" Relationship="Self.FK_Items_ItemTypes" FromRole="Items" ToRole="ItemTypes" />
+          <NavigationProperty Name="Qualities" Relationship="Self.FK_Items_Qualities" FromRole="Items" ToRole="Qualities" />
+        </EntityType>
+        <EntityType Name="ItemTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Items" Relationship="Self.FK_Items_ItemTypes" FromRole="ItemTypes" ToRole="Items" />
+        </EntityType>
+        <EntityType Name="ListingStatuses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="MarketListings" Relationship="Self.FK_Market_Status" FromRole="ListingStatuses" ToRole="MarketListings" />
+        </EntityType>
+        <EntityType Name="MarketListings">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InventoryID" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Commission" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="BuyerID" Type="Int32" />
+          <Property Name="SoldAt" Type="DateTime" Precision="7" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="InventoryItems" Relationship="Self.FK_Market_Inventory" FromRole="MarketListings" ToRole="InventoryItems" />
+          <NavigationProperty Name="ListingStatuses" Relationship="Self.FK_Market_Status" FromRole="MarketListings" ToRole="ListingStatuses" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Market_Buyer" FromRole="MarketListings" ToRole="Users" />
+          <Property Name="SellerID" Type="Int32" />
+          <NavigationProperty Name="Users1" Relationship="SteamCS2MarketModel.FK_Market_Seller" FromRole="MarketListings" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="OperationTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Transactions" Relationship="Self.FK_Transactions_Operation" FromRole="OperationTypes" ToRole="Transactions" />
+        </EntityType>
+        <EntityType Name="Qualities">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Items" Relationship="Self.FK_Items_Qualities" FromRole="Qualities" ToRole="Items" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Transactions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="OperationID" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TransactionDate" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="OperationTypes" Relationship="Self.FK_Transactions_Operation" FromRole="Transactions" ToRole="OperationTypes" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Transactions_Users" FromRole="Transactions" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nickname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Balance" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="InventoryItems" Relationship="Self.FK_Inventory_Users" FromRole="Users" ToRole="InventoryItems" />
+          <NavigationProperty Name="MarketListings" Relationship="Self.FK_Market_Buyer" FromRole="Users" ToRole="MarketListings" />
+          <NavigationProperty Name="Transactions" Relationship="Self.FK_Transactions_Users" FromRole="Users" ToRole="Transactions" />
+          <NavigationProperty Name="MarketListings1" Relationship="SteamCS2MarketModel.FK_Market_Seller" FromRole="Users" ToRole="MarketListings" />
+        </EntityType>
+        <EntityType Name="WearCategories">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MinFloat" Type="Double" Nullable="false" />
+          <Property Name="MaxFloat" Type="Double" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Inventory_Items">
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
+          <End Role="InventoryItems" Type="Self.InventoryItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="InventoryItems">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Inventory_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="InventoryItems" Type="Self.InventoryItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="InventoryItems">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Market_Inventory">
+          <End Role="InventoryItems" Type="Self.InventoryItems" Multiplicity="1" />
+          <End Role="MarketListings" Type="Self.MarketListings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InventoryItems">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MarketListings">
+              <PropertyRef Name="InventoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Items_ItemTypes">
+          <End Role="ItemTypes" Type="Self.ItemTypes" Multiplicity="1" />
+          <End Role="Items" Type="Self.Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Items">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Items_Qualities">
+          <End Role="Qualities" Type="Self.Qualities" Multiplicity="0..1" />
+          <End Role="Items" Type="Self.Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Qualities">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Items">
+              <PropertyRef Name="QualityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Market_Status">
+          <End Role="ListingStatuses" Type="Self.ListingStatuses" Multiplicity="1" />
+          <End Role="MarketListings" Type="Self.MarketListings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ListingStatuses">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MarketListings">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Market_Buyer">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="MarketListings" Type="Self.MarketListings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MarketListings">
+              <PropertyRef Name="BuyerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_Operation">
+          <End Role="OperationTypes" Type="Self.OperationTypes" Multiplicity="1" />
+          <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OperationTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="OperationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SteamMarketEntitiesHome" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="InventoryItems" EntityType="Self.InventoryItems" />
+          <EntitySet Name="Items" EntityType="Self.Items" />
+          <EntitySet Name="ItemTypes" EntityType="Self.ItemTypes" />
+          <EntitySet Name="ListingStatuses" EntityType="Self.ListingStatuses" />
+          <EntitySet Name="MarketListings" EntityType="Self.MarketListings" />
+          <EntitySet Name="OperationTypes" EntityType="Self.OperationTypes" />
+          <EntitySet Name="Qualities" EntityType="Self.Qualities" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Transactions" EntityType="Self.Transactions" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="WearCategories" EntityType="Self.WearCategories" />
+          <AssociationSet Name="FK_Inventory_Items" Association="Self.FK_Inventory_Items">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="InventoryItems" EntitySet="InventoryItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inventory_Users" Association="Self.FK_Inventory_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="InventoryItems" EntitySet="InventoryItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Market_Inventory" Association="Self.FK_Market_Inventory">
+            <End Role="InventoryItems" EntitySet="InventoryItems" />
+            <End Role="MarketListings" EntitySet="MarketListings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Items_ItemTypes" Association="Self.FK_Items_ItemTypes">
+            <End Role="ItemTypes" EntitySet="ItemTypes" />
+            <End Role="Items" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Items_Qualities" Association="Self.FK_Items_Qualities">
+            <End Role="Qualities" EntitySet="Qualities" />
+            <End Role="Items" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Market_Status" Association="Self.FK_Market_Status">
+            <End Role="ListingStatuses" EntitySet="ListingStatuses" />
+            <End Role="MarketListings" EntitySet="MarketListings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Market_Buyer" Association="Self.FK_Market_Buyer">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="MarketListings" EntitySet="MarketListings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_Operation" Association="Self.FK_Transactions_Operation">
+            <End Role="OperationTypes" EntitySet="OperationTypes" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_Users" Association="Self.FK_Transactions_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Market_Seller" Association="SteamCS2MarketModel.FK_Market_Seller">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="MarketListings" EntitySet="MarketListings" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_Market_Seller">
+          <End Type="SteamCS2MarketModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="SteamCS2MarketModel.MarketListings" Role="MarketListings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MarketListings">
+              <PropertyRef Name="SellerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище SteamCS2MarketModelContainer" CdmEntityContainer="SteamMarketEntitiesHome">
+          <EntitySetMapping Name="InventoryItems">
+            <EntityTypeMapping TypeName="SteamCS2MarketModel.InventoryItems">
+              <MappingFragment StoreEntitySet="InventoryItems">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="FloatValue" ColumnName="FloatValue" />
+                <ScalarProperty Name="IsListed" ColumnName="IsListed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="SteamCS2MarketModel.Items">
+              <MappingFragment StoreEntitySet="Items">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="QualityID" ColumnName="QualityID" />
+                <ScalarProperty Name="AveragePrice" ColumnName="AveragePrice" />
+                <ScalarProperty Name="ItemPicture" ColumnName="ItemPicture" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemTypes">
+            <EntityTypeMapping TypeName="SteamCS2MarketModel.ItemTypes">
+              <MappingFragment StoreEntitySet="ItemTypes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ListingStatuses">
+            <EntityTypeMapping TypeName="SteamCS2MarketModel.ListingStatuses">
+              <MappingFragment StoreEntitySet="ListingStatuses">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MarketListings">
+            <EntityTypeMapping TypeName="SteamCS2MarketModel.MarketListings">
+              <MappingFragment StoreEntitySet="MarketListings">
+                <ScalarProperty Name="SellerID" ColumnName="SellerID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="InventoryID" ColumnName="InventoryID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Commission" ColumnName="Commission" />
+                <ScalarProperty Name="BuyerID" ColumnName="BuyerID" />
+                <ScalarProperty Name="SoldAt" ColumnName="SoldAt" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OperationTypes">
+            <EntityTypeMapping TypeName="SteamCS2MarketModel.OperationTypes">
+              <MappingFragment StoreEntitySet="OperationTypes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Qualities">
+            <EntityTypeMapping TypeName="SteamCS2MarketModel.Qualities">
+              <MappingFragment StoreEntitySet="Qualities">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="SteamCS2MarketModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transactions">
+            <EntityTypeMapping TypeName="SteamCS2MarketModel.Transactions">
+              <MappingFragment StoreEntitySet="Transactions">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="OperationID" ColumnName="OperationID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="SteamCS2MarketModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Nickname" ColumnName="Nickname" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WearCategories">
+            <EntityTypeMapping TypeName="SteamCS2MarketModel.WearCategories">
+              <MappingFragment StoreEntitySet="WearCategories">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MinFloat" ColumnName="MinFloat" />
+                <ScalarProperty Name="MaxFloat" ColumnName="MaxFloat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

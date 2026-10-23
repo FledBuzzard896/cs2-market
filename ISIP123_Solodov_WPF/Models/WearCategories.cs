@@ -12,11 +12,11 @@ namespace ISIP123_Solodov_WPF.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Iznos
+    public partial class WearCategories
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public double MinFlot { get; set; }
-        public double MaxFlot { get; set; }
+        public double MinFloat { get; set; }
+        public double MaxFloat { get; set; }
     }
 }

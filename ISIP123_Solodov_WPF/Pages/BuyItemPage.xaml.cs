@@ -22,54 +22,16 @@ namespace ISIP123_Solodov_WPF.Pages
     /// </summary>
     public partial class BuyItemPage : Page
     {
-        private CS2Market _item;
+        private MarketListings _item;
         private int _itemCount = 1;
-        public BuyItemPage(CS2Market item)
+        private int _maxItemCount = 1;
+
+        public BuyItemPage(MarketListings item)
         {
             _item = item;
             InitializeComponent();
 
             Loaded += PageLoaded;
-        }
-
-        private void PageLoaded(object sender, RoutedEventArgs e) 
-        {
-            if (_item != null) 
-            {
-                ItemGrid.DataContext = _item;
-                CountOfSkin.Text = _itemCount.ToString();
-
-                foreach (var str in Core.Context.Iznos.ToList())
-                {
-                    if (str.MinFlot <= _item.Inventories.Flot && _item.Inventories.Flot < str.MaxFlot)
-                    {
-                        Sostoianie.Text = $"СОСТОЯНИЕ: {str.Name}";
-                        break;
-                    }
-                }
-
-                // Поиск цены скина (стоимости при последней продаже)
-                var list = Core.Context.CS2Market.Where(x => x.StatusID == 1).ToList();
-                int i = list.Count() - 1;
-                while (i >= 0)
-                {
-                    var str = list[i];
-
-                    if (str.Inventories.Items.ID == _item.Inventories.Items.ID)
-                    {
-                        Price.Text = $"Начальная цена: {str.Price.ToString()} руб.";
-                        break;
-                    }
-
-                    i--;
-                }
-
-                // Исключение: базовая цена скина (на ТП его никто не продавал)
-                if (Price.Text == "тест")
-                {
-                    Price.Text = $"Начальная цена: {_item.Inventories.Items.AveragePrice.ToString()} руб.";
-                }
-            }
         }
 
         private void Minus_Click(object sender, RoutedEventArgs e)
@@ -78,42 +40,120 @@ namespace ISIP123_Solodov_WPF.Pages
             {
                 _itemCount--;
                 CountOfSkin.Text = _itemCount.ToString();
-            }
-            else 
-            {
-                Minus.IsEnabled = false;
+                Plus.IsEnabled = true;
+                if (_itemCount == 1) Minus.IsEnabled = false;
             }
         }
-
         private void Plus_Click(object sender, RoutedEventArgs e)
         {
-            if (_item.Count > 1 && (_itemCount + 1) <= _item.Count)
+            if (_itemCount < _maxItemCount)
             {
                 _itemCount++;
                 CountOfSkin.Text = _itemCount.ToString();
-            }
-            else
-            {
-                Plus.IsEnabled = false;
+                Minus.IsEnabled = true;
+                if (_itemCount == _maxItemCount) Plus.IsEnabled = false;
             }
         }
 
+
         private void BuyButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Core.CurrentUser != null) 
+            if (Core.CurrentUser != null)
             {
-                TransactionConfirmation dialog = new TransactionConfirmation(_item, _itemCount);
-                dialog.ShowDialog();
+                // Берем N самых дешевых лотов (неважно, кто продавец)
+                var listingsToBuy = Core.Context.MarketListings
+                    .Where(x => x.StatusID == 1
+                             && x.InventoryItems.ItemID == _item.InventoryItems.ItemID)
+                    .OrderBy(x => x.Price) // Сортируем от дешевых к дорогим
+                    .Take(_itemCount)      // Берем столько, сколько выбрал юзер
+                    .ToList();
 
+                // Открываем окно подтверждения и передаем туда СПИСОК
+                TransactionConfirmation dialog = new TransactionConfirmation(listingsToBuy);
+                if (dialog.ShowDialog() == true)
+                {
+                    // После успешной покупки возвращаемся на маркет
+                    if (NavigationService.CanGoBack) NavigationService.GoBack();
+                }
                 return;
             }
 
             MessageBox.Show("Войдите в аккаунт, чтобы совершать покупки на Торговой площадке Stem", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
+
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            if (NavigationService.CanGoBack)
+            {
+                NavigationService.GoBack();
+            }
+        }
+
+
+        private void PageLoaded(object sender, RoutedEventArgs e)
+        {
+            if (_item != null)
+            {
+                ItemGrid.DataContext = _item;
+                CountOfSkin.Text = _itemCount.ToString();
+
+                // 1. Определение степени износа (если есть FloatValue)
+                if (_item.InventoryItems.FloatValue != null)
+                {
+                    foreach (var str in Core.Context.WearCategories.ToList())
+                    {
+                        if (str.MinFloat <= _item.InventoryItems.FloatValue && _item.InventoryItems.FloatValue < str.MaxFloat)
+                        {
+                            Sostoianie.Text = $"Состояние: {str.Name}";
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    Sostoianie.Text = "Состояние: Отсутствует";
+                }
+
+                // 2. Поиск цены (быстрый LINQ вместо цикла)
+                var activeListing = Core.Context.MarketListings
+                    .Where(x => x.StatusID == 1 && x.InventoryItems.ItemID == _item.InventoryItems.ItemID)
+                    .OrderBy(x => x.Price)
+                    .FirstOrDefault();
+
+                if (activeListing != null)
+                {
+                    Price.Text = $"Цена на рынке: от {activeListing.Price:N0} руб.";
+                }
+                else
+                {
+                    var lastSold = Core.Context.MarketListings
+                        .Where(x => x.StatusID == 2 && x.InventoryItems.ItemID == _item.InventoryItems.ItemID)
+                        .OrderByDescending(x => x.SoldAt)
+                        .FirstOrDefault();
+
+                    Price.Text = lastSold != null
+                        ? $"Последняя продажа: {lastSold.Price:N0} руб."
+                        : $"Средняя цена: {_item.InventoryItems.Items.AveragePrice:N0} руб.";
+                }
+
+                // 3. Считаем, сколько ВСЕГО таких предметов сейчас продается на рынке (у всех продавцов)
+                _maxItemCount = Core.Context.MarketListings.Count(x =>
+                    x.StatusID == 1 &&
+                    x.InventoryItems.ItemID == _item.InventoryItems.ItemID);
+
+                if (_maxItemCount <= 1)
+                {
+                    _maxItemCount = 1;
+                    Minus.IsEnabled = false;
+                    Plus.IsEnabled = false;
+                }
+                else
+                {
+                    Minus.IsEnabled = false; // Изначально стоит 1
+                    Plus.IsEnabled = true;
+                }
+            }
         }
     }
 }

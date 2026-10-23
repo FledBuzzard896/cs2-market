@@ -7,19 +7,21 @@
         mc:Ignorable="d"
         Title="LastQuestion" Height="400" Width="600"
         ResizeMode="NoResize">
-    <Grid Background="#262626">
+    <Grid Background="{StaticResource LastQuestionBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Image Source="/Images/stem-logo-nobg.png" Width="100" Grid.Row="0" HorizontalAlignment="Right" Margin="10"/>
+
+        <Image Source="/Images/stem-logo-nobg.png" Style="{StaticResource LastQuestionLogo}" Grid.Row="0"/>
         <Image Source="/Images/lastquestion.jpg" Grid.Row="1" Grid.RowSpan="3" Stretch="Fill"/>
-        <TextBlock Text="Вы уверены, что хотите закрыть окно?" Foreground="White" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10" Grid.Row="1"/>
+        <TextBlock Text="Вы уверены, что хотите закрыть окно?" Style="{StaticResource LastQuestionTitle}" Grid.Row="1"/>
+
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
-            <Button x:Name="YesBtn" Content="Да" BorderThickness="0" Width="75" Background="#5076a3" Foreground="White" Click="YesBtn_Click"/>
-            <Button x:Name="NoBtn" Content="Нет" BorderThickness="0" Width="75" Background="#5076a3" Foreground="White" Margin="100,0,0,0" Click="NoBtn_Click"/>
+            <Button x:Name="YesBtn" Content="Да" Style="{StaticResource LastQuestionButton}" Click="YesBtn_Click"/>
+            <Button x:Name="NoBtn" Content="Нет" Style="{StaticResource LastQuestionButton}" Margin="100,0,0,0" Click="NoBtn_Click"/>
         </StackPanel>
     </Grid>
 </Window>

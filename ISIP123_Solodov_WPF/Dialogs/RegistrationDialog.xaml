@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="RegistrationDialog" Height="450" Width="800"
         ResizeMode="NoResize">
-    <Grid Background="#181a21">
+    <Grid Background="{StaticResource DialogBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -22,28 +22,36 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+
         <Image Source="/Images/stem-logo-nobg.png" Style="{StaticResource LogoStemAuthPage}" Margin="5" Grid.Row="0"/>
-        <TextBlock Text="СОЗДАНИЕ АККАУНТА" Foreground="White" FontSize="24" Margin="0,0,0,20" Grid.Row="1" Grid.Column="1"/>
+
+        <TextBlock Text="СОЗДАНИЕ АККАУНТА" Style="{StaticResource RegistrationTitle}" Grid.Row="1" Grid.Column="1"/>
+
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical" Margin="0,0,0,20">
-            <TextBlock Text="Логин" Foreground="#afb1b8"/>
-            <TextBox x:Name="NewUserLoginTB" Width="200" Height="30" BorderThickness="0" Background="#32353c" Foreground="White" VerticalContentAlignment="Center" HorizontalAlignment="Left"/>
+            <TextBlock Text="Логин" Style="{StaticResource RegistrationLabel}"/>
+            <TextBox x:Name="NewUserLoginTB" Style="{StaticResource RegistrationTextBox}"/>
         </StackPanel>
+
         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Vertical" Margin="0,0,0,20">
-            <TextBlock Text="Пароль" Foreground="#afb1b8"/>
-            <PasswordBox x:Name="NewUserPasswordF" Width="200" Height="30" BorderThickness="0" Background="#32353c" Foreground="White" VerticalContentAlignment="Center" PasswordChar="•" HorizontalAlignment="Left"/>
+            <TextBlock Text="Пароль" Style="{StaticResource RegistrationLabel}"/>
+            <PasswordBox x:Name="NewUserPasswordF" Style="{StaticResource RegistrationPasswordBox}"/>
         </StackPanel>
+
         <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Vertical" Margin="0,0,0,20">
-            <TextBlock Text="Повторите пароль" Foreground="#afb1b8"/>
-            <PasswordBox x:Name="NewUserPasswordS" Width="200" Height="30" BorderThickness="0" Background="#32353c" Foreground="White" VerticalContentAlignment="Center" PasswordChar="•" HorizontalAlignment="Left"/>
+            <TextBlock Text="Повторите пароль" Style="{StaticResource RegistrationLabel}"/>
+            <PasswordBox x:Name="NewUserPasswordS" Style="{StaticResource RegistrationPasswordBox}"/>
         </StackPanel>
+
         <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Vertical" Margin="0,0,0,20">
-            <TextBlock Text="Никнейм" Foreground="#afb1b8"/>
-            <TextBox x:Name="NickNameTB" Width="200" Height="30" BorderThickness="0" Background="#32353c" Foreground="White" VerticalContentAlignment="Center" HorizontalAlignment="Left"/>
+            <TextBlock Text="Никнейм" Style="{StaticResource RegistrationLabel}"/>
+            <TextBox x:Name="NickNameTB" Style="{StaticResource RegistrationTextBox}"/>
         </StackPanel>
+
         <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="1">
-            <Button x:Name="BackBtn" Content="Назад" Width="75" Height="20" BorderThickness="0" Background="#1999ff" Foreground="White" Margin="0,0,50,0" Click="BackBtn_Click"/>
-            <Button x:Name="RegBtn" Content="Создать" Width="75" Height="20" BorderThickness="0" Background="#1999ff" Foreground="White" Click="RegBtn_Click"/>
+            <Button x:Name="BackBtn" Content="Назад" Style="{StaticResource RegistrationButton}" Margin="0,0,50,0" Click="BackBtn_Click"/>
+            <Button x:Name="RegBtn" Content="Создать" Style="{StaticResource RegistrationButton}" Click="RegBtn_Click"/>
         </StackPanel>
-        <Image Source="/Images/TheGreatGaben.jpg" Grid.Column="2" Grid.Row="1" Grid.RowSpan="5"  Margin="0,0,10,0"/>
+
+        <Image Source="/Images/TheGreatGaben.jpg" Grid.Column="2" Grid.Row="1" Grid.RowSpan="5" Margin="0,0,10,0"/>
     </Grid>
 </Window>

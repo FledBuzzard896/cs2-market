@@ -22,20 +22,18 @@ namespace ISIP123_Solodov_WPF.Dialogs
     /// </summary>
     public partial class TransactionConfirmation : Window
     {
-        private CS2Market _item;
-        private int _count;
-        private double _profit_without_comission, _consumption_with_comission;
+        private List<MarketListings> _listings; // Список конкретных лотов, которые покупаем
+        private decimal _totalBuyerPays;        // Итого с учетом комиссии
+        private decimal _totalSellerGets;       // Промежуточный итог (без комиссии)
 
-        public TransactionConfirmation(CS2Market item, int count)
+
+        public TransactionConfirmation(List<MarketListings> listings)
         {
             InitializeComponent();
 
-            _item = item;
-            _count = count;
-
+            _listings = listings;
             Loaded += PageLoaded;
         }
-
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -45,71 +43,71 @@ namespace ISIP123_Solodov_WPF.Dialogs
                 return;
             }
 
-            if (Core.CurrentUser.Balance < Convert.ToDecimal(_consumption_with_comission)) 
+            if (Core.CurrentUser.Balance < _totalBuyerPays)
             {
-                MessageBox.Show("У вас недостаточно средств, чтобы купить данный предмет", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("У вас недостаточно средств, чтобы купить данные предметы", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            // Создание записи предмета у покупателя
-            Inventories newItem = new Inventories
+            try
             {
-                UserID = Core.CurrentUser.ID,
-                ItemID = _item.Inventories.ItemID,
-                Flot = _item.Inventories.Flot,
-                Count = _count
-            };
-            Core.Context.Inventories.Add(newItem);
-            Core.Context.SaveChanges();
+                Core.CurrentUser.Balance -= _totalBuyerPays;
 
-            // Добавляем кэш продавцу
-            _item.Users1.Balance += Convert.ToDecimal(_profit_without_comission);
+                foreach (var listing in _listings)
+                {
+                    // 1. Находим предмет в инвентаре
+                    var itemInInventory = Core.Context.InventoryItems.FirstOrDefault(x => x.ID == listing.InventoryID);
 
-            // Вычитаем кэш у покупателя
-            Core.CurrentUser.Balance -= Convert.ToDecimal(_consumption_with_comission);
+                    if (itemInInventory == null) continue; 
 
-            // Удаление записи предмета у продавца
-            var oldItem = Core.Context.Inventories.FirstOrDefault(x => x.ID == _item.InventoryID);
-            Core.Context.Inventories.Remove(oldItem);
+                    // 2. Передаем предмет покупателю
+                    itemInInventory.UserID = Core.CurrentUser.ID;
+                    itemInInventory.IsListed = false; // Снимаем с продажи
 
-            // Изменяем запись в истории ТП как проведенную сделку
-            _item.StatusID = 2;
-            _item.BuyerID = Core.CurrentUser.ID;
-            _item.DateOfDeal = DateTime.Now;
+                    // 3. Начисляем деньги конкретному продавцу (этого лота)
+                    var seller = Core.Context.Users.FirstOrDefault(x => x.ID == listing.SellerID);
+                    if (seller != null)
+                    {
+                        seller.Balance += listing.Price;
 
-            // Изменяем инвентарь продавца на инвентарь покупателя в истории ТП
-            _item.InventoryID = newItem.ID;
+                        // Записываем транзакцию для продавца
+                        var sellerTransaction = new Transactions
+                        {
+                            UserID = seller.ID,
+                            OperationID = 3, // Продажа
+                            Amount = listing.Price,
+                            TransactionDate = DateTime.Now,
+                        };
+                        Core.Context.Transactions.Add(sellerTransaction);
+                    }
 
-            // Добавляем транзакцию как покупку для покуптеля
-            var BuyerTransaction = new TransactionsHistory 
+                    // 4. Записываем транзакцию для покупателя
+                    var buyerTransaction = new Transactions
+                    {
+                        UserID = Core.CurrentUser.ID,
+                        OperationID = 2, // Покупка
+                        Amount = listing.Price + listing.Commission, 
+                        TransactionDate = DateTime.Now,
+                    };
+                    Core.Context.Transactions.Add(buyerTransaction);
+
+                    // 5. Закрываем лот на маркете
+                    listing.StatusID = 2; // Продан
+                    listing.BuyerID = Core.CurrentUser.ID;
+                    listing.SoldAt = DateTime.Now;
+                }
+
+                Core.Context.SaveChanges();
+
+                MessageBox.Show($"Успешно куплено предметов: {_listings.Count}!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.DialogResult = true;
+            }
+            catch (Exception ex)
             {
-                UserID = Core.CurrentUser.ID,
-                OperationID = 2, // покупка
-                TransactionSum = Convert.ToDecimal(_consumption_with_comission),
-                DateOfTransaction = DateTime.Now,
-            };
-            Core.Context.TransactionsHistory.Add(BuyerTransaction);
-
-            // Добавляем транзакцию как продажу для продавцы
-            var SellerTransaction = new TransactionsHistory 
-            {
-                UserID = _item.SellerID,
-                OperationID = 3, // продажа
-                TransactionSum = Convert.ToDecimal(_profit_without_comission),
-                DateOfTransaction= DateTime.Now,
-            };
-            Core.Context.TransactionsHistory.Add(SellerTransaction);
-
-            // Сохраняем изменения
-            Core.Context.SaveChanges();
-
-            MessageBox.Show("Предмет успешно куплен!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-            this.DialogResult = true;
-            this.Close();
+                MessageBox.Show($"Ошибка при покупке: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-
-        // Открытие ссылки на ресурс
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
             Process.Start(new ProcessStartInfo
@@ -117,52 +115,33 @@ namespace ISIP123_Solodov_WPF.Dialogs
                 FileName = e.Uri.AbsoluteUri,
                 UseShellExecute = true
             });
-
             e.Handled = true;
         }
 
-
-        private void PageLoaded(object sender, RoutedEventArgs e) 
+        private void PageLoaded(object sender, RoutedEventArgs e)
         {
-            double total = 0;
+            if (_listings == null || _listings.Count == 0) return;
 
-            MainGrid.DataContext = _item;
+            // Берем информацию о предмете из первого лота (они все одинаковые)
+            var firstItem = _listings.First().InventoryItems.Items;
 
-            // Поиск цены скина (стоимости при последней продаже)
-            var list = Core.Context.CS2Market.Where(x => x.StatusID == 2).ToList();
-            int i = list.Count() - 1;
-            while (i >= 0)
+            foreach (var listing in _listings)
             {
-                var str = list[i];
-
-                if (str.Inventories.Items.ID == _item.Inventories.Items.ID)
-                {
-                    Price.Text = $"{str.Price.ToString()} руб.";
-                    Price_2.Text = $"{str.Price.ToString()} руб.";
-
-                    total += Convert.ToDouble(str.Price);
-
-                    break;
-                }
-
-                i--;
+                _totalSellerGets += listing.Price;
+                _totalBuyerPays += (listing.Price + listing.Commission);
             }
 
-            // Исключение: базовая цена скина (на ТП его никто не продавал)
-            if (Price.Text == "тест")
-            {
-                Price.Text = $"{_item.Inventories.Items.AveragePrice.ToString()} руб.";
-                Price_2.Text = $"{_item.Inventories.Items.AveragePrice.ToString()} руб.";
+            ItemName.Text = $"{firstItem.Name} (x{_listings.Count})";
+            ItemImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(firstItem.ItemPicture));
 
-                total += Convert.ToDouble(_item.Inventories.Items.AveragePrice);
-            }
+            Price.Text = $"{_totalSellerGets:N0} руб.";
+            Price_2.Text = $"{_totalSellerGets:N0} руб.";
 
-            _profit_without_comission = total;
+            // Считаем общую комиссию
+            decimal totalCommission = _listings.Sum(x => x.Commission);
+            CommissionText.Text = $"{totalCommission:N0} руб.";
 
-            total += Convert.ToDouble(_item.Commission);
-            TotalSum.Text = $"{total} руб.";
-
-            _consumption_with_comission = total;
+            TotalSum.Text = $"{_totalBuyerPays:N0} руб.";
 
             LoginTextBlock.Text = Core.CurrentUser.Login;
         }

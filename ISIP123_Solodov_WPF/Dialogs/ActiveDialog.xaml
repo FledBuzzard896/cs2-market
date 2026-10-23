@@ -7,12 +7,13 @@
         mc:Ignorable="d"
         Title="ActiveDialog" Height="450" Width="800"
         ResizeMode="NoResize">
-    <Grid Background="#181a21">
+    <Grid Background="{StaticResource DialogBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
+        <!-- Шапка таблицы -->
         <Grid Margin="18,10,18,5" Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
@@ -20,14 +21,19 @@
                 <ColumnDefinition Width="125"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="НАЗВАНИЕ" FontSize="14" Grid.Column="0" Foreground="#afb1b8"/>
-            <TextBlock Text="РАЗМЕЩЕНО" FontSize="14" Grid.Column="1" Foreground="#afb1b8" HorizontalAlignment="Center"/>
-            <TextBlock Text="ЦЕНА" FontSize="14" Grid.Column="2" Foreground="#afb1b8" HorizontalAlignment="Center"/>
+            <TextBlock Text="НАЗВАНИЕ" Style="{StaticResource DialogHeaderText}" Grid.Column="0"/>
+            <TextBlock Text="РАЗМЕЩЕНО" Style="{StaticResource DialogHeaderTextCenter}" Grid.Column="1"/>
+            <TextBlock Text="ЦЕНА" Style="{StaticResource DialogHeaderTextCenter}" Grid.Column="2"/>
         </Grid>
-        <ListBox x:Name="MarketActivityLB" Margin="10" Grid.Row="1" BorderThickness="0" Background="Transparent" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" VirtualizingPanel.ScrollUnit="Pixel">
+
+        <!-- Список лотов -->
+        <ListBox x:Name="MarketActivityLB" 
+             Style="{StaticResource DialogListBox}" 
+             ItemContainerStyle="{StaticResource DialogListBoxItem}"
+             Grid.Row="1">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border Background="#16202d" CornerRadius="4" Margin="0,0,0,6" Height="40">
+                    <Border Style="{StaticResource DialogRowBorder}">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"/>
@@ -35,10 +41,15 @@
                                 <ColumnDefinition Width="125"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="{Binding Inventories.Items.Name}" FontSize="14" FontWeight="Bold" Foreground="#66c0f4" VerticalAlignment="Center" Grid.Column="0"/>
-                            <TextBlock Text="{Binding DateOfCreatingOffer, StringFormat='{}{0:dd.MM.yyyy}'}" FontSize="14" Foreground="#afb1b8" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"/>
-                            <TextBlock Text="{Binding Price, StringFormat={}{0} ₽}" FontSize="14" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2"/>
-                            <Button x:Name="RemoveSlot" Content="Снять слот" FontSize="14" Foreground="White" Background="Transparent" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3" Click="RemoveSlot_Click"/>
+
+                            <TextBlock Text="{Binding InventoryItems.Items.Name}" Style="{StaticResource DialogItemTitle}" Grid.Column="0" Margin="10,0,0,0"/>
+                            <TextBlock Text="{Binding CreatedAt, StringFormat='{}{0:dd.MM.yyyy}'}" Style="{StaticResource DialogItemText}" Grid.Column="1"/>
+                            <TextBlock Text="{Binding Price, StringFormat={}{0} ₽}" Style="{StaticResource DialogItemPrice}" Grid.Column="2"/>
+
+                            <Button x:Name="RemoveSlot" Content="Снять слот" 
+                                Style="{StaticResource DialogActionButton}" 
+                                Grid.Column="3" 
+                                Click="RemoveSlot_Click"/>
                         </Grid>
                     </Border>
                 </DataTemplate>

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="ProfileDialog" Height="450" Width="800"
         ResizeMode="NoResize">
-    <Grid Background="#181a21">
+    <Grid Background="{StaticResource DialogBackground}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="2*"/>
@@ -29,15 +29,22 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Логин: " FontSize="16" Foreground="#afb1b8" Margin="0,0,0,10"/>
-            <TextBlock x:Name="LoginTBox" FontSize="16" Foreground="#afb1b8" Grid.Column="1" Margin="0,0,0,10" HorizontalAlignment="Right"/>
-            <TextBlock Text="Никнейм: " FontSize="16" Foreground="#afb1b8" Grid.Row="1" Margin="0,0,0,10"/>
-            <TextBlock x:Name="NicknameTBox" FontSize="16" Foreground="#afb1b8" Grid.Row="1" Grid.Column="1" Margin="0,0,0,10" HorizontalAlignment="Right"/>
-            <TextBlock Text="Банланс" FontSize="16" Foreground="#afb1b8" Grid.Row="2" Margin="0,0,0,10"/>
-            <TextBlock x:Name="BalanceTBox" FontSize="16" Foreground="#afb1b8" Grid.Row="2" Grid.Column="1" Margin="0,0,0,10" HorizontalAlignment="Right"/>
-            <Button x:Name="TopUpBalance" Content="Пополнить" Width="100" Height="25" Grid.Row="3" Margin="10" Grid.ColumnSpan="2" BorderThickness="0" Background="#1999ff" Foreground="White" Click="TopUpBalance_Click"/>
+            <TextBlock Text="Логин: " Style="{StaticResource ProfileLabelText}"/>
+            <TextBlock x:Name="LoginTBox" Style="{StaticResource ProfileValueText}" Grid.Column="1"/>
+
+            <TextBlock Text="Никнейм: " Style="{StaticResource ProfileLabelText}" Grid.Row="1"/>
+            <TextBlock x:Name="NicknameTBox" Style="{StaticResource ProfileValueText}" Grid.Row="1" Grid.Column="1"/>
+
+            <TextBlock Text="Баланс: " Style="{StaticResource ProfileLabelText}" Grid.Row="2"/>
+            <TextBlock x:Name="BalanceTBox" Style="{StaticResource ProfileValueText}" Grid.Row="2" Grid.Column="1"/>
+
+            <Button x:Name="TopUpBalance" Content="Пополнить" Style="{StaticResource ProfileActionButton}" Grid.Row="3" Grid.ColumnSpan="2" Click="TopUpBalance_Click"/>
+
+            <!-- Кнопка смены темы -->
+            <Button x:Name="SwitchThemeBtn" Content="Сменить тему" Style="{StaticResource ProfileActionButton}" Grid.Row="4" Grid.ColumnSpan="2" Background="#1999ff" Click="SwitchThemeBtn_Click"/>
         </Grid>
     </Grid>
 </Window>

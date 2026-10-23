@@ -104,68 +104,53 @@
     <Compile Include="Dialogs\TransactionConfirmation.xaml.cs">
       <DependentUpon>TransactionConfirmation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\CS2Market.cs">
-      <DependentUpon>steam-model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Inventories.cs">
-      <DependentUpon>steam-model.tt</DependentUpon>
+    <Compile Include="Models\InventoryItems.cs">
+      <DependentUpon>steam-model-home.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Items.cs">
-      <DependentUpon>steam-model.tt</DependentUpon>
+      <DependentUpon>steam-model-home.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Iznos.cs">
-      <DependentUpon>steam-model.tt</DependentUpon>
+    <Compile Include="Models\ItemTypes.cs">
+      <DependentUpon>steam-model-home.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Operations.cs">
-      <DependentUpon>steam-model.tt</DependentUpon>
+    <Compile Include="Models\ListingStatuses.cs">
+      <DependentUpon>steam-model-home.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MarketListings.cs">
+      <DependentUpon>steam-model-home.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OperationTypes.cs">
+      <DependentUpon>steam-model-home.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Qualities.cs">
-      <DependentUpon>steam-model.tt</DependentUpon>
+      <DependentUpon>steam-model-home.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Status.cs">
-      <DependentUpon>steam-model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\steam-model-kip.Context.cs">
+    <Compile Include="Models\steam-model-home.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>steam-model-kip.Context.tt</DependentUpon>
+      <DependentUpon>steam-model-home.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\steam-model-kip.cs">
+    <Compile Include="Models\steam-model-home.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>steam-model-kip.tt</DependentUpon>
+      <DependentUpon>steam-model-home.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\steam-model-kip.Designer.cs">
+    <Compile Include="Models\steam-model-home.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>steam-model-kip.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\steam-model.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>steam-model.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\steam-model.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>steam-model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\steam-model.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>steam-model.edmx</DependentUpon>
+      <DependentUpon>steam-model-home.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>steam-model.tt</DependentUpon>
+      <DependentUpon>steam-model-home.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TransactionsHistory.cs">
-      <DependentUpon>steam-model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Types.cs">
-      <DependentUpon>steam-model.tt</DependentUpon>
+    <Compile Include="Models\Transactions.cs">
+      <DependentUpon>steam-model-home.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Users.cs">
-      <DependentUpon>steam-model.tt</DependentUpon>
+      <DependentUpon>steam-model-home.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WearCategories.cs">
+      <DependentUpon>steam-model-home.tt</DependentUpon>
     </Compile>
     <Compile Include="Pages\AuthPage.xaml.cs">
       <DependentUpon>AuthPage.xaml</DependentUpon>
@@ -223,6 +208,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\LightStemDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\MainStemDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -271,19 +260,12 @@
     <Resource Include="Fonts\DS-DIGIB.TTF" />
     <Resource Include="Fonts\DS-DIGII.TTF" />
     <Resource Include="Fonts\DS-DIGIT.TTF" />
-    <EntityDeploy Include="Models\steam-model-kip.edmx">
+    <EntityDeploy Include="Models\steam-model-home.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>steam-model-kip.Designer.cs</LastGenOutput>
+      <LastGenOutput>steam-model-home.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Models\steam-model-kip.edmx.diagram">
-      <DependentUpon>steam-model-kip.edmx</DependentUpon>
-    </None>
-    <EntityDeploy Include="Models\steam-model.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>steam-model.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Models\steam-model.edmx.diagram">
-      <DependentUpon>steam-model.edmx</DependentUpon>
+    <None Include="Models\steam-model-home.edmx.diagram">
+      <DependentUpon>steam-model-home.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -303,30 +285,20 @@
     <Resource Include="Images\CS2 ico.jpg" />
     <Resource Include="Images\Koishi.png" />
     <Resource Include="Images\Raphtalia.png" />
-    <Content Include="Models\steam-model.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>steam-model.edmx</DependentUpon>
-      <LastGenOutput>steam-model.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\steam-model.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>steam-model.edmx</DependentUpon>
-      <LastGenOutput>steam-model.cs</LastGenOutput>
-    </Content>
     <Resource Include="Images\stem-logo-nobg.png" />
     <Resource Include="Images\stem-logo.png" />
     <Resource Include="Images\background-1.png" />
     <Resource Include="Images\background-2.png" />
     <Resource Include="Images\steam-wiki-qr.jpg" />
-    <Content Include="Models\steam-model-kip.Context.tt">
+    <Content Include="Models\steam-model-home.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>steam-model-kip.edmx</DependentUpon>
-      <LastGenOutput>steam-model-kip.Context.cs</LastGenOutput>
+      <DependentUpon>steam-model-home.edmx</DependentUpon>
+      <LastGenOutput>steam-model-home.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\steam-model-kip.tt">
+    <Content Include="Models\steam-model-home.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>steam-model-kip.edmx</DependentUpon>
-      <LastGenOutput>steam-model-kip.cs</LastGenOutput>
+      <DependentUpon>steam-model-home.edmx</DependentUpon>
+      <LastGenOutput>steam-model-home.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

@@ -16,10 +16,10 @@ namespace ISIP123_Solodov_WPF.Models
     {
         public Users()
         {
-            this.CS2Market = new HashSet<CS2Market>();
-            this.CS2Market1 = new HashSet<CS2Market>();
-            this.Inventories = new HashSet<Inventories>();
-            this.TransactionsHistory = new HashSet<TransactionsHistory>();
+            this.InventoryItems = new HashSet<InventoryItems>();
+            this.MarketListings = new HashSet<MarketListings>();
+            this.Transactions = new HashSet<Transactions>();
+            this.MarketListings1 = new HashSet<MarketListings>();
         }
     
         public int ID { get; set; }
@@ -28,9 +28,9 @@ namespace ISIP123_Solodov_WPF.Models
         public string Nickname { get; set; }
         public decimal Balance { get; set; }
     
-        public virtual ICollection<CS2Market> CS2Market { get; set; }
-        public virtual ICollection<CS2Market> CS2Market1 { get; set; }
-        public virtual ICollection<Inventories> Inventories { get; set; }
-        public virtual ICollection<TransactionsHistory> TransactionsHistory { get; set; }
+        public virtual ICollection<InventoryItems> InventoryItems { get; set; }
+        public virtual ICollection<MarketListings> MarketListings { get; set; }
+        public virtual ICollection<Transactions> Transactions { get; set; }
+        public virtual ICollection<MarketListings> MarketListings1 { get; set; }
     }
 }

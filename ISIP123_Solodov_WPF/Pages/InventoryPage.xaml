@@ -21,12 +21,13 @@
                 <RowDefinition Height="121"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+
             <Grid.Background>
                 <ImageBrush ImageSource="/Images/background-1.png" Stretch="UniformToFill"/>
             </Grid.Background>
 
-            <Border Style="{StaticResource HeaderBG}" 
-                Grid.Row="0" Grid.ColumnSpan="3"/>
+            <!-- ШАПКА (Используем стили из Маркета) -->
+            <Border Style="{StaticResource HeaderBG}" Grid.Row="0" Grid.ColumnSpan="3"/>
 
             <Grid Grid.Row="0" Grid.Column="1" Margin="5">
                 <Grid.ColumnDefinitions>
@@ -35,24 +36,13 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Image Source="/Images/stem-logo-nobg.png"
-                   Style="{StaticResource LogoStemMarketPage}"
-                   Grid.Column="0"/>
+                <Image Source="/Images/stem-logo-nobg.png" Style="{StaticResource LogoStemMarketPage}" Grid.Column="0"/>
 
-                <StackPanel Grid.Column="1" Style="{StaticResource HeaderNavigations_StackPanel}" >
-                    <Button x:Name="shopBtn" Content="МАГАЗИН"
-                        Style="{StaticResource HeaderNavigations_Buttons}" 
-                        Click="ShowError_Dialog"/>
-                    <Button x:Name="communityBtn" Content="МАРКЕТ" 
-                        Style="{StaticResource HeaderNavigations_Buttons}" 
-                        Foreground="#1999ff"
-                        Click="MarketBtn_Click"/>
-                    <Button x:Name="informationBtn" Content="ИНФОРМАЦИЯ" 
-                        Style="{StaticResource HeaderNavigations_Buttons}" 
-                        Click="ShowError_Dialog"/>
-                    <Button x:Name="supportBtn" Content="ПОДДЕРЖКА" 
-                        Style="{StaticResource HeaderNavigations_Buttons}" 
-                        Click="ShowError_Dialog"/>
+                <StackPanel Grid.Column="1" Style="{StaticResource HeaderNavigations_StackPanel}">
+                    <Button x:Name="shopBtn" Content="МАГАЗИН" Style="{StaticResource HeaderNavigations_Buttons}" Click="ShowError_Dialog"/>
+                    <Button x:Name="communityBtn" Content="МАРКЕТ" Style="{StaticResource HeaderNavigations_Buttons}" Foreground="#1999ff" Click="MarketBtn_Click"/>
+                    <Button x:Name="informationBtn" Content="ИНФОРМАЦИЯ" Style="{StaticResource HeaderNavigations_Buttons}" Click="ShowError_Dialog"/>
+                    <Button x:Name="supportBtn" Content="ПОДДЕРЖКА" Style="{StaticResource HeaderNavigations_Buttons}" Click="ShowError_Dialog"/>
                 </StackPanel>
 
                 <StackPanel Style="{StaticResource AccountAndExit}" Grid.Column="2">
@@ -60,21 +50,25 @@
                     <TextBlock x:Name="NicknameTBlock" Text="тест" Style="{StaticResource AccountTBox}"/>
                 </StackPanel>
             </Grid>
-            <Grid Grid.Row="1" Grid.Column="1" Background="#2a3340">
+
+            <!-- ПЛАШКА ПРОФИЛЯ (сверху) -->
+            <Grid Grid.Row="1" Grid.Column="1" Style="{StaticResource InventoryProfilePanel}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Border Grid.Column="0" Margin="25,0,25,0" BorderBrush="#6a6a6a" BorderThickness="2" VerticalAlignment="Center">
+                <Border Style="{StaticResource InventoryAvatarBorder}" Grid.Column="0">
                     <Image Source="/Images/steam-smile.png" Height="68" Width="68"/>
                 </Border>
-                <TextBlock Grid.Column="1" x:Name="NicknameTBlock_2" FontSize="26" Foreground="White" VerticalAlignment="Center"/>
-                <TextBlock Grid.Column="2" Text=">> Инвентарь" FontSize="14" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                <TextBlock Grid.Column="1" x:Name="NicknameTBlock_2" Style="{StaticResource InventoryProfileName}"/>
+                <TextBlock Grid.Column="2" Text=">> Инвентарь" Style="{StaticResource InventoryBreadcrumb}"/>
             </Grid>
-            <Border Grid.Row="2" Grid.Column="1" BorderBrush="#6a6a6a" BorderThickness="1" Margin="20">
-                <Grid Background="#1c1f21">
+
+            <!-- ОСНОВНОЙ КОНТЕНТ -->
+            <Border Grid.Row="2" Grid.Column="1" Style="{StaticResource InventoryMainBorder}">
+                <Grid Style="{StaticResource InventoryMainGrid}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
@@ -82,34 +76,43 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
+
                     <Image Source="/Images/CS2 logo.png" Width="250" HorizontalAlignment="Left" Margin="5,5,0,0" Grid.Row="0"/>
+
+                    <!-- Фильтр: Поиск -->
                     <Grid Grid.Row="1" Margin="5,0,5,5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Поиск по предметам:" FontSize="14" Foreground="#afb1b8" Grid.Column="0"/>
-                        <TextBox x:Name="SearchItemTBox" FontSize="14" Foreground="#afb1b8" Background="#16191a" BorderBrush="Black" Margin="10,0,0,0" Grid.Column="1" TextChanged="SearchItemTBox_TextChanged"/>
+                        <TextBlock Text="Поиск по предметам:" Style="{StaticResource InventoryFilterLabel}" Grid.Column="0" VerticalAlignment="Center"/>
+                        <TextBox x:Name="SearchItemTBox" Style="{StaticResource InventorySearchBox}" Margin="10,0,0,0" Grid.Column="1" TextChanged="SearchItemTBox_TextChanged"/>
                     </Grid>
+
+                    <!-- Фильтр: Тип -->
                     <Grid Margin="5,0,5,5" Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="75"/>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Тип:" FontSize="14" Foreground="#afb1b8" Grid.Column="0"/>
+                        <TextBlock Text="Тип:" Style="{StaticResource InventoryFilterLabel}" Grid.Column="0" VerticalAlignment="Center"/>
                         <ComboBox x:Name="TypesCombo" Style="{StaticResource SideBarCombo}" ItemContainerStyle="{StaticResource SideBarComboItem}" Margin="10,0,0,0" Height="20" Width="150" Grid.Column="1" SelectionChanged="TypesCombo_SelectionChanged"/>
                     </Grid>
+
+                    <!-- Фильтр: Редкость -->
                     <Grid Margin="5,0,5,5" Grid.Row="3">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="75"/>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Редкость:" FontSize="14" Foreground="#afb1b8" Grid.Column="0"/>
-                        <ComboBox x:Name="QualitesCombo" Style="{StaticResource SideBarCombo}" ItemContainerStyle="{StaticResource SideBarComboItem}" Margin="10,0,0,0" Height="20" Width="150" Grid.Column="1" SelectionChanged="QualitesCombo_SelectionChanged" IsEnabled="False"/>
+                        <TextBlock Text="Редкость:" Style="{StaticResource InventoryFilterLabel}" Grid.Column="0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="QualitesCombo" Style="{StaticResource SideBarCombo}" ItemContainerStyle="{StaticResource SideBarComboItem}" Margin="10,0,0,0" Height="20" Width="150" Grid.Column="1" SelectionChanged="QualitesCombo_SelectionChanged"/>
                     </Grid>
+
+                    <!-- Сетка предметов и карточка -->
                     <Grid Grid.Row="4" Margin="5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="3*"/>
@@ -121,63 +124,68 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <ListBox x:Name="InventoryItems" Grid.Row="0" Grid.Column="0" Width="538" Height="538" VerticalAlignment="Top" HorizontalAlignment="Left" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" PreviewMouseWheel="ListBox_PreviewMouseWheel" SelectionChanged="InventoryItems_SelectionChanged">
+                        <!-- Сетка инвентаря -->
+                        <ListBox x:Name="InventoryItems" Grid.Row="0" Grid.Column="0" 
+                             Style="{StaticResource InventoryListBox}" 
+                             PreviewMouseWheel="ListBox_PreviewMouseWheel" 
+                             SelectionChanged="InventoryItems_SelectionChanged">
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <UniformGrid Columns="5" Rows="5" Background="Black"/>
+                                    <UniformGrid Style="{StaticResource InventoryUniformGrid}"/>
                                 </ItemsPanelTemplate>
                             </ListBox.ItemsPanel>
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <Border Style="{StaticResource ImageFrame}" Background="#454545">
-                                        <Image Source="{Binding Items.ItemPicture}" Width="95" Height="95"/>
+                                    <Border Style="{StaticResource InventoryCellBorder}">
+                                        <Image Source="{Binding Items.ItemPicture}" Style="{StaticResource InventoryCellImage}"/>
                                     </Border>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
+
+                        <!-- Пагинация -->
                         <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Right">
-                            <Button x:Name="leftBtn" Content="&lt;" Width="35" IsEnabled="False" Click="leftBtn_Click"/>
-                            <TextBlock x:Name="count" Text="1 из 1" Foreground="#afb1b8" FontSize="14" Margin="5,0,5,0"/>
-                            <Button x:Name="rightBtn" Content=">" Width="35" IsEnabled="False" Click="rightBtn_Click"/>
+                            <Button x:Name="leftBtn" Content="&lt;" Style="{StaticResource InventoryPageButton}" IsEnabled="False" Click="leftBtn_Click"/>
+                            <TextBlock x:Name="count" Text="1 из 1" Style="{StaticResource InventoryPageText}"/>
+                            <Button x:Name="rightBtn" Content=">" Style="{StaticResource InventoryPageButton}" IsEnabled="False" Click="rightBtn_Click"/>
                         </StackPanel>
-                        <Border x:Name="ItemCardGrid" Visibility="Hidden" Grid.RowSpan="2" Grid.Column="1" BorderThickness="2" BorderBrush="#66c0f4" Margin="10,0,5,5" VerticalAlignment="Top">
+
+                        <!-- Карточка выбранного предмета -->
+                        <Border x:Name="ItemCardGrid" Visibility="Hidden" Grid.RowSpan="2" Grid.Column="1" Style="{StaticResource InventoryCardBorder}">
                             <Grid Margin="10">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="175"/>
-                                    <!-- Картинка -->
                                     <RowDefinition Height="auto"/>
-                                    <!-- Название -->
                                     <RowDefinition Height="auto"/>
-                                    <!-- КС2 -->
                                     <RowDefinition Height="auto"/>
-                                    <!-- Состояние, Редкость, Флот -->
                                     <RowDefinition Height="auto"/>
-                                    <!-- Описание -->
-                                    <RowDefinition Height="auto"/>
-                                    <!-- Bar продажи и цены -->
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
+
                                 <Image Source="{Binding Items.ItemPicture}" Grid.Row="0"/>
-                                <TextBlock Text="{Binding Items.Name}" FontSize="26" FontWeight="Bold" Foreground="#66c0f4" TextWrapping="Wrap" Grid.Row="1" Margin="0,5,0,0"/>
+                                <TextBlock Text="{Binding Items.Name}" Style="{StaticResource InventoryCardTitle}" Grid.Row="1"/>
+
                                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,5,0,0">
                                     <Image Source="/Images/CS2 ico.jpg" Width="25"/>
-                                    <TextBlock Text="Counter-Strike 2" FontSize="14" Foreground="#D2D2D2" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                                    <TextBlock Text="Counter-Strike 2" Style="{StaticResource InventoryCardGameText}"/>
                                 </StackPanel>
-                                <StackPanel Grid.Row="3" Orientation="Vertical" Margin="0,5,0,0">
-                                    <TextBlock x:Name="IznosTblock" Text="Состояние: " FontSize="14" Foreground="#666666" Margin="0,0,0,3" Visibility="Visible"/>
-                                    <TextBlock Text="{Binding Items.Types.Name, StringFormat={}Тип: {0}}" FontSize="14" Foreground="#666666" Margin="0,0,0,3"/>
-                                    <TextBlock Text="{Binding Items.Qualities.Name, StringFormat={}Качество: {0}}" FontSize="14" Foreground="#666666" Margin="0,0,0,3"/>
-                                    <TextBlock x:Name="FlotTblock" Text="{Binding Flot, StringFormat={}Степень износа: {0}}" FontSize="14" Foreground="#666666" Visibility="Visible"/>
-                                </StackPanel>
-                                <TextBlock Grid.Row="4" Margin="0,10,0,5" Text="{Binding Items.Description}" TextWrapping="Wrap" FontSize="14" Foreground="#D2D2D2"/>
 
-                                <Grid Grid.Row="5" Background="#141a21">
+                                <StackPanel Grid.Row="3" Orientation="Vertical" Margin="0,5,0,0">
+                                    <TextBlock x:Name="IznosTblock" Text="Состояние: " Style="{StaticResource InventoryCardStatText}" Visibility="Visible"/>
+                                    <TextBlock Text="{Binding Items.ItemTypes.Name, StringFormat={}Тип: {0}}" Style="{StaticResource InventoryCardStatText}"/>
+                                    <TextBlock Text="{Binding Items.Qualities.Name, StringFormat={}Качество: {0}}" Style="{StaticResource InventoryCardStatText}"/>
+                                    <TextBlock x:Name="FlotTblock" Text="{Binding FloatValue, StringFormat={}Степень износа: {0}}" Style="{StaticResource InventoryCardStatText}" Visibility="Visible"/>
+                                </StackPanel>
+
+                                <TextBlock Grid.Row="4" Margin="0,10,0,5" Text="{Binding Items.Description}" Style="{StaticResource InventoryCardDescription}"/>
+
+                                <Grid Grid.Row="5" Style="{StaticResource InventoryCardBottomBar}">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="auto"/>
                                         <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
-                                    <TextBlock x:Name="StartPrice" Text="тест" FontSize="14" Foreground="#D2D2D2" HorizontalAlignment="Left" Margin="10" Grid.Row="0"/>
-                                    <Button Content="Продать" Background="#577c22" Foreground="White" BorderThickness="0" Width="75" Height="25" HorizontalAlignment="Left" Margin="10,0,0,10" Grid.Row="1" Click="SellItemButton_Click"/>
+                                    <TextBlock x:Name="StartPrice" Text="тест" Style="{StaticResource InventoryCardPriceText}" Grid.Row="0"/>
+                                    <Button Content="Продать" Style="{StaticResource InventoryCardSellButton}" Grid.Row="1" Click="SellItemButton_Click"/>
                                 </Grid>
                             </Grid>
                         </Border>

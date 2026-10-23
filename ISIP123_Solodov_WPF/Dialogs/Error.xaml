@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Error 404" Height="400" Width="600"
         ResizeMode="NoResize">
-    <Grid Background="#181a21">
+    <Grid Background="{StaticResource DialogBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
@@ -15,12 +15,20 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <Image Source="/Images/stem-logo-nobg.png" Width="100" Grid.Row="0" HorizontalAlignment="Right" Margin="10"/>
+        <Image Source="/Images/stem-logo-nobg.png" 
+           Style="{StaticResource ErrorLogo}" 
+           Grid.Row="0" />
+
         <Image Source="/Images/bummer.png" Grid.Row="1"/>
+
         <StackPanel Orientation="Vertical" Grid.Row="2">
-            <TextBlock Text="Что-то Пошло Не Так" Foreground="White" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
-            <TextBlock Text="Мы не смогли обработать ваш запрос. Пожалуйста, повторите попытку позже." Foreground="White" HorizontalAlignment="Center" Margin="5"/>
+            <TextBlock Text="Что-то Пошло Не Так" Style="{StaticResource ErrorTitle}"/>
+            <TextBlock Text="Мы не смогли обработать ваш запрос. Пожалуйста, повторите попытку позже." Style="{StaticResource ErrorSubtitle}"/>
         </StackPanel>
-        <Button Background="#214b6b" Foreground="White" Content="Закрыть окно" Grid.Row="3" BorderThickness="0" Width="100" Margin="10" Click="Button_Click"/>
+
+        <Button Content="Закрыть окно" 
+            Style="{StaticResource ErrorCloseButton}" 
+            Grid.Row="3" 
+            Click="Button_Click"/>
     </Grid>
 </Window>

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="SellDialog" Height="450" Width="800"
         ResizeMode="NoResize">
-    <Grid Background="#181a21">
+    <Grid Background="{StaticResource DialogBackground}">
         <Grid x:Name="MainGrid" Margin="20">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -19,7 +19,8 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Выставление предмета на продажу" Foreground="White" FontSize="20" FontWeight="Bold" Margin="0,0,0,10" Grid.Row="0"/>
+            <TextBlock Text="Выставление предмета на продажу" Style="{StaticResource SellDialogTitle}" Grid.Row="0"/>
+
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
@@ -29,45 +30,54 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
+
                 <Border Style="{StaticResource ImageFrame}" Width="100" Height="100" Margin="0,0,20,0" Grid.Row="0" Grid.Column="0">
                     <Image Source="{Binding Items.ItemPicture}"/>
                 </Border>
-                <TextBlock Text="{Binding Items.Name}" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="#1999ff" Grid.Row="0" Grid.Column="1"/>
-                <Separator Background="#afb1b8" Height="1" Margin="0,10,0,20" Grid.ColumnSpan="2" Grid.Row="1"/>
+
+                <TextBlock Text="{Binding Items.Name}" Style="{StaticResource SellDialogItemName}" Grid.Row="0" Grid.Column="1"/>
+
+                <Separator Style="{StaticResource DialogSeparator}" Margin="0,10,0,20" Grid.ColumnSpan="2" Grid.Row="1"/>
             </Grid>
+
             <StackPanel Grid.Row="2" Margin="0,0,0,20">
-                <TextBlock x:Name="AveragePrice" FontSize="16" Foreground="#afb1b8" Margin="0,0,0,10"/>
-                <TextBlock x:Name="LastUserPrice" FontSize="16" Foreground="#afb1b8"/>
+                <TextBlock x:Name="AveragePrice" Style="{StaticResource SellDialogPriceText}" Margin="0,0,0,10"/>
+                <TextBlock x:Name="LastUserPrice" Style="{StaticResource SellDialogPriceText}"/>
             </StackPanel>
-            <Separator Background="#afb1b8" Height="1" Grid.Row="3"/>
+
+            <Separator Style="{StaticResource DialogSeparator}" Grid.Row="3"/>
+
             <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,15,0,0">
-                <Button x:Name="MinusBtn" Content="-" FontSize="14" FontWeight="Bold" Width="20" BorderThickness="0" Foreground="White" Background="#577c22" Click="MinusBtn_Click"/>
-                <TextBlock x:Name="CountTBlock" Foreground="#afb1b8" FontSize="14" FontWeight="Bold" Margin="15,0,15,0"/>
-                <Button x:Name="PlusBtn" Content="+" FontSize="14" FontWeight="Bold" Width="20" BorderThickness="0" Foreground="White" Background="#577c22" Click="PlusBtn_Click"/>
-                <TextBlock x:Name="DescriptionTBlock" Margin="20,0,0,0" Text="(так как предмет является уникальным, продажа нескольких экземпляров невозможна)" FontSize="14" Foreground="DarkRed" Visibility="Hidden"/>
+                <Button x:Name="MinusBtn" Content="-" Style="{StaticResource CountButton}" Click="MinusBtn_Click"/>
+                <TextBlock x:Name="CountTBlock" Style="{StaticResource CountText}"/>
+                <Button x:Name="PlusBtn" Content="+" Style="{StaticResource CountButton}" Click="PlusBtn_Click"/>
+                <TextBlock x:Name="DescriptionTBlock" Text="(так как предмет является уникальным, продажа нескольких экземпляров невозможна)" Style="{StaticResource WarningText}" Visibility="Hidden"/>
             </StackPanel>
+
             <StackPanel Grid.Row="5" HorizontalAlignment="Center" Margin="10" Orientation="Horizontal">
-                <TextBlock Text="Вы получите: " FontSize="14" Foreground="White"/>
-                <TextBox x:Name="SellerProfit" FontSize="14" Foreground="White" Background="#171717" BorderBrush="Black" Height="20" Width="100" VerticalAlignment="Top" TextChanged="SellerProfit_TextChanged" PreviewTextInput="NumberTextBox_PreviewTextInput"/>
-                <TextBlock Text="Покупатель заплатит: " FontSize="14" Foreground="White" Margin="100,0,0,0"/>
-                <TextBox x:Name="BuyerPays" FontSize="14" Foreground="White" Background="#171717" BorderBrush="Black" Height="20" Width="100" VerticalAlignment="Top" TextChanged="BuyerPays_TextChanged" PreviewTextInput="NumberTextBox_PreviewTextInput"/>
+                <TextBlock Text="Вы получите: " Style="{StaticResource PriceInputLabel}"/>
+                <TextBox x:Name="SellerProfit" Style="{StaticResource PriceInputBox}" TextChanged="SellerProfit_TextChanged" PreviewTextInput="NumberTextBox_PreviewTextInput"/>
+
+                <TextBlock Text="Покупатель заплатит: (за единицу) " Style="{StaticResource PriceInputLabel}" Margin="100,0,0,0"/>
+                <TextBox x:Name="BuyerPays" Style="{StaticResource PriceInputBox}" TextChanged="BuyerPays_TextChanged" PreviewTextInput="NumberTextBox_PreviewTextInput"/>
             </StackPanel>
+
             <Grid Grid.Row="6" Margin="0,0,0,20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <CheckBox x:Name="SSA" Foreground="White" FontSize="14" HorizontalAlignment="Left" Grid.Column="0">
+                <CheckBox x:Name="SSA" Style="{StaticResource AgreementCheckBox}" Grid.Column="0">
                     <CheckBox.Content>
                         <TextBlock>
-                            Я принимаю
-                            <Hyperlink NavigateUri="https://store.steampowered.com/subscriber_agreement/russian/" RequestNavigate="Hyperlink_RequestNavigate" Foreground="White">
-                                Соглашение подписчика Stem
-                            </Hyperlink>
+                    Я принимаю
+                    <Hyperlink NavigateUri="https://store.steampowered.com/subscriber_agreement/russian/" RequestNavigate="Hyperlink_RequestNavigate" Foreground="White">
+                        Соглашение подписчика Stem
+                    </Hyperlink>
                         </TextBlock>
                     </CheckBox.Content>
                 </CheckBox>
-                <Button x:Name="SellButton" Content="Да, выставить на продажу" HorizontalAlignment="Right" BorderThickness="0" Background="#577c22" FontSize="12" Foreground="White" Height="22" Width="200" Grid.Column="1" Click="SellButton_Click"/>
+                <Button x:Name="SellButton" Content="Да, выставить на продажу" Style="{StaticResource GreenActionButton}" Grid.Column="1" Click="SellButton_Click"/>
             </Grid>
         </Grid>
     </Grid>

@@ -16,7 +16,7 @@ namespace ISIP123_Solodov_WPF.Models
     {
         public Items()
         {
-            this.Inventories = new HashSet<Inventories>();
+            this.InventoryItems = new HashSet<InventoryItems>();
         }
     
         public int ID { get; set; }
@@ -27,8 +27,8 @@ namespace ISIP123_Solodov_WPF.Models
         public string ItemPicture { get; set; }
         public string Description { get; set; }
     
-        public virtual ICollection<Inventories> Inventories { get; set; }
+        public virtual ICollection<InventoryItems> InventoryItems { get; set; }
+        public virtual ItemTypes ItemTypes { get; set; }
         public virtual Qualities Qualities { get; set; }
-        public virtual Types Types { get; set; }
     }
 }

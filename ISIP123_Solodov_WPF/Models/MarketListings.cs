@@ -12,22 +12,21 @@ namespace ISIP123_Solodov_WPF.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class CS2Market
+    public partial class MarketListings
     {
         public int ID { get; set; }
         public int InventoryID { get; set; }
         public decimal Price { get; set; }
         public decimal Commission { get; set; }
-        public int SellerID { get; set; }
         public Nullable<int> BuyerID { get; set; }
-        public Nullable<System.DateTime> DateOfDeal { get; set; }
-        public System.DateTime DateOfCreatingOffer { get; set; }
+        public Nullable<System.DateTime> SoldAt { get; set; }
+        public System.DateTime CreatedAt { get; set; }
         public int StatusID { get; set; }
-        public Nullable<int> Count { get; set; }
+        public Nullable<int> SellerID { get; set; }
     
+        public virtual InventoryItems InventoryItems { get; set; }
+        public virtual ListingStatuses ListingStatuses { get; set; }
         public virtual Users Users { get; set; }
-        public virtual Inventories Inventories { get; set; }
         public virtual Users Users1 { get; set; }
-        public virtual Status Status { get; set; }
     }
 }

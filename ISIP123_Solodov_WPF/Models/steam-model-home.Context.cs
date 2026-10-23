@@ -25,16 +25,16 @@ namespace ISIP123_Solodov_WPF.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<CS2Market> CS2Market { get; set; }
-        public DbSet<Inventories> Inventories { get; set; }
+        public DbSet<InventoryItems> InventoryItems { get; set; }
         public DbSet<Items> Items { get; set; }
-        public DbSet<Iznos> Iznos { get; set; }
-        public DbSet<Operations> Operations { get; set; }
+        public DbSet<ItemTypes> ItemTypes { get; set; }
+        public DbSet<ListingStatuses> ListingStatuses { get; set; }
+        public DbSet<MarketListings> MarketListings { get; set; }
+        public DbSet<OperationTypes> OperationTypes { get; set; }
         public DbSet<Qualities> Qualities { get; set; }
-        public DbSet<Status> Status { get; set; }
         public DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public DbSet<TransactionsHistory> TransactionsHistory { get; set; }
-        public DbSet<Types> Types { get; set; }
+        public DbSet<Transactions> Transactions { get; set; }
         public DbSet<Users> Users { get; set; }
+        public DbSet<WearCategories> WearCategories { get; set; }
     }
 }

@@ -7,11 +7,13 @@
         mc:Ignorable="d"
         Title="HistoryDialog" Height="450" Width="800"
         ResizeMode="NoResize">
-    <Grid Background="#181a21">
+    <Grid Background="{StaticResource DialogBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
+
+        <!-- Шапка таблицы -->
         <Grid Margin="18,10,18,5" Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25"/>
@@ -20,15 +22,20 @@
                 <ColumnDefinition Width="125"/>
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="НАЗВАНИЕ" FontSize="14" Grid.Column="1" Foreground="#afb1b8"/>
-            <TextBlock Text="РАЗМЕЩЕНО" FontSize="14" Grid.Column="2" Foreground="#afb1b8" HorizontalAlignment="Center"/>
-            <TextBlock Text="ДАТА СДЕЛКИ" FontSize="14" Grid.Column="3" Foreground="#afb1b8" HorizontalAlignment="Center"/>
-            <TextBlock Text="ЦЕНА" FontSize="14" Grid.Column="4" Foreground="#afb1b8" HorizontalAlignment="Center"/>
+            <TextBlock Text="НАЗВАНИЕ" Style="{StaticResource DialogHeaderText}" Grid.Column="1"/>
+            <TextBlock Text="РАЗМЕЩЕНО" Style="{StaticResource DialogHeaderTextCenter}" Grid.Column="2"/>
+            <TextBlock Text="ДАТА СДЕЛКИ" Style="{StaticResource DialogHeaderTextCenter}" Grid.Column="3"/>
+            <TextBlock Text="ЦЕНА" Style="{StaticResource DialogHeaderTextCenter}" Grid.Column="4"/>
         </Grid>
-        <ListBox x:Name="MarketHistoryLB" Margin="10" Grid.Row="1" BorderThickness="0" Background="Transparent" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" VirtualizingPanel.ScrollUnit="Pixel">
+
+        <!-- Список истории -->
+        <ListBox x:Name="MarketHistoryLB" 
+             Style="{StaticResource DialogListBox}" 
+             ItemContainerStyle="{StaticResource DialogListBoxItem}"
+             Grid.Row="1">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border Background="#16202d" CornerRadius="4" Margin="0,0,0,6" Height="40">
+                    <Border Style="{StaticResource DialogRowBorder}">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="25"/>
@@ -37,11 +44,12 @@
                                 <ColumnDefinition Width="125"/>
                                 <ColumnDefinition Width="100"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="{Binding OperationSign}" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#577c22" Grid.Column="0"/>
-                            <TextBlock Text="{Binding Transaction.Inventories.Items.Name}" FontSize="14" FontWeight="Bold" Foreground="#66c0f4" VerticalAlignment="Center" Grid.Column="1"/>
-                            <TextBlock Text="{Binding Transaction.DateOfCreatingOffer, StringFormat='{}{0:dd.MM.yyyy}'}" FontSize="14" Foreground="#afb1b8" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2"/>
-                            <TextBlock Text="{Binding Transaction.DateOfDeal, StringFormat='{}{0:dd.MM.yyyy}'}" FontSize="14" Foreground="#afb1b8" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3"/>
-                            <TextBlock Text="{Binding Transaction.Price, StringFormat={}{0} ₽}" FontSize="14" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="4"/>
+
+                            <TextBlock Text="{Binding OperationSign}" Style="{StaticResource DialogOperationSign}" Grid.Column="0"/>
+                            <TextBlock Text="{Binding ItemName}" Style="{StaticResource DialogItemTitle}" Grid.Column="1" Margin="10,0,0,0"/>
+                            <TextBlock Text="{Binding CreatedAt, StringFormat='{}{0:dd.MM.yyyy}'}" Style="{StaticResource DialogItemText}" Grid.Column="2"/>
+                            <TextBlock Text="{Binding SoldAt, StringFormat='{}{0:dd.MM.yyyy}'}" Style="{StaticResource DialogItemText}" Grid.Column="3"/>
+                            <TextBlock Text="{Binding Price, StringFormat={}{0} ₽}" Style="{StaticResource DialogItemPrice}" Grid.Column="4"/>
                         </Grid>
                     </Border>
                 </DataTemplate>

@@ -29,29 +29,47 @@ namespace ISIP123_Solodov_WPF.Dialogs
 
         private void RemoveSlot_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button)
+            if (sender is Button button && button.DataContext is MarketListings item)
             {
-                if (button.DataContext is CS2Market item)
+                var res = MessageBox.Show("Вы точно хотите снять слот с продажи?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (res == MessageBoxResult.Yes)
                 {
-                    var res = MessageBox.Show("Вы точно хотите снять слот с продажи?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                    if (res == MessageBoxResult.Yes)
+                    try
                     {
-                        MessageBox.Show($"Вы сняли {item.Inventories.Items.Name} с продажи", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                        // 1. Меняем статус лота на "Отменён" (3)
+                        item.StatusID = 3;
 
-                        item.StatusID = 3; // отменен
+                        // 2. Возвращаем предмет в инвентарь (снимаем флаг продажи)
+                        if (item.InventoryItems != null)
+                        {
+                            item.InventoryItems.IsListed = false;
+                        }
 
-                        Core.Context.CS2Market.Remove(item);
                         Core.Context.SaveChanges();
 
+                        // 3. Показываем сообщение после успешного сохранения
+                        string itemName = item.InventoryItems?.Items?.Name ?? "Предмет";
+                        MessageBox.Show($"Вы сняли {itemName} с продажи", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        // 4. Обновляем список на экране
                         PageLoaded(null, null);
+                    }
+                    catch (System.Exception ex)
+                    {
+                        MessageBox.Show($"Произошла ошибка при отмене лота: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
         }
 
-        private void PageLoaded(object sender, RoutedEventArgs e) 
+        private void PageLoaded(object sender, RoutedEventArgs e)
         {
-            var lst = Core.Context.CS2Market.Where(x => x.SellerID == Core.CurrentUser.ID && x.BuyerID == null).ToList();
+            // Получаем активные лоты текущего пользователя.
+            var lst = Core.Context.MarketListings
+                .Where(x => x.InventoryItems.UserID == Core.CurrentUser.ID && x.StatusID == 1)
+                .ToList();
+
             MarketActivityLB.ItemsSource = lst;
         }
     }
