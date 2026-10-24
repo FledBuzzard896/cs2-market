@@ -45,7 +45,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
             }
 
             // 2. Проверка на существующего пользователя
-            if (Core.Context.Users.Any(x => x.Login == login))
+            if (Core.ContextKIP.Users.Any(x => x.Login == login))
             {
                 MessageBox.Show("Пользователь с таким Login уже существует.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -82,8 +82,8 @@ namespace ISIP123_Solodov_WPF.Dialogs
                     Balance = 0,
                 };
 
-                Core.Context.Users.Add(newUser);
-                Core.Context.SaveChanges();
+                Core.ContextKIP.Users.Add(newUser);
+                Core.ContextKIP.SaveChanges();
 
                 Core.CurrentUser = newUser;
                 this.DialogResult = true;

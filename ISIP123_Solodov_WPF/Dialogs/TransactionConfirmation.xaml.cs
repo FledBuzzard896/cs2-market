@@ -56,7 +56,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
                 foreach (var listing in _listings)
                 {
                     // 1. Находим предмет в инвентаре
-                    var itemInInventory = Core.Context.InventoryItems.FirstOrDefault(x => x.ID == listing.InventoryID);
+                    var itemInInventory = Core.ContextKIP.InventoryItems.FirstOrDefault(x => x.ID == listing.InventoryID);
 
                     if (itemInInventory == null) continue; 
 
@@ -65,7 +65,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
                     itemInInventory.IsListed = false; // Снимаем с продажи
 
                     // 3. Начисляем деньги конкретному продавцу (этого лота)
-                    var seller = Core.Context.Users.FirstOrDefault(x => x.ID == listing.SellerID);
+                    var seller = Core.ContextKIP.Users.FirstOrDefault(x => x.ID == listing.SellerID);
                     if (seller != null)
                     {
                         seller.Balance += listing.Price;
@@ -78,7 +78,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
                             Amount = listing.Price,
                             TransactionDate = DateTime.Now,
                         };
-                        Core.Context.Transactions.Add(sellerTransaction);
+                        Core.ContextKIP.Transactions.Add(sellerTransaction);
                     }
 
                     // 4. Записываем транзакцию для покупателя
@@ -89,7 +89,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
                         Amount = listing.Price + listing.Commission, 
                         TransactionDate = DateTime.Now,
                     };
-                    Core.Context.Transactions.Add(buyerTransaction);
+                    Core.ContextKIP.Transactions.Add(buyerTransaction);
 
                     // 5. Закрываем лот на маркете
                     listing.StatusID = 2; // Продан
@@ -97,7 +97,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
                     listing.SoldAt = DateTime.Now;
                 }
 
-                Core.Context.SaveChanges();
+                Core.ContextKIP.SaveChanges();
 
                 MessageBox.Show($"Успешно куплено предметов: {_listings.Count}!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.DialogResult = true;

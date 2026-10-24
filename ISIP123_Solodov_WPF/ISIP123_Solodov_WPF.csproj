@@ -105,25 +105,25 @@
       <DependentUpon>TransactionConfirmation.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\InventoryItems.cs">
-      <DependentUpon>steam-model-home.tt</DependentUpon>
+      <DependentUpon>steam-model-kip.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Items.cs">
-      <DependentUpon>steam-model-home.tt</DependentUpon>
+      <DependentUpon>steam-model-kip.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ItemTypes.cs">
-      <DependentUpon>steam-model-home.tt</DependentUpon>
+      <DependentUpon>steam-model-kip.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ListingStatuses.cs">
-      <DependentUpon>steam-model-home.tt</DependentUpon>
+      <DependentUpon>steam-model-kip.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MarketListings.cs">
-      <DependentUpon>steam-model-home.tt</DependentUpon>
+      <DependentUpon>steam-model-kip.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OperationTypes.cs">
-      <DependentUpon>steam-model-home.tt</DependentUpon>
+      <DependentUpon>steam-model-kip.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Qualities.cs">
-      <DependentUpon>steam-model-home.tt</DependentUpon>
+      <DependentUpon>steam-model-kip.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\steam-model-home.Context.cs">
       <AutoGen>True</AutoGen>
@@ -140,17 +140,32 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>steam-model-home.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\steam-model-kip.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>steam-model-kip.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\steam-model-kip.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>steam-model-kip.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\steam-model-kip.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>steam-model-kip.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>steam-model-home.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Transactions.cs">
-      <DependentUpon>steam-model-home.tt</DependentUpon>
+      <DependentUpon>steam-model-kip.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Users.cs">
-      <DependentUpon>steam-model-home.tt</DependentUpon>
+      <DependentUpon>steam-model-kip.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\WearCategories.cs">
-      <DependentUpon>steam-model-home.tt</DependentUpon>
+      <DependentUpon>steam-model-kip.tt</DependentUpon>
     </Compile>
     <Compile Include="Pages\AuthPage.xaml.cs">
       <DependentUpon>AuthPage.xaml</DependentUpon>
@@ -267,6 +282,13 @@
     <None Include="Models\steam-model-home.edmx.diagram">
       <DependentUpon>steam-model-home.edmx</DependentUpon>
     </None>
+    <EntityDeploy Include="Models\steam-model-kip.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>steam-model-kip.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\steam-model-kip.edmx.diagram">
+      <DependentUpon>steam-model-kip.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -277,6 +299,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Models\steam-model-kip.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>steam-model-kip.edmx</DependentUpon>
+      <LastGenOutput>steam-model-kip.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\steam-model-kip.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>steam-model-kip.edmx</DependentUpon>
+      <LastGenOutput>steam-model-kip.cs</LastGenOutput>
+    </Content>
     <Resource Include="Images\bummer.png" />
     <Resource Include="Images\lastquestion.jpg" />
     <Resource Include="Images\TheGreatGaben.jpg" />

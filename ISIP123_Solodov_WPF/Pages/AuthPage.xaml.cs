@@ -39,7 +39,7 @@ namespace ISIP123_Solodov_WPF.Pages
 
             try
             {
-                var usr = Core.Context.Users.FirstOrDefault(x => x.Login == loginBox.Text.Trim());
+                var usr = Core.ContextKIP.Users.FirstOrDefault(x => x.Login == loginBox.Text.Trim());
 
                 if (usr == null || usr.Password != passwordBox.Password.Trim())
                 {

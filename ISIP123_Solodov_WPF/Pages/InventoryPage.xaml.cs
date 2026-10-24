@@ -142,7 +142,7 @@ namespace ISIP123_Solodov_WPF.Pages
 
                 double? floatVal = item.FloatValue;
                 // Ищем степень износа 
-                foreach (var str in Core.Context.WearCategories.ToList())
+                foreach (var str in Core.ContextKIP.WearCategories.ToList())
                 {
                     if (str.MinFloat <= floatVal && floatVal < str.MaxFloat)
                     {
@@ -154,7 +154,7 @@ namespace ISIP123_Solodov_WPF.Pages
 
             // 2. Ищем минимальную стоимость
             // Ищем активные лоты
-            var activeListing = Core.Context.MarketListings
+            var activeListing = Core.ContextKIP.MarketListings
                 .Where(x => x.StatusID == 1 && x.InventoryItems.ItemID == item.ItemID)
                 .OrderBy(x => x.Price) // Берем самый дешевый
                 .FirstOrDefault();
@@ -167,7 +167,7 @@ namespace ISIP123_Solodov_WPF.Pages
             else
             {
                 // Если активных нет, ищем оследнюю продажу
-                var lastSold = Core.Context.MarketListings
+                var lastSold = Core.ContextKIP.MarketListings
                     .Where(x => x.StatusID == 2 && x.InventoryItems.ItemID == item.ItemID)
                     .OrderByDescending(x => x.SoldAt)
                     .FirstOrDefault();
@@ -263,17 +263,17 @@ namespace ISIP123_Solodov_WPF.Pages
             // Подгрузка фильтров
             if (TypesCombo.ItemsSource == null)
             {
-                var types = Core.Context.ItemTypes.Select(x => x.Name).ToList();
+                var types = Core.ContextKIP.ItemTypes.Select(x => x.Name).ToList();
                 types.Insert(0, "Все");
                 TypesCombo.ItemsSource = types;
 
-                var qualities = Core.Context.Qualities.Select(x => x.Name).ToList();
+                var qualities = Core.ContextKIP.Qualities.Select(x => x.Name).ToList();
                 qualities.Insert(0, "Все");
                 QualitesCombo.ItemsSource = qualities;
             }
 
             // Загрузка инвентаря
-            _UserInventory = Core.Context.InventoryItems
+            _UserInventory = Core.ContextKIP.InventoryItems
                 .Where(x => x.UserID == Core.CurrentUser.ID && !x.IsListed)
                 .OrderByDescending(x => x.ID)
                 .ToList();

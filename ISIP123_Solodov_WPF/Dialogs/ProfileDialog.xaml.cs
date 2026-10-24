@@ -40,8 +40,8 @@ namespace ISIP123_Solodov_WPF.Dialogs
                     TransactionDate = DateTime.Now, 
                 };
 
-                Core.Context.Transactions.Add(newTransaction); 
-                Core.Context.SaveChanges();
+                Core.ContextKIP.Transactions.Add(newTransaction); 
+                Core.ContextKIP.SaveChanges();
 
                 // Обновляем интерфейс
                 UpdateUI();
@@ -54,16 +54,16 @@ namespace ISIP123_Solodov_WPF.Dialogs
             }
         }
 
-        private void SwitchThemeBtn_Click(object sender, RoutedEventArgs e)
-        {
-            // Меняем тему на противоположную
-            Core.ChangeTheme(!Core.IsDarkTheme);
+        //private void SwitchThemeBtn_Click(object sender, RoutedEventArgs e)
+        //{
+        //    // Меняем тему на противоположную
+        //    Core.ChangeTheme(!Core.IsDarkTheme);
 
-            MessageBox.Show("Тема успешно изменена! Перезапустите приложение или вернитесь назад, чтобы увидеть изменения.",
-                            "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+        //    MessageBox.Show("Тема успешно изменена! Перезапустите приложение или вернитесь назад, чтобы увидеть изменения.",
+        //                    "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
 
-            this.Close(); // Закрываем профиль, чтобы пользователь увидел новый маркет
-        }
+        //    this.Close(); // Закрываем профиль, чтобы пользователь увидел новый маркет
+        //}
 
         private void PageLoaded(object sender, RoutedEventArgs e)
         {

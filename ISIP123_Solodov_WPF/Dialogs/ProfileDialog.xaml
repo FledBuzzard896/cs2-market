@@ -44,7 +44,7 @@
             <Button x:Name="TopUpBalance" Content="Пополнить" Style="{StaticResource ProfileActionButton}" Grid.Row="3" Grid.ColumnSpan="2" Click="TopUpBalance_Click"/>
 
             <!-- Кнопка смены темы -->
-            <Button x:Name="SwitchThemeBtn" Content="Сменить тему" Style="{StaticResource ProfileActionButton}" Grid.Row="4" Grid.ColumnSpan="2" Background="#1999ff" Click="SwitchThemeBtn_Click"/>
+            <!-- <Button x:Name="SwitchThemeBtn" Content="Сменить тему" Style="{StaticResource ProfileActionButton}" Grid.Row="4" Grid.ColumnSpan="2" Background="#1999ff" Click="SwitchThemeBtn_Click"/> -->
         </Grid>
     </Grid>
 </Window>
