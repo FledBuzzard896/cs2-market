@@ -245,6 +245,15 @@ namespace ISIP123_Solodov_WPF.Pages
 
             // Загружаем предметы
             ApplyFilters();
+
+            // Подсказка по ТП
+            if (!Core.IsFirstHelpDialogShow) 
+            {
+                HelpDialog dialog = new HelpDialog();
+                dialog.ShowDialog();
+
+                Core.IsFirstHelpDialogShow = true;
+            }
         }
     }
 }

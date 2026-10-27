@@ -1181,4 +1181,46 @@
     </Style>
     <!-- #endregion -->
 
+    <!--#region СТИЛЬ ДИАЛОГА "ПОМОЩЬ"-->
+    <!-- Верхняя шапка (очень темная) -->
+    <Style x:Key="HelpTopBackground" TargetType="Border">
+        <Setter Property="Background" Value="#181a21"/>
+    </Style>
+
+    <!-- Основной фон (темно-синий) -->
+    <Style x:Key="HelpBottomBackground" TargetType="Border">
+        <Setter Property="Background" Value="#1b2838"/>
+    </Style>
+
+    <!-- Логотип в шапке -->
+    <Style x:Key="HelpLogo" TargetType="Image">
+        <Setter Property="Width" Value="150"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+
+    <!-- Заголовок SUPPORT -->
+    <Style x:Key="HelpTitle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="28"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="#c5c3c0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- Заголовок текста (Как разобраться...) -->
+    <Style x:Key="HelpHeaderText" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Foreground" Value="#66c0f4"/>
+        <Setter Property="Margin" Value="0,15,0,0"/>
+    </Style>
+
+    <!-- Основной текст инструкции -->
+    <Style x:Key="HelpBodyText" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Margin" Value="0,10,0,0"/>
+    </Style>
+    <!-- #endregion -->
+
 </ResourceDictionary>

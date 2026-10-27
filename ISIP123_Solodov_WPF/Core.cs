@@ -20,6 +20,8 @@ namespace ISIP123_Solodov_WPF
         // Хранение текущего пользователя
         public static Users CurrentUser = null;
 
+        public static bool IsFirstHelpDialogShow = false;
+
         public static string HashPassword(string password) 
         {
             // Создаем объект SHA256
