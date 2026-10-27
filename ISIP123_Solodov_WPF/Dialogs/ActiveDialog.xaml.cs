@@ -46,7 +46,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
                             item.InventoryItems.IsListed = false;
                         }
 
-                        Core.ContextKIP.SaveChanges();
+                        Core.Context.SaveChanges();
 
                         // 3. Показываем сообщение после успешного сохранения
                         string itemName = item.InventoryItems?.Items?.Name ?? "Предмет";
@@ -66,7 +66,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
             // Получаем активные лоты текущего пользователя.
-            var lst = Core.ContextKIP.MarketListings
+            var lst = Core.Context.MarketListings
                 .Where(x => x.InventoryItems.UserID == Core.CurrentUser.ID && x.StatusID == 1)
                 .ToList();
 

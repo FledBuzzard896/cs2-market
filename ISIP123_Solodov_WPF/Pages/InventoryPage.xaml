@@ -47,7 +47,7 @@
 
                 <StackPanel Style="{StaticResource AccountAndExit}" Grid.Column="2">
                     <Button x:Name="exitBtn" Content="Выйти" Style="{StaticResource ExitBtn}" Click="exitBtn_Click"/>
-                    <TextBlock x:Name="NicknameTBlock" Text="тест" Style="{StaticResource AccountTBox}"/>
+                    <TextBlock x:Name="NicknameTBlock" Text="тест" Style="{StaticResource AccountTBox}" Cursor="Hand" MouseLeftButtonUp="TextBlock_MouseLeftButtonUp"/>
                 </StackPanel>
             </Grid>
 

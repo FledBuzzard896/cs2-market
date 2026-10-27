@@ -37,7 +37,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
             }
 
             // 2. Ищем пользователя
-            var usr = Core.ContextKIP.Users.FirstOrDefault(x => x.Login == LoginBox.Text);
+            var usr = Core.Context.Users.FirstOrDefault(x => x.Login == LoginBox.Text);
 
             if (usr == null)
             {
@@ -52,18 +52,40 @@ namespace ISIP123_Solodov_WPF.Dialogs
                 return;
             }
 
-            // 4. Проверка на совпадение паролей
+            // 4. Проверка на короткий пароль
+            if (firstPassBox.Password.Length < 6) 
+            {
+                MessageBox.Show("Пароль должен быть от 6ти символов.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // 5. Проверка на сложность пароля
+            if (!firstPassBox.Password.Any(char.IsDigit)) 
+            {
+                MessageBox.Show("Пароль должен содержать цифры.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // 6. Проверка на совпадение паролей
             if (firstPassBox.Password != secondPassBox.Password)
             {
                 MessageBox.Show("Пароли не совпадают.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            // 5. Сохраняем изменения
+            // 7. Проверка изменения на точно такой же пароль
+            string newHash = Core.HashPassword(firstPassBox.Password);
+            if (usr.Password == newHash) 
+            {
+                MessageBox.Show("Пароль совпадает со старым.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // 8. Сохраняем изменения
             try
             {
-                usr.Password = firstPassBox.Password;
-                Core.ContextKIP.SaveChanges();
+                usr.Password = newHash;
+                Core.Context.SaveChanges();
 
                 Core.CurrentUser = usr;
 

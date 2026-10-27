@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,26 +20,32 @@ namespace ISIP123_Solodov_WPF
         // Хранение текущего пользователя
         public static Users CurrentUser = null;
 
-        // Флаг текущей темы (по умолчанию темная)
-        public static bool IsDarkTheme = true;
-
-        public static void ChangeTheme(bool isDark)
+        public static string HashPassword(string password) 
         {
-            IsDarkTheme = isDark;
-            var dictionaries = Application.Current.Resources.MergedDictionaries;
-
-            // Очищаем текущие стили
-            dictionaries.Clear();
-
-            // Путь к словарю 
-            string themePath = isDark ? "Styles/MainStemDictionary.xaml" : "Styles/LightStemDictionary.xaml";
-
-            var newDict = new ResourceDictionary
+            // Создаем объект SHA256
+            using (SHA256 sha256Hash = SHA256.Create()) 
             {
-                Source = new Uri(themePath, UriKind.Relative)
-            };
+                // Преобразование строки в массив байтов и хэшируем
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
 
-            dictionaries.Add(newDict);
+                // Преобразование обратно в строку для сохранение в БД
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2")); // "x2" делает hex-формат (например, 0F, 1A)
+                }
+                return builder.ToString();
+            }
         }
     }
 }
+
+
+/*
+ * ivan - pass123
+ * petr - pass456
+ * anna - pass789
+ * sergey - pass000
+ * asd - asdasd7
+ * boss - megaboss111
+*/

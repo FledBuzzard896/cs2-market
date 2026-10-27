@@ -105,25 +105,25 @@
       <DependentUpon>TransactionConfirmation.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\InventoryItems.cs">
-      <DependentUpon>steam-model-kip.tt</DependentUpon>
+      <DependentUpon>steam-model-home.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Items.cs">
-      <DependentUpon>steam-model-kip.tt</DependentUpon>
+      <DependentUpon>steam-model-home.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ItemTypes.cs">
-      <DependentUpon>steam-model-kip.tt</DependentUpon>
+      <DependentUpon>steam-model-home.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ListingStatuses.cs">
-      <DependentUpon>steam-model-kip.tt</DependentUpon>
+      <DependentUpon>steam-model-home.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MarketListings.cs">
-      <DependentUpon>steam-model-kip.tt</DependentUpon>
+      <DependentUpon>steam-model-home.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OperationTypes.cs">
-      <DependentUpon>steam-model-kip.tt</DependentUpon>
+      <DependentUpon>steam-model-home.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Qualities.cs">
-      <DependentUpon>steam-model-kip.tt</DependentUpon>
+      <DependentUpon>steam-model-home.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\steam-model-home.Context.cs">
       <AutoGen>True</AutoGen>
@@ -159,13 +159,13 @@
       <DependentUpon>steam-model-home.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Transactions.cs">
-      <DependentUpon>steam-model-kip.tt</DependentUpon>
+      <DependentUpon>steam-model-home.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Users.cs">
-      <DependentUpon>steam-model-kip.tt</DependentUpon>
+      <DependentUpon>steam-model-home.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\WearCategories.cs">
-      <DependentUpon>steam-model-kip.tt</DependentUpon>
+      <DependentUpon>steam-model-home.tt</DependentUpon>
     </Compile>
     <Compile Include="Pages\AuthPage.xaml.cs">
       <DependentUpon>AuthPage.xaml</DependentUpon>
@@ -220,10 +220,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\InventoryPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\LightStemDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

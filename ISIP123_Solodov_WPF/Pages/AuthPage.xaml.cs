@@ -28,7 +28,7 @@ namespace ISIP123_Solodov_WPF.Pages
 
         private void enterBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(loginBox.Text.Trim()) || string.IsNullOrEmpty(passwordBox.Password.Trim()))
+            if (string.IsNullOrEmpty(loginBox.Text.Trim()) || string.IsNullOrEmpty(passwordBox.Password))
             {
                 MessageBox.Show("Введите логин и пароль.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -39,9 +39,17 @@ namespace ISIP123_Solodov_WPF.Pages
 
             try
             {
-                var usr = Core.ContextKIP.Users.FirstOrDefault(x => x.Login == loginBox.Text.Trim());
+                string login = loginBox.Text.Trim();
+                string password = passwordBox.Password;
 
-                if (usr == null || usr.Password != passwordBox.Password.Trim())
+
+                // Хэшируем введенный пароль
+                string inputHash = Core.HashPassword(password);
+
+
+                var usr = Core.Context.Users.FirstOrDefault(x => x.Login == login);
+
+                if (usr == null || usr.Password != inputHash)
                 {
                     MessageBox.Show("Неверный логин или пароль", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;

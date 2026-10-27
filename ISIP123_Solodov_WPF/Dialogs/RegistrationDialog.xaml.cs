@@ -45,7 +45,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
             }
 
             // 2. Проверка на существующего пользователя
-            if (Core.ContextKIP.Users.Any(x => x.Login == login))
+            if (Core.Context.Users.Any(x => x.Login == login))
             {
                 MessageBox.Show("Пользователь с таким Login уже существует.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -55,6 +55,18 @@ namespace ISIP123_Solodov_WPF.Dialogs
             if (string.IsNullOrEmpty(password1) || string.IsNullOrEmpty(password2))
             {
                 MessageBox.Show("Оба поля с паролями должны быть заполнены.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (password1.Length < 6)
+            {
+                MessageBox.Show("Пароль должен быть от 6ти символов.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (!password1.Any(char.IsDigit))
+            {
+                MessageBox.Show("Пароль должен содержать цифры.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -77,13 +89,13 @@ namespace ISIP123_Solodov_WPF.Dialogs
                 Users newUser = new Users
                 {
                     Login = login,
-                    Password = password1,
+                    Password = Core.HashPassword(password1),
                     Nickname = nickname,
                     Balance = 0,
                 };
 
-                Core.ContextKIP.Users.Add(newUser);
-                Core.ContextKIP.SaveChanges();
+                Core.Context.Users.Add(newUser);
+                Core.Context.SaveChanges();
 
                 Core.CurrentUser = newUser;
                 this.DialogResult = true;

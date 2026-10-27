@@ -61,7 +61,7 @@ namespace ISIP123_Solodov_WPF.Pages
             if (Core.CurrentUser != null)
             {
                 // Берем N самых дешевых лотов (неважно, кто продавец)
-                var listingsToBuy = Core.ContextKIP.MarketListings
+                var listingsToBuy = Core.Context.MarketListings
                     .Where(x => x.StatusID == 1
                              && x.InventoryItems.ItemID == _item.InventoryItems.ItemID)
                     .OrderBy(x => x.Price) // Сортируем от дешевых к дорогим
@@ -101,7 +101,7 @@ namespace ISIP123_Solodov_WPF.Pages
                 // 1. Определение степени износа (если есть FloatValue)
                 if (_item.InventoryItems.FloatValue != null)
                 {
-                    foreach (var str in Core.ContextKIP.WearCategories.ToList())
+                    foreach (var str in Core.Context.WearCategories.ToList())
                     {
                         if (str.MinFloat <= _item.InventoryItems.FloatValue && _item.InventoryItems.FloatValue < str.MaxFloat)
                         {
@@ -116,7 +116,7 @@ namespace ISIP123_Solodov_WPF.Pages
                 }
 
                 // 2. Поиск цены (быстрый LINQ вместо цикла)
-                var activeListing = Core.ContextKIP.MarketListings
+                var activeListing = Core.Context.MarketListings
                     .Where(x => x.StatusID == 1 && x.InventoryItems.ItemID == _item.InventoryItems.ItemID)
                     .OrderBy(x => x.Price)
                     .FirstOrDefault();
@@ -127,7 +127,7 @@ namespace ISIP123_Solodov_WPF.Pages
                 }
                 else
                 {
-                    var lastSold = Core.ContextKIP.MarketListings
+                    var lastSold = Core.Context.MarketListings
                         .Where(x => x.StatusID == 2 && x.InventoryItems.ItemID == _item.InventoryItems.ItemID)
                         .OrderByDescending(x => x.SoldAt)
                         .FirstOrDefault();
@@ -138,7 +138,7 @@ namespace ISIP123_Solodov_WPF.Pages
                 }
 
                 // 3. Считаем, сколько ВСЕГО таких предметов сейчас продается на рынке (у всех продавцов)
-                _maxItemCount = Core.ContextKIP.MarketListings.Count(x =>
+                _maxItemCount = Core.Context.MarketListings.Count(x =>
                     x.StatusID == 1 &&
                     x.InventoryItems.ItemID == _item.InventoryItems.ItemID);
 

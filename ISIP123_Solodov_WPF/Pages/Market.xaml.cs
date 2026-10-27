@@ -140,7 +140,7 @@ namespace ISIP123_Solodov_WPF.Pages
         private void ApplyFilters()
         {
             // Берем все активные лоты из новой таблицы
-            var market = Core.ContextKIP.MarketListings.Where(x => x.StatusID == 1).ToList();
+            var market = Core.Context.MarketListings.Where(x => x.StatusID == 1).ToList();
 
             // Скрываем лоты текущего пользователя (чтобы он не купил сам у себя)
             if (Core.CurrentUser != null)
@@ -224,11 +224,11 @@ namespace ISIP123_Solodov_WPF.Pages
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
             // Подгрузка фильтров
-            var types = Core.ContextKIP.ItemTypes.Select(x => x.Name).ToList(); // Было Types
+            var types = Core.Context.ItemTypes.Select(x => x.Name).ToList(); // Было Types
             types.Insert(0, "Все");
             TypesCombo.ItemsSource = types;
 
-            var qualities = Core.ContextKIP.Qualities.Select(x => x.Name).ToList();
+            var qualities = Core.Context.Qualities.Select(x => x.Name).ToList();
             qualities.Insert(0, "Все");
             QualitesCombo.ItemsSource = qualities;
 

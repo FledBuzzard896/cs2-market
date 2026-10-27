@@ -40,8 +40,8 @@ namespace ISIP123_Solodov_WPF.Dialogs
                     TransactionDate = DateTime.Now, 
                 };
 
-                Core.ContextKIP.Transactions.Add(newTransaction); 
-                Core.ContextKIP.SaveChanges();
+                Core.Context.Transactions.Add(newTransaction); 
+                Core.Context.SaveChanges();
 
                 // Обновляем интерфейс
                 UpdateUI();
