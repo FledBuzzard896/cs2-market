@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:ISIP123_Solodov_WPF.Dialogs"
         mc:Ignorable="d"
         Title="LastQuestion" Height="400" Width="600"
+        WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize">
     <Grid Background="{StaticResource LastQuestionBackground}">
         <Grid.RowDefinitions>

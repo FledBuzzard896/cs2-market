@@ -40,6 +40,9 @@ namespace ISIP123_Solodov_WPF
         void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             LastQuestion dialog = new LastQuestion();
+
+            dialog.Owner = Application.Current.MainWindow;
+
             bool? result = dialog.ShowDialog();
 
             if (result == true)

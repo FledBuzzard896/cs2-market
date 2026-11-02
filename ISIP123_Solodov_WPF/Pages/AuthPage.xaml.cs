@@ -30,7 +30,7 @@ namespace ISIP123_Solodov_WPF.Pages
         {
             if (string.IsNullOrEmpty(loginBox.Text.Trim()) || string.IsNullOrEmpty(passwordBox.Password))
             {
-                MessageBox.Show("Введите логин и пароль.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Application.Current.MainWindow, "Введите логин и пароль.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -47,11 +47,11 @@ namespace ISIP123_Solodov_WPF.Pages
                 string inputHash = Core.HashPassword(password);
 
 
-                var usr = Core.Context.Users.FirstOrDefault(x => x.Login == login);
+                var usr = Core.ContextKIP.Users.FirstOrDefault(x => x.Login == login);
 
                 if (usr == null || usr.Password != inputHash)
                 {
-                    MessageBox.Show("Неверный логин или пароль", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Application.Current.MainWindow, "Неверный логин или пароль", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
@@ -60,7 +60,7 @@ namespace ISIP123_Solodov_WPF.Pages
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка подключения: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Application.Current.MainWindow, $"Ошибка подключения: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {
@@ -72,6 +72,8 @@ namespace ISIP123_Solodov_WPF.Pages
         private void regBtn_Click(object sender, RoutedEventArgs e)
         {
             RegistrationDialog dialog = new RegistrationDialog();
+            dialog.Owner = Application.Current.MainWindow;
+
             bool? result = dialog.ShowDialog();
 
             if (result == true)
@@ -88,6 +90,8 @@ namespace ISIP123_Solodov_WPF.Pages
         private void IForgotPassword_Click(object sender, RoutedEventArgs e)
         {
             IForgotPasswordDialog dialog = new IForgotPasswordDialog();
+            dialog.Owner = Application.Current.MainWindow;
+
             bool? result = dialog.ShowDialog();
 
             if (result == true) 

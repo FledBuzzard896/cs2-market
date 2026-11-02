@@ -40,17 +40,17 @@ namespace ISIP123_Solodov_WPF.Dialogs
                     TransactionDate = DateTime.Now, 
                 };
 
-                Core.Context.Transactions.Add(newTransaction); 
-                Core.Context.SaveChanges();
+                Core.ContextKIP.Transactions.Add(newTransaction); 
+                Core.ContextKIP.SaveChanges();
 
                 // Обновляем интерфейс
                 UpdateUI();
 
-                MessageBox.Show("Баланс успешно пополнен на 1 000 000 ₽!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(Application.Current.MainWindow, "Баланс успешно пополнен на 1 000 000 ₽!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при пополнении баланса: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Application.Current.MainWindow, $"Ошибка при пополнении баланса: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

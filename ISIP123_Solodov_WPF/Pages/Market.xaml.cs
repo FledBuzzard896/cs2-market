@@ -29,18 +29,25 @@ namespace ISIP123_Solodov_WPF.Pages
         // Выход с аккаунта / Просмотр аккаунта
         private void exitBtn_Click(object sender, RoutedEventArgs e)
         {
-            Core.CurrentUser = null;
-            NavigationService.Navigate(new AuthPage());
+            var ans = MessageBox.Show(Application.Current.MainWindow, "Вы действительно хотите выйти с аккаунта", "Вопрос", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (ans == MessageBoxResult.Yes) 
+            {
+                Core.CurrentUser = null;
+                NavigationService.Navigate(new AuthPage());
+            }
         }
         private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (Core.CurrentUser == null)
             {
-                MessageBox.Show("Войдите в аккаунт, чтобы посмотреть свой профиль", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Application.Current.MainWindow, "Войдите в аккаунт, чтобы посмотреть свой профиль", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             ProfileDialog dialog = new ProfileDialog();
+
+            dialog.Owner = Application.Current.MainWindow;
+
             dialog.ShowDialog();
             balance.Text = $"Баланс кошелька: {Core.CurrentUser.Balance} ₽";
         }
@@ -50,6 +57,9 @@ namespace ISIP123_Solodov_WPF.Pages
         private void ShowError_Dialog(object sender, RoutedEventArgs e)
         {
             Error dialog = new Error();
+
+            dialog.Owner = Application.Current.MainWindow;
+
             dialog.ShowDialog();
         }
         private void communityBtn_Click(object sender, RoutedEventArgs e)
@@ -65,11 +75,14 @@ namespace ISIP123_Solodov_WPF.Pages
             if (Core.CurrentUser != null)
             {
                 ActiveDialog dialog = new ActiveDialog();
+
+                dialog.Owner = Application.Current.MainWindow;
+
                 dialog.ShowDialog();
             }
             else
             {
-                MessageBox.Show("Чтобы посмотреть ваши лоты на Торговой Площадке, вам нужно зайти в аккаунт", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Application.Current.MainWindow, "Чтобы посмотреть ваши лоты на Торговой Площадке, вам нужно зайти в аккаунт", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private void historyBtn_Click(object sender, RoutedEventArgs e)
@@ -77,18 +90,21 @@ namespace ISIP123_Solodov_WPF.Pages
             if (Core.CurrentUser != null)
             {
                 HistoryDialog dialog = new HistoryDialog();
+
+                dialog.Owner = Application.Current.MainWindow;
+
                 dialog.ShowDialog();
             }
             else
             {
-                MessageBox.Show("Чтобы посмотреть вашу историю на Торговой Площадке, вам нужно зайти в аккаунт", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Application.Current.MainWindow, "Чтобы посмотреть вашу историю на Торговой Площадке, вам нужно зайти в аккаунт", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private void sellItemBtn_Click(object sender, RoutedEventArgs e)
         {
             if (Core.CurrentUser is null)
             {
-                MessageBox.Show("Вы должны зарегистрироваться, чтобы зайти в Инвентарь.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Application.Current.MainWindow, "Вы должны зарегистрироваться, чтобы зайти в Инвентарь.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             NavigationService.Navigate(new InventoryPage());
@@ -140,7 +156,7 @@ namespace ISIP123_Solodov_WPF.Pages
         private void ApplyFilters()
         {
             // Берем все активные лоты из новой таблицы
-            var market = Core.Context.MarketListings.Where(x => x.StatusID == 1).ToList();
+            var market = Core.ContextKIP.MarketListings.Where(x => x.StatusID == 1).ToList();
 
             // Скрываем лоты текущего пользователя (чтобы он не купил сам у себя)
             if (Core.CurrentUser != null)
@@ -224,11 +240,11 @@ namespace ISIP123_Solodov_WPF.Pages
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
             // Подгрузка фильтров
-            var types = Core.Context.ItemTypes.Select(x => x.Name).ToList(); // Было Types
+            var types = Core.ContextKIP.ItemTypes.Select(x => x.Name).ToList(); // Было Types
             types.Insert(0, "Все");
             TypesCombo.ItemsSource = types;
 
-            var qualities = Core.Context.Qualities.Select(x => x.Name).ToList();
+            var qualities = Core.ContextKIP.Qualities.Select(x => x.Name).ToList();
             qualities.Insert(0, "Все");
             QualitesCombo.ItemsSource = qualities;
 
@@ -250,6 +266,9 @@ namespace ISIP123_Solodov_WPF.Pages
             if (!Core.IsFirstHelpDialogShow) 
             {
                 HelpDialog dialog = new HelpDialog();
+
+                dialog.Owner = Application.Current.MainWindow;
+
                 dialog.ShowDialog();
 
                 Core.IsFirstHelpDialogShow = true;

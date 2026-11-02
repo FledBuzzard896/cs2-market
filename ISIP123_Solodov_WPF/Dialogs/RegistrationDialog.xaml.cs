@@ -40,46 +40,46 @@ namespace ISIP123_Solodov_WPF.Dialogs
             // 1. Проверка логина
             if (string.IsNullOrEmpty(login))
             {
-                MessageBox.Show("Заполните поле Логин.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Application.Current.MainWindow, "Заполните поле Логин.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             // 2. Проверка на существующего пользователя
-            if (Core.Context.Users.Any(x => x.Login == login))
+            if (Core.ContextKIP.Users.Any(x => x.Login == login))
             {
-                MessageBox.Show("Пользователь с таким Login уже существует.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Application.Current.MainWindow, "Пользователь с таким Login уже существует.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             // 3. Проверка паролей
             if (string.IsNullOrEmpty(password1) || string.IsNullOrEmpty(password2))
             {
-                MessageBox.Show("Оба поля с паролями должны быть заполнены.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Application.Current.MainWindow, "Оба поля с паролями должны быть заполнены.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             if (password1.Length < 6)
             {
-                MessageBox.Show("Пароль должен быть от 6ти символов.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Application.Current.MainWindow, "Пароль должен быть от 6ти символов.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             if (!password1.Any(char.IsDigit))
             {
-                MessageBox.Show("Пароль должен содержать цифры.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Application.Current.MainWindow, "Пароль должен содержать цифры.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             if (password1 != password2)
             {
-                MessageBox.Show("Пароли не совпадают.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Application.Current.MainWindow, "Пароли не совпадают.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             // 4. Проверка никнейма
             if (string.IsNullOrEmpty(nickname))
             {
-                MessageBox.Show("Заполните поле Никнейм.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Application.Current.MainWindow, "Заполните поле Никнейм.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -94,15 +94,15 @@ namespace ISIP123_Solodov_WPF.Dialogs
                     Balance = 0,
                 };
 
-                Core.Context.Users.Add(newUser);
-                Core.Context.SaveChanges();
+                Core.ContextKIP.Users.Add(newUser);
+                Core.ContextKIP.SaveChanges();
 
                 Core.CurrentUser = newUser;
                 this.DialogResult = true;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при регистрации: {ex.Message}", "Ошибка БД", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Application.Current.MainWindow, $"Ошибка при регистрации: {ex.Message}", "Ошибка БД", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

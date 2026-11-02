@@ -39,19 +39,26 @@ namespace ISIP123_Solodov_WPF.Pages
         // Кнопка выхода
         private void exitBtn_Click(object sender, RoutedEventArgs e)
         {
-            Core.CurrentUser = null;
-            NavigationService.Navigate(new AuthPage());
+            var ans = MessageBox.Show(Application.Current.MainWindow, "Вы действительно хотите выйти с аккаунта", "Вопрос", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (ans == MessageBoxResult.Yes) 
+            {
+                Core.CurrentUser = null;
+                NavigationService.Navigate(new AuthPage());
+            }
         }
 
         private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (Core.CurrentUser == null)
             {
-                MessageBox.Show("Войдите в аккаунт, чтобы посмотреть свой профиль", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Application.Current.MainWindow, "Войдите в аккаунт, чтобы посмотреть свой профиль", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             ProfileDialog dialog = new ProfileDialog();
+
+            dialog.Owner = Application.Current.MainWindow;
+
             dialog.ShowDialog();
         }
 
@@ -59,6 +66,9 @@ namespace ISIP123_Solodov_WPF.Pages
         private void ShowError_Dialog(object sender, RoutedEventArgs e)
         {
             Error dialog = new Error();
+
+            dialog.Owner = Application.Current.MainWindow;
+
             dialog.ShowDialog();
         }
 
@@ -153,7 +163,7 @@ namespace ISIP123_Solodov_WPF.Pages
 
                 double? floatVal = item.FloatValue;
                 // Ищем степень износа 
-                foreach (var str in Core.Context.WearCategories.ToList())
+                foreach (var str in Core.ContextKIP.WearCategories.ToList())
                 {
                     if (str.MinFloat <= floatVal && floatVal < str.MaxFloat)
                     {
@@ -165,7 +175,7 @@ namespace ISIP123_Solodov_WPF.Pages
 
             // 2. Ищем минимальную стоимость
             // Ищем активные лоты
-            var activeListing = Core.Context.MarketListings
+            var activeListing = Core.ContextKIP.MarketListings
                 .Where(x => x.StatusID == 1 && x.InventoryItems.ItemID == item.ItemID)
                 .OrderBy(x => x.Price) // Берем самый дешевый
                 .FirstOrDefault();
@@ -178,7 +188,7 @@ namespace ISIP123_Solodov_WPF.Pages
             else
             {
                 // Если активных нет, ищем оследнюю продажу
-                var lastSold = Core.Context.MarketListings
+                var lastSold = Core.ContextKIP.MarketListings
                     .Where(x => x.StatusID == 2 && x.InventoryItems.ItemID == item.ItemID)
                     .OrderByDescending(x => x.SoldAt)
                     .FirstOrDefault();
@@ -257,6 +267,9 @@ namespace ISIP123_Solodov_WPF.Pages
             if (InventoryItems.SelectedItem is InventoryItems selectedItem)
             {
                 SellDialog dialog = new SellDialog(selectedItem);
+
+                dialog.Owner = Application.Current.MainWindow;
+
                 if (dialog.ShowDialog() == true)
                 {
                     PageLoaded(null, null);
@@ -274,17 +287,17 @@ namespace ISIP123_Solodov_WPF.Pages
             // Подгрузка фильтров
             if (TypesCombo.ItemsSource == null)
             {
-                var types = Core.Context.ItemTypes.Select(x => x.Name).ToList();
+                var types = Core.ContextKIP.ItemTypes.Select(x => x.Name).ToList();
                 types.Insert(0, "Все");
                 TypesCombo.ItemsSource = types;
 
-                var qualities = Core.Context.Qualities.Select(x => x.Name).ToList();
+                var qualities = Core.ContextKIP.Qualities.Select(x => x.Name).ToList();
                 qualities.Insert(0, "Все");
                 QualitesCombo.ItemsSource = qualities;
             }
 
             // Загрузка инвентаря
-            _UserInventory = Core.Context.InventoryItems
+            _UserInventory = Core.ContextKIP.InventoryItems
                 .Where(x => x.UserID == Core.CurrentUser.ID && !x.IsListed)
                 .OrderByDescending(x => x.ID)
                 .ToList();

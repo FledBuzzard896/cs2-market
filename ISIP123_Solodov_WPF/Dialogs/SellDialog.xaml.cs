@@ -43,13 +43,13 @@ namespace ISIP123_Solodov_WPF.Dialogs
         {
             if (string.IsNullOrEmpty(SellerProfit.Text) || string.IsNullOrEmpty(BuyerPays.Text))
             {
-                MessageBox.Show("Задайте стоимость предмету", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Application.Current.MainWindow, "Задайте стоимость предмету", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             if (SSA.IsChecked == false)
             {
-                MessageBox.Show("Примите соглашение подписчика Stem, для торговли на Торговой площадке", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Application.Current.MainWindow, "Примите соглашение подписчика Stem, для торговли на Торговой площадке", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -57,21 +57,21 @@ namespace ISIP123_Solodov_WPF.Dialogs
             string priceStr = SellerProfit.Text.Replace(',', '.');
             if (!decimal.TryParse(priceStr, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out decimal price))
             {
-                MessageBox.Show("Некорректный формат цены.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Application.Current.MainWindow, "Некорректный формат цены.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             try
             {
                 // 1. Берем нужное количество предметов из инвентаря (только те, что еще не продаются)
-                var itemsToSell = Core.Context.InventoryItems
+                var itemsToSell = Core.ContextKIP.InventoryItems
                     .Where(x => x.UserID == Core.CurrentUser.ID && x.ItemID == _thisItem.ItemID && !x.IsListed)
                     .Take(_itemCount)
                     .ToList();
 
                 if (itemsToSell.Count < _itemCount)
                 {
-                    MessageBox.Show("Недостаточно предметов в инвентаре для продажи.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Application.Current.MainWindow, "Недостаточно предметов в инвентаре для продажи.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
@@ -101,17 +101,17 @@ namespace ISIP123_Solodov_WPF.Dialogs
                 // 3. Добавляем ВСЕ лоты одной пачкой
                 foreach (var listing in newListings)
                 {
-                    Core.Context.MarketListings.Add(listing);
+                    Core.ContextKIP.MarketListings.Add(listing);
                 }
 
-                Core.Context.SaveChanges();
+                Core.ContextKIP.SaveChanges();
 
-                MessageBox.Show($"Успешно выставлено предметов: {_itemCount}!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(Application.Current.MainWindow, $"Успешно выставлено предметов: {_itemCount}!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.DialogResult = true;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при выставлении: {ex.Message}", "Ошибка БД", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Application.Current.MainWindow, $"Ошибка при выставлении: {ex.Message}", "Ошибка БД", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -232,7 +232,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
             AveragePrice.Text = $"Средняя цена: {_thisItem.Items?.AveragePrice} руб.";
 
             // 1. Ищем АКТИВНЫЙ лот (StatusID == 1) для этого предмета
-            var activeListing = Core.Context.MarketListings
+            var activeListing = Core.ContextKIP.MarketListings
                 .Where(x => x.StatusID == 1 && x.InventoryItems.Items.ID == _thisItem.Items.ID)
                 .OrderBy(x => x.Price) // Берем самый дешевый на рынке
                 .FirstOrDefault();
@@ -245,7 +245,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
             else
             {
                 // Ищем ПОСЛЕДНЮЮ ПРОДАЖУ (StatusID == 2)
-                var lastSoldListing = Core.Context.MarketListings
+                var lastSoldListing = Core.ContextKIP.MarketListings
                     .Where(x => x.StatusID == 2 && x.InventoryItems.Items.ID == _thisItem.Items.ID)
                     .OrderByDescending(x => x.SoldAt)
                     .FirstOrDefault();
@@ -263,7 +263,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
             }
 
             // Считаем, сколько ТАКИХ ЖЕ предметов есть в инвентаре (и не выставлено на продажу)
-            _maxItemCount = Core.Context.InventoryItems
+            _maxItemCount = Core.ContextKIP.InventoryItems
                 .Count(x => x.UserID == Core.CurrentUser.ID && x.ItemID == _thisItem.ItemID && !x.IsListed);
 
             if (_maxItemCount <= 1)

@@ -31,7 +31,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
         {
             if (sender is Button button && button.DataContext is MarketListings item)
             {
-                var res = MessageBox.Show("Вы точно хотите снять слот с продажи?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                var res = MessageBox.Show(Application.Current.MainWindow, "Вы точно хотите снять слот с продажи?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                 if (res == MessageBoxResult.Yes)
                 {
@@ -46,18 +46,18 @@ namespace ISIP123_Solodov_WPF.Dialogs
                             item.InventoryItems.IsListed = false;
                         }
 
-                        Core.Context.SaveChanges();
+                        Core.ContextKIP.SaveChanges();
 
                         // 3. Показываем сообщение после успешного сохранения
                         string itemName = item.InventoryItems?.Items?.Name ?? "Предмет";
-                        MessageBox.Show($"Вы сняли {itemName} с продажи", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show(Application.Current.MainWindow, $"Вы сняли {itemName} с продажи", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
 
                         // 4. Обновляем список на экране
                         PageLoaded(null, null);
                     }
                     catch (System.Exception ex)
                     {
-                        MessageBox.Show($"Произошла ошибка при отмене лота: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(Application.Current.MainWindow, $"Произошла ошибка при отмене лота: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
@@ -66,7 +66,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
             // Получаем активные лоты текущего пользователя.
-            var lst = Core.Context.MarketListings
+            var lst = Core.ContextKIP.MarketListings
                 .Where(x => x.InventoryItems.UserID == Core.CurrentUser.ID && x.StatusID == 1)
                 .ToList();
 
