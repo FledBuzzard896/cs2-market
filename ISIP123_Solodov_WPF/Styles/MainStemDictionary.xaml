@@ -245,7 +245,6 @@
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Foreground" Value="#85a45a"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="Margin" Value="0,0,10,0"/>
     </Style>
     
