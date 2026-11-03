@@ -23,6 +23,7 @@ namespace ISIP123_Solodov_WPF.Pages
     public partial class BuyItemPage : Page
     {
         private MarketListings _item;
+        private double _price = 0;
         private int _itemCount = 1;
         private int _maxItemCount = 1;
 
@@ -42,6 +43,8 @@ namespace ISIP123_Solodov_WPF.Pages
                 CountOfSkin.Text = _itemCount.ToString();
                 Plus.IsEnabled = true;
                 if (_itemCount == 1) Minus.IsEnabled = false;
+
+                TotalPrice.Text = $"Всего к оплате: {_price * _itemCount} руб.";
             }
         }
         private void Plus_Click(object sender, RoutedEventArgs e)
@@ -52,6 +55,8 @@ namespace ISIP123_Solodov_WPF.Pages
                 CountOfSkin.Text = _itemCount.ToString();
                 Minus.IsEnabled = true;
                 if (_itemCount == _maxItemCount) Plus.IsEnabled = false;
+
+                TotalPrice.Text = $"Всего к оплате: {_price * _itemCount} руб.";
             }
         }
 
@@ -61,7 +66,7 @@ namespace ISIP123_Solodov_WPF.Pages
             if (Core.CurrentUser != null)
             {
                 // Берем N самых дешевых лотов (неважно, кто продавец)
-                var listingsToBuy = Core.ContextKIP.MarketListings
+                var listingsToBuy = Core.Context.MarketListings
                     .Where(x => x.StatusID == 1
                              && x.InventoryItems.ItemID == _item.InventoryItems.ItemID)
                     .OrderBy(x => x.Price) // Сортируем от дешевых к дорогим
@@ -104,7 +109,7 @@ namespace ISIP123_Solodov_WPF.Pages
                 // 1. Определение степени износа (если есть FloatValue)
                 if (_item.InventoryItems.FloatValue != null)
                 {
-                    foreach (var str in Core.ContextKIP.WearCategories.ToList())
+                    foreach (var str in Core.Context.WearCategories.ToList())
                     {
                         if (str.MinFloat <= _item.InventoryItems.FloatValue && _item.InventoryItems.FloatValue < str.MaxFloat)
                         {
@@ -119,29 +124,44 @@ namespace ISIP123_Solodov_WPF.Pages
                 }
 
                 // 2. Поиск цены (быстрый LINQ вместо цикла)
-                var activeListing = Core.ContextKIP.MarketListings
+                var activeListing = Core.Context.MarketListings
                     .Where(x => x.StatusID == 1 && x.InventoryItems.ItemID == _item.InventoryItems.ItemID)
                     .OrderBy(x => x.Price)
                     .FirstOrDefault();
 
                 if (activeListing != null)
                 {
-                    Price.Text = $"Цена на рынке: от {activeListing.Price:N0} руб.";
+                    Price.Text = $"Цена на рынке: от {activeListing.Price:N2} руб.";
+                    TotalPrice.Text = $"Всего к оплате: {activeListing.Price:N2} руб.";
+                    _price = Convert.ToDouble(activeListing.Price);
                 }
                 else
                 {
-                    var lastSold = Core.ContextKIP.MarketListings
+                    var lastSold = Core.Context.MarketListings
                         .Where(x => x.StatusID == 2 && x.InventoryItems.ItemID == _item.InventoryItems.ItemID)
                         .OrderByDescending(x => x.SoldAt)
                         .FirstOrDefault();
 
                     Price.Text = lastSold != null
-                        ? $"Последняя продажа: {lastSold.Price:N0} руб."
-                        : $"Средняя цена: {_item.InventoryItems.Items.AveragePrice:N0} руб.";
+                        ? $"Последняя продажа: {lastSold.Price:N2} руб."
+                        : $"Средняя цена: {_item.InventoryItems.Items.AveragePrice:N2} руб.";
+                        
+                    TotalPrice.Text = lastSold != null
+                        ? $"Всего к оплате: {lastSold.Price:N2} руб."
+                        : $"Всего к оплате: {_item.InventoryItems.Items.AveragePrice:N2} руб.";
+
+                    if (lastSold != null)
+                    {
+                        _price = Convert.ToDouble(lastSold.Price);
+                    }
+                    else 
+                    {
+                        _price = Convert.ToDouble(_item.InventoryItems.Items.AveragePrice);
+                    }
                 }
 
                 // 3. Считаем, сколько ВСЕГО таких предметов сейчас продается на рынке (у всех продавцов)
-                _maxItemCount = Core.ContextKIP.MarketListings.Count(x =>
+                _maxItemCount = Core.Context.MarketListings.Count(x =>
                     x.StatusID == 1 &&
                     x.InventoryItems.ItemID == _item.InventoryItems.ItemID);
 

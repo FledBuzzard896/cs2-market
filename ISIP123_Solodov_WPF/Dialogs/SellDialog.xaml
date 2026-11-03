@@ -52,14 +52,15 @@
                 <Button x:Name="MinusBtn" Content="-" Style="{StaticResource CountButton}" Click="MinusBtn_Click"/>
                 <TextBlock x:Name="CountTBlock" Style="{StaticResource CountText}"/>
                 <Button x:Name="PlusBtn" Content="+" Style="{StaticResource CountButton}" Click="PlusBtn_Click"/>
-                <TextBlock x:Name="DescriptionTBlock" Text="(так как предмет является уникальным, продажа нескольких экземпляров невозможна)" Style="{StaticResource WarningText}" Visibility="Hidden"/>
+                <TextBlock x:Name="DescriptionTBlock" Text="(так как предмет является уникальным, продажа нескольких экземпляров невозможна)" Style="{StaticResource WarningText}" Visibility="Collapsed"/>
+                <TextBlock x:Name="PricePrediction" Text="123" Foreground="#85a45a" VerticalAlignment="Center" Margin="15,0,0,0" Visibility="Collapsed"/>
             </StackPanel>
 
             <StackPanel Grid.Row="5" HorizontalAlignment="Center" Margin="10" Orientation="Horizontal">
                 <TextBlock Text="Вы получите: " Style="{StaticResource PriceInputLabel}"/>
                 <TextBox x:Name="SellerProfit" Style="{StaticResource PriceInputBox}" TextChanged="SellerProfit_TextChanged" PreviewTextInput="NumberTextBox_PreviewTextInput"/>
 
-                <TextBlock Text="Покупатель заплатит: (за единицу) " Style="{StaticResource PriceInputLabel}" Margin="100,0,0,0"/>
+                <TextBlock Text="Покупатель заплатит (за единицу): " Style="{StaticResource PriceInputLabel}" Margin="100,0,0,0"/>
                 <TextBox x:Name="BuyerPays" Style="{StaticResource PriceInputBox}" TextChanged="BuyerPays_TextChanged" PreviewTextInput="NumberTextBox_PreviewTextInput"/>
             </StackPanel>
 

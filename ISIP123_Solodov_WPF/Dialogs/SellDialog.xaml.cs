@@ -30,6 +30,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
         private bool _updating;
         private int _itemCount = 1;
         private int _maxItemCount;
+        private double _price;
 
         public SellDialog(InventoryItems item)
         {
@@ -64,7 +65,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
             try
             {
                 // 1. Берем нужное количество предметов из инвентаря (только те, что еще не продаются)
-                var itemsToSell = Core.ContextKIP.InventoryItems
+                var itemsToSell = Core.Context.InventoryItems
                     .Where(x => x.UserID == Core.CurrentUser.ID && x.ItemID == _thisItem.ItemID && !x.IsListed)
                     .Take(_itemCount)
                     .ToList();
@@ -101,10 +102,10 @@ namespace ISIP123_Solodov_WPF.Dialogs
                 // 3. Добавляем ВСЕ лоты одной пачкой
                 foreach (var listing in newListings)
                 {
-                    Core.ContextKIP.MarketListings.Add(listing);
+                    Core.Context.MarketListings.Add(listing);
                 }
 
-                Core.ContextKIP.SaveChanges();
+                Core.Context.SaveChanges();
 
                 MessageBox.Show(Application.Current.MainWindow, $"Успешно выставлено предметов: {_itemCount}!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.DialogResult = true;
@@ -128,6 +129,8 @@ namespace ISIP123_Solodov_WPF.Dialogs
                 {
                     MinusBtn.IsEnabled = false;
                 }
+
+                PricePrediction.Text = $"Прогноз стоимости: {_price * _itemCount} руб.";
             }
         }
         private void PlusBtn_Click(object sender, RoutedEventArgs e)
@@ -142,6 +145,8 @@ namespace ISIP123_Solodov_WPF.Dialogs
                 {
                     PlusBtn.IsEnabled = false;
                 }
+
+                PricePrediction.Text = $"Прогноз стоимости: {_price * _itemCount} руб.";
             }
         }
 
@@ -232,7 +237,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
             AveragePrice.Text = $"Средняя цена: {_thisItem.Items?.AveragePrice} руб.";
 
             // 1. Ищем АКТИВНЫЙ лот (StatusID == 1) для этого предмета
-            var activeListing = Core.ContextKIP.MarketListings
+            var activeListing = Core.Context.MarketListings
                 .Where(x => x.StatusID == 1 && x.InventoryItems.Items.ID == _thisItem.Items.ID)
                 .OrderBy(x => x.Price) // Берем самый дешевый на рынке
                 .FirstOrDefault();
@@ -241,11 +246,13 @@ namespace ISIP123_Solodov_WPF.Dialogs
             {
                 // Ситуация 3: Есть активный лот. Берем его цену.
                 LastUserPrice.Text = $"Цена на рынке: {activeListing.Price} руб.";
+                PricePrediction.Text = $"Прогноз стоимости: {activeListing.Price} руб.";
+                _price = Convert.ToDouble(activeListing.Price);
             }
             else
             {
                 // Ищем ПОСЛЕДНЮЮ ПРОДАЖУ (StatusID == 2)
-                var lastSoldListing = Core.ContextKIP.MarketListings
+                var lastSoldListing = Core.Context.MarketListings
                     .Where(x => x.StatusID == 2 && x.InventoryItems.Items.ID == _thisItem.Items.ID)
                     .OrderByDescending(x => x.SoldAt)
                     .FirstOrDefault();
@@ -254,16 +261,20 @@ namespace ISIP123_Solodov_WPF.Dialogs
                 {
                     // Ситуация 2: Продавали когда-то, но активных лотов нет. Берем цену последней продажи.
                     LastUserPrice.Text = $"Последняя продажа: {lastSoldListing.Price} руб.";
+                    PricePrediction.Text = $"Прогноз стоимости: {lastSoldListing.Price} руб.";
+                    _price = Convert.ToDouble(lastSoldListing.Price);
                 }
                 else
                 {
                     // Ситуация 1: Никогда не продавали и активных нет. Берем среднюю цену.
                     LastUserPrice.Text = $"Средняя цена: {_thisItem.Items?.AveragePrice} руб.";
+                    PricePrediction.Text = $"Прогноз стоимости: {_thisItem.Items?.AveragePrice} руб.";
+                    _price = Convert.ToDouble(_thisItem.Items?.AveragePrice);
                 }
             }
 
             // Считаем, сколько ТАКИХ ЖЕ предметов есть в инвентаре (и не выставлено на продажу)
-            _maxItemCount = Core.ContextKIP.InventoryItems
+            _maxItemCount = Core.Context.InventoryItems
                 .Count(x => x.UserID == Core.CurrentUser.ID && x.ItemID == _thisItem.ItemID && !x.IsListed);
 
             if (_maxItemCount <= 1)
@@ -278,6 +289,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
             }
             else
             {
+                PricePrediction.Visibility = Visibility.Visible;
                 MinusBtn.IsEnabled = false;
                 PlusBtn.IsEnabled = true;
             }

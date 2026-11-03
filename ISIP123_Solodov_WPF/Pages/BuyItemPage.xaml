@@ -97,6 +97,7 @@
 
                                 <StackPanel Grid.Column="0" VerticalAlignment="Center">
                                     <TextBlock x:Name="Price" Text="Загрузка..." Style="{StaticResource BuyPagePrice}"/>
+                                    <TextBlock x:Name="TotalPrice" Text="Загрузка..." Style="{StaticResource BuyPagePrice}"/>
 
                                     <!-- Панель количества -->
                                     <StackPanel Orientation="Horizontal">
