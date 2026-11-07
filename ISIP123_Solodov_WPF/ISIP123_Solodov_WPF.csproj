@@ -107,6 +107,9 @@
     <Compile Include="Dialogs\TransactionConfirmation.xaml.cs">
       <DependentUpon>TransactionConfirmation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\YourNameInStemDialog.xaml.cs">
+      <DependentUpon>YourNameInStemDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\InventoryItems.cs">
       <DependentUpon>steam-model-home.tt</DependentUpon>
     </Compile>
@@ -219,6 +222,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\TransactionConfirmation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\YourNameInStemDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

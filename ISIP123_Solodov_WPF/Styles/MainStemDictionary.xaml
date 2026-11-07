@@ -1222,4 +1222,49 @@
     </Style>
     <!-- #endregion -->
 
+
+    <Style x:Key="HintTextBoxStyle" TargetType="TextBox">
+        <!-- Базовые свойства TextBox как на фото -->
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderThickness" Value="1.5"/>
+        <Setter Property="Padding" Value="6,3"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Grid>
+                        <!-- Само поле ввода -->
+                        <Border x:Name="border" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            Background="{TemplateBinding Background}" 
+                            SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false"/>
+                        </Border>
+
+                        <!-- Подсказка (Берет текст из свойства Tag) -->
+                        <TextBlock x:Name="placeholder" 
+                               Text="{TemplateBinding Tag}" 
+                               Foreground="#A0A0A0" 
+                               FontFamily="{TemplateBinding FontFamily}"
+                               FontSize="{TemplateBinding FontSize}"
+                               IsHitTestVisible="False" 
+                               VerticalAlignment="Center" 
+                               Margin="8,0,0,0" 
+                               Visibility="Collapsed"/>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <!-- Подсказка видна ТОЛЬКО если текст абсолютно пустой -->
+                        <Trigger Property="Text" Value="">
+                            <Setter TargetName="placeholder" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>
