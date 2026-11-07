@@ -30,13 +30,11 @@ namespace ISIP123_Solodov_WPF.Dialogs
 
         }
 
+
         // Блокирует ввод букв с клавиатуры
         private void NumberTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            // Регулярное выражение: [^0-9] означает "всё, кроме цифр"
             Regex regex = new Regex("[^0-9]+");
-
-            // Если вводимый символ НЕ цифра, отменяем событие ввода
             e.Handled = regex.IsMatch(e.Text);
         }
 
@@ -50,12 +48,30 @@ namespace ISIP123_Solodov_WPF.Dialogs
 
                 if (regex.IsMatch(text))
                 {
-                    e.CancelCommand(); // Отменяем вставку, если там есть буквы
+                    e.CancelCommand();
                 }
             }
             else
             {
                 e.CancelCommand();
+            }
+        }
+
+        // Блокирует ввод пробела
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e) 
+        {
+            if (e.Key == Key.Space) 
+            {
+                e.Handled = true;
+            }
+        }
+
+
+        private void CardNumber_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (CardNumber.Text.Replace(" ", "").Length % 4 == 0) 
+            {
+                CardNumber.Text += " ";
             }
         }
     }

@@ -21,23 +21,92 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Твое имя на языке Stem" TextWrapping="Wrap" FontSize="54" Margin="0,0,0,25" Grid.Column="0" Grid.Row="0"/>
-            <TextBlock Text="Номер карты" FontSize="20" VerticalAlignment="Top" Grid.Column="0" Grid.Row="1"/>
-            <TextBlock Text="Дейтсвительна до" FontSize="20" Grid.Column="0" Grid.Row="2"/>
-            <TextBlock Text="Имя держателя карты" FontSize="20" Grid.Column="0" Grid.Row="3"/>
-            <TextBlock Text="CVC2/CVV2" FontSize="20" Grid.Column="0" Grid.Row="4"/>
+            <TextBlock Text="Твое имя на языке Stem"
+                       TextWrapping="Wrap" FontSize="54"
+                       Margin="0,0,0,25"
+                       Grid.Column="0" Grid.Row="0"/>
+            
+            <TextBlock Text="Номер карты" 
+                       FontSize="20" 
+                       VerticalAlignment="Top"
+                       Grid.Column="0" Grid.Row="1"/>
+            
+            <TextBlock Text="Дейтсвительна до" 
+                       FontSize="20" 
+                       Grid.Column="0" Grid.Row="2"/>
+            
+            <TextBlock Text="Имя держателя карты" 
+                       FontSize="20" 
+                       Grid.Column="0" Grid.Row="3"/>
+            
+            <TextBlock Text="CVC2/CVV2" 
+                       FontSize="20" 
+                       Grid.Column="0" Grid.Row="4"/>
 
-            <Image Source="/Images/stem-logo-nobg.png" Grid.Column="1" Grid.Row="0"/>
-            <TextBox x:Name="CardNumber" BorderBrush="Black" BorderThickness="3" Style="{StaticResource HintTextBoxStyle}" Tag="0000 0000 0000 0000" Height="27" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1" PreviewTextInput="NumberTextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown" DataObject.Pasting="TextBox_Pasting"/>
+            <Image Source="/Images/mocking.png" Width="150" Grid.Column="1" Grid.Row="0"/>
+            
+            <TextBox x:Name="CardNumber" 
+                     BorderBrush="Black" BorderThickness="3" 
+                     Style="{StaticResource HintTextBoxStyle}" 
+                     Tag="0000 0000 0000 0000" 
+                     Height="27" 
+                     VerticalAlignment="Top" 
+                     Grid.Column="1" Grid.Row="1"
+                     PreviewTextInput="NumberTextBox_PreviewTextInput"
+                     PreviewKeyDown="TextBox_PreviewKeyDown"
+                     DataObject.Pasting="TextBox_Pasting" TextChanged="CardNumber_TextChanged"/>
+            
             <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
-                <TextBox x:Name="ValidUntilMonth" BorderBrush="Black" BorderThickness="3" Style="{StaticResource HintTextBoxStyle}" Tag="MM" Width="40" Height="27" VerticalAlignment="Top" Grid.Column="1" Grid.Row="2" PreviewTextInput="NumberTextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown" DataObject.Pasting="TextBox_Pasting"/>
+                <TextBox x:Name="ValidUntilMonth" 
+                         BorderBrush="Black" BorderThickness="3" 
+                         Style="{StaticResource HintTextBoxStyle}" 
+                         Tag="MM" 
+                         Width="40" Height="27" 
+                         VerticalAlignment="Top" 
+                         Grid.Column="1" Grid.Row="2" 
+                         PreviewTextInput="NumberTextBox_PreviewTextInput" 
+                         PreviewKeyDown="TextBox_PreviewKeyDown" 
+                         DataObject.Pasting="TextBox_Pasting"/>
+                
                 <TextBlock Text=" / " FontSize="20"/>
-                <TextBox x:Name="ValidUntilYear" BorderBrush="Black" BorderThickness="3" Style="{StaticResource HintTextBoxStyle}" Tag="ГГ" Width="40" Height="27" VerticalAlignment="Top" Grid.Column="1" Grid.Row="2" PreviewTextInput="NumberTextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown" DataObject.Pasting="TextBox_Pasting"/>
+                
+                <TextBox x:Name="ValidUntilYear" 
+                         BorderBrush="Black" BorderThickness="3" 
+                         Style="{StaticResource HintTextBoxStyle}" 
+                         Tag="ГГ" 
+                         Width="40" Height="27" 
+                         VerticalAlignment="Top" 
+                         Grid.Column="1" Grid.Row="2" 
+                         PreviewTextInput="NumberTextBox_PreviewTextInput" 
+                         PreviewKeyDown="TextBox_PreviewKeyDown" 
+                         DataObject.Pasting="TextBox_Pasting"/>
             </StackPanel>
-            <TextBox x:Name="PeopleName" BorderBrush="Black" BorderThickness="3" Style="{StaticResource HintTextBoxStyle}" Tag="ИМЯ ФАМИЛИЯ ЛАТИНИЦЕЙ" Height="27" VerticalAlignment="Top" Grid.Column="1" Grid.Row="3"/>
-            <TextBox x:Name="CVC" BorderBrush="Black" BorderThickness="3" Style="{StaticResource HintTextBoxStyle}" Tag="***" Width="100" Height="27" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Grid.Row="4" PreviewTextInput="NumberTextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown" DataObject.Pasting="TextBox_Pasting"/>
+            
+            <TextBox x:Name="PeopleName" 
+                     BorderBrush="Black" BorderThickness="3" 
+                     Style="{StaticResource HintTextBoxStyle}" 
+                     Tag="ИМЯ ФАМИЛИЯ ЛАТИНИЦЕЙ" 
+                     Height="27" 
+                     VerticalAlignment="Top" 
+                     Grid.Column="1" Grid.Row="3"/>
+            
+            <TextBox x:Name="CVC" 
+                     BorderBrush="Black" BorderThickness="3" 
+                     Style="{StaticResource HintTextBoxStyle}" 
+                     Tag="***" 
+                     Width="100" Height="27" 
+                     HorizontalAlignment="Left" VerticalAlignment="Top" 
+                     Grid.Column="1" Grid.Row="4" 
+                     PreviewTextInput="NumberTextBox_PreviewTextInput" 
+                     PreviewKeyDown="TextBox_PreviewKeyDown" 
+                     DataObject.Pasting="TextBox_Pasting"/>
 
-            <Button x:Name="TopUpAcc" Content="Пополнить" Width="100" Height="25" Grid.Row="5" Grid.ColumnSpan="2" BorderThickness="3" BorderBrush="Black" Click="TopUpAcc_Click"/>
+            <Button x:Name="TopUpAcc" 
+                    Content="Пополнить" 
+                    Width="100" Height="25" 
+                    Grid.Row="5" Grid.ColumnSpan="2" 
+                    BorderThickness="3" BorderBrush="Black" 
+                    Click="TopUpAcc_Click"/>
         </Grid>
     </Border>
 </Window>
