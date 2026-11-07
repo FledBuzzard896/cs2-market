@@ -45,10 +45,16 @@ namespace ISIP123_Solodov_WPF.Pages
             }
 
             ProfileDialog dialog = new ProfileDialog();
-
             dialog.Owner = Application.Current.MainWindow;
-
             dialog.ShowDialog();
+
+            if (dialog.DialogResult == true) 
+            {
+                YourNameInStemDialog dialog2 = new YourNameInStemDialog();
+                dialog2.Owner = Application.Current.MainWindow;
+                dialog2.ShowDialog();
+            }
+
             balance.Text = $"Баланс кошелька: {Core.CurrentUser.Balance} ₽";
         }
 

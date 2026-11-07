@@ -236,7 +236,7 @@ namespace ISIP123_Solodov_WPF.Pages
                 if (!string.IsNullOrEmpty(selectedType) && selectedType != "Все")
                 {
                     _FilteredInventory = _FilteredInventory
-                        .Where(x => x.Items.ItemTypes.Name == selectedType)
+                        .Where(x => x.Items.ItemTypes != null && x.Items.ItemTypes.Name == selectedType)
                         .ToList();
                 }
             }
@@ -248,7 +248,7 @@ namespace ISIP123_Solodov_WPF.Pages
                 if (!string.IsNullOrEmpty(selectedQuality) && selectedQuality != "Все")
                 {
                     _FilteredInventory = _FilteredInventory
-                        .Where(x => x.Items.Qualities.Name == selectedQuality)
+                        .Where(x => x.Items.Qualities != null && x.Items.Qualities.Name == selectedQuality)
                         .ToList();
                 }
             }

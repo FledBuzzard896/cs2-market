@@ -5,7 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ISIP123_Solodov_WPF.Dialogs"
         mc:Ignorable="d"
-        Title="YourNameInStemDialog" Height="550" Width="500">
+        Title="YourNameInStemDialog" 
+        Height="575" Width="525"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
+    
     <Border Background="#aefe07">
         <Grid Margin="20">
             <Grid.ColumnDefinitions>
@@ -22,24 +26,29 @@
             </Grid.RowDefinitions>
 
             <TextBlock Text="Твое имя на языке Stem"
+                       Foreground="#1a1a1a"
                        TextWrapping="Wrap" FontSize="54"
                        Margin="0,0,0,25"
                        Grid.Column="0" Grid.Row="0"/>
             
-            <TextBlock Text="Номер карты" 
+            <TextBlock Text="Номер карты"
+                       Foreground="#1a1a1a"
                        FontSize="20" 
                        VerticalAlignment="Top"
                        Grid.Column="0" Grid.Row="1"/>
             
             <TextBlock Text="Дейтсвительна до" 
+                       Foreground="#1a1a1a"
                        FontSize="20" 
                        Grid.Column="0" Grid.Row="2"/>
             
             <TextBlock Text="Имя держателя карты" 
+                       Foreground="#1a1a1a"
                        FontSize="20" 
                        Grid.Column="0" Grid.Row="3"/>
             
             <TextBlock Text="CVC2/CVV2" 
+                       Foreground="#1a1a1a"
                        FontSize="20" 
                        Grid.Column="0" Grid.Row="4"/>
 
@@ -49,6 +58,7 @@
                      BorderBrush="Black" BorderThickness="3" 
                      Style="{StaticResource HintTextBoxStyle}" 
                      Tag="0000 0000 0000 0000" 
+                     MaxLength="19"
                      Height="27" 
                      VerticalAlignment="Top" 
                      Grid.Column="1" Grid.Row="1"
@@ -60,7 +70,8 @@
                 <TextBox x:Name="ValidUntilMonth" 
                          BorderBrush="Black" BorderThickness="3" 
                          Style="{StaticResource HintTextBoxStyle}" 
-                         Tag="MM" 
+                         Tag="MM"
+                         MaxLength="2"
                          Width="40" Height="27" 
                          VerticalAlignment="Top" 
                          Grid.Column="1" Grid.Row="2" 
@@ -74,6 +85,7 @@
                          BorderBrush="Black" BorderThickness="3" 
                          Style="{StaticResource HintTextBoxStyle}" 
                          Tag="ГГ" 
+                         MaxLength="2"
                          Width="40" Height="27" 
                          VerticalAlignment="Top" 
                          Grid.Column="1" Grid.Row="2" 
@@ -94,6 +106,7 @@
                      BorderBrush="Black" BorderThickness="3" 
                      Style="{StaticResource HintTextBoxStyle}" 
                      Tag="***" 
+                     MaxLength="3"
                      Width="100" Height="27" 
                      HorizontalAlignment="Left" VerticalAlignment="Top" 
                      Grid.Column="1" Grid.Row="4" 
@@ -102,7 +115,7 @@
                      DataObject.Pasting="TextBox_Pasting"/>
 
             <Button x:Name="TopUpAcc" 
-                    Content="Пополнить" 
+                    Content="Узнать" 
                     Width="100" Height="25" 
                     Grid.Row="5" Grid.ColumnSpan="2" 
                     BorderThickness="3" BorderBrush="Black" 

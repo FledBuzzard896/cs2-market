@@ -69,10 +69,26 @@ namespace ISIP123_Solodov_WPF.Dialogs
 
         private void CardNumber_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (CardNumber.Text.Replace(" ", "").Length % 4 == 0) 
+            // Отключаем обработчик, чтобы избежать бесконечной рекурсии при изменении текста кодом
+            CardNumber.TextChanged -= CardNumber_TextChanged;
+
+            string digits = CardNumber.Text.Replace(" ", "");
+
+            string formatted = "";
+            for (int i = 0; i < digits.Length; i++)
             {
-                CardNumber.Text += " ";
+                if (i > 0 && i % 4 == 0)
+                {
+                    formatted += " ";
+                }
+                formatted += digits[i];
             }
+
+            CardNumber.Text = formatted;
+            CardNumber.CaretIndex = CardNumber.Text.Length;
+
+            // Включаем обработчик обратно
+            CardNumber.TextChanged += CardNumber_TextChanged;
         }
     }
 }
