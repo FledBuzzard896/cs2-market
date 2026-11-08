@@ -44,14 +44,18 @@ namespace ISIP123_Solodov_WPF.Pages
                 return;
             }
 
-            ProfileDialog dialog = new ProfileDialog();
-            dialog.Owner = Application.Current.MainWindow;
+            ProfileDialog dialog = new ProfileDialog
+            {
+                Owner = Application.Current.MainWindow
+            };
             dialog.ShowDialog();
 
             if (dialog.DialogResult == true) 
             {
-                YourNameInStemDialog dialog2 = new YourNameInStemDialog();
-                dialog2.Owner = Application.Current.MainWindow;
+                YourNameInStemDialog dialog2 = new YourNameInStemDialog
+                {
+                    Owner = Application.Current.MainWindow
+                };
                 dialog2.ShowDialog();
             }
 

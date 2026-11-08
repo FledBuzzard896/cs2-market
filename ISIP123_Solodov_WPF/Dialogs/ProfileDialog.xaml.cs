@@ -29,30 +29,6 @@ namespace ISIP123_Solodov_WPF.Dialogs
         private void TopUpBalance_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
-            //try
-            //{
-            //    Core.CurrentUser.Balance += Convert.ToDecimal(1000000.0);
-
-            //    var newTransaction = new Transactions
-            //    {
-            //        UserID = Core.CurrentUser.ID,
-            //        OperationID = 1, // Пополнение
-            //        Amount = 1000000, 
-            //        TransactionDate = DateTime.Now, 
-            //    };
-
-            //    Core.Context.Transactions.Add(newTransaction); 
-            //    Core.Context.SaveChanges();
-
-            //    // Обновляем интерфейс
-            //    UpdateUI();
-
-            //    MessageBox.Show(Application.Current.MainWindow, "Баланс успешно пополнен на 1 000 000 ₽!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(Application.Current.MainWindow, $"Ошибка при пополнении баланса: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            //}
         }
 
         private void PageLoaded(object sender, RoutedEventArgs e)

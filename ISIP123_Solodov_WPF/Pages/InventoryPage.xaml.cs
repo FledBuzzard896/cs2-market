@@ -55,11 +55,20 @@ namespace ISIP123_Solodov_WPF.Pages
                 return;
             }
 
-            ProfileDialog dialog = new ProfileDialog();
-
-            dialog.Owner = Application.Current.MainWindow;
-
+            ProfileDialog dialog = new ProfileDialog
+            {
+                Owner = Application.Current.MainWindow
+            };
             dialog.ShowDialog();
+
+            if (dialog.DialogResult == true)
+            {
+                YourNameInStemDialog dialog2 = new YourNameInStemDialog
+                {
+                    Owner = Application.Current.MainWindow
+                };
+                dialog2.ShowDialog();
+            }
         }
 
         // Кнопки навигации
@@ -183,7 +192,7 @@ namespace ISIP123_Solodov_WPF.Pages
             if (activeListing != null)
             {
                 // Ситуация 3: Есть активные лоты, берем минимальную цену на рынке
-                StartPrice.Text = $"Цена на рынке: от {activeListing.Price:N0} руб.";
+                StartPrice.Text = $"Цена на рынке: от {activeListing.Price:N2} руб.";
             }
             else
             {
@@ -196,12 +205,12 @@ namespace ISIP123_Solodov_WPF.Pages
                 if (lastSold != null)
                 {
                     // Ситуация 2: Продавали когда-то, но сейчас активных нет
-                    StartPrice.Text = $"Последняя продажа: {lastSold.Price:N0} руб.";
+                    StartPrice.Text = $"Последняя продажа: {lastSold.Price:N2} руб.";
                 }
                 else
                 {
                     // Ситуация 1: Вообще никогда не продавали
-                    StartPrice.Text = $"Средняя цена: {item.Items.AveragePrice:N0} руб.";
+                    StartPrice.Text = $"Средняя цена: {item.Items.AveragePrice:N2} руб.";
                 }
             }
 

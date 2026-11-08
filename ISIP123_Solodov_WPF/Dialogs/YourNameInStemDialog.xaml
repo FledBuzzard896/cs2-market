@@ -9,8 +9,8 @@
         Height="575" Width="525"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize">
-    
-    <Border Background="#aefe07">
+
+    <Border Background="{StaticResource StemCardBackground}">
         <Grid Margin="20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -26,100 +26,81 @@
             </Grid.RowDefinitions>
 
             <TextBlock Text="Твое имя на языке Stem"
-                       Foreground="#1a1a1a"
-                       TextWrapping="Wrap" FontSize="54"
-                       Margin="0,0,0,25"
-                       Grid.Column="0" Grid.Row="0"/>
-            
+                   Style="{StaticResource StemCardTitle}"
+                   Grid.Column="0" Grid.Row="0"/>
+
             <TextBlock Text="Номер карты"
-                       Foreground="#1a1a1a"
-                       FontSize="20" 
-                       VerticalAlignment="Top"
-                       Grid.Column="0" Grid.Row="1"/>
-            
+                   Style="{StaticResource StemCardLabel}"
+                   Grid.Column="0" Grid.Row="1"/>
+
             <TextBlock Text="Дейтсвительна до" 
-                       Foreground="#1a1a1a"
-                       FontSize="20" 
-                       Grid.Column="0" Grid.Row="2"/>
-            
+                   Style="{StaticResource StemCardLabel}"
+                   Grid.Column="0" Grid.Row="2"/>
+
             <TextBlock Text="Имя держателя карты" 
-                       Foreground="#1a1a1a"
-                       FontSize="20" 
-                       Grid.Column="0" Grid.Row="3"/>
-            
+                   Style="{StaticResource StemCardLabel}"
+                   Grid.Column="0" Grid.Row="3"/>
+
             <TextBlock Text="CVC2/CVV2" 
-                       Foreground="#1a1a1a"
-                       FontSize="20" 
-                       Grid.Column="0" Grid.Row="4"/>
+                   Style="{StaticResource StemCardLabel}"
+                   Grid.Column="0" Grid.Row="4"/>
 
             <Image Source="/Images/mocking.png" Width="150" Grid.Column="1" Grid.Row="0"/>
-            
+
             <TextBox x:Name="CardNumber" 
-                     BorderBrush="Black" BorderThickness="3" 
-                     Style="{StaticResource HintTextBoxStyle}" 
-                     Tag="0000 0000 0000 0000" 
-                     MaxLength="19"
-                     Height="27" 
-                     VerticalAlignment="Top" 
-                     Grid.Column="1" Grid.Row="1"
-                     PreviewTextInput="NumberTextBox_PreviewTextInput"
-                     PreviewKeyDown="TextBox_PreviewKeyDown"
-                     DataObject.Pasting="TextBox_Pasting" TextChanged="CardNumber_TextChanged"/>
-            
+                 Style="{StaticResource StemCardInput}" 
+                 Tag="0000 0000 0000 0000" 
+                 MaxLength="19"
+                 Grid.Column="1" Grid.Row="1"
+                 PreviewTextInput="NumberTextBox_PreviewTextInput"
+                 PreviewKeyDown="TextBox_PreviewKeyDown"
+                 DataObject.Pasting="TextBox_Pasting" 
+                 TextChanged="CardNumber_TextChanged"/>
+
             <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
                 <TextBox x:Name="ValidUntilMonth" 
-                         BorderBrush="Black" BorderThickness="3" 
-                         Style="{StaticResource HintTextBoxStyle}" 
-                         Tag="MM"
-                         MaxLength="2"
-                         Width="40" Height="27" 
-                         VerticalAlignment="Top" 
-                         Grid.Column="1" Grid.Row="2" 
-                         PreviewTextInput="NumberTextBox_PreviewTextInput" 
-                         PreviewKeyDown="TextBox_PreviewKeyDown" 
-                         DataObject.Pasting="TextBox_Pasting"/>
-                
-                <TextBlock Text=" / " FontSize="20"/>
-                
-                <TextBox x:Name="ValidUntilYear" 
-                         BorderBrush="Black" BorderThickness="3" 
-                         Style="{StaticResource HintTextBoxStyle}" 
-                         Tag="ГГ" 
-                         MaxLength="2"
-                         Width="40" Height="27" 
-                         VerticalAlignment="Top" 
-                         Grid.Column="1" Grid.Row="2" 
-                         PreviewTextInput="NumberTextBox_PreviewTextInput" 
-                         PreviewKeyDown="TextBox_PreviewKeyDown" 
-                         DataObject.Pasting="TextBox_Pasting"/>
-            </StackPanel>
-            
-            <TextBox x:Name="PeopleName" 
-                     BorderBrush="Black" BorderThickness="3" 
-                     Style="{StaticResource HintTextBoxStyle}" 
-                     Tag="ИМЯ ФАМИЛИЯ ЛАТИНИЦЕЙ" 
-                     Height="27" 
-                     VerticalAlignment="Top" 
-                     Grid.Column="1" Grid.Row="3"/>
-            
-            <TextBox x:Name="CVC" 
-                     BorderBrush="Black" BorderThickness="3" 
-                     Style="{StaticResource HintTextBoxStyle}" 
-                     Tag="***" 
-                     MaxLength="3"
-                     Width="100" Height="27" 
-                     HorizontalAlignment="Left" VerticalAlignment="Top" 
-                     Grid.Column="1" Grid.Row="4" 
+                     Style="{StaticResource StemCardInput}" 
+                     Tag="MM"
+                     MaxLength="2"
+                     Width="40" 
                      PreviewTextInput="NumberTextBox_PreviewTextInput" 
                      PreviewKeyDown="TextBox_PreviewKeyDown" 
                      DataObject.Pasting="TextBox_Pasting"/>
 
+                <TextBlock Text="/" Style="{StaticResource StemCardDivider}"/>
+
+                <TextBox x:Name="ValidUntilYear" 
+                     Style="{StaticResource StemCardInput}" 
+                     Tag="ГГ" 
+                     MaxLength="2"
+                     Width="40" 
+                     PreviewTextInput="NumberTextBox_PreviewTextInput" 
+                     PreviewKeyDown="TextBox_PreviewKeyDown" 
+                     DataObject.Pasting="TextBox_Pasting"/>
+            </StackPanel>
+
+            <TextBox x:Name="PeopleName" 
+                 Style="{StaticResource StemCardInput}" 
+                 Tag="ИМЯ ФАМИЛИЯ ЛАТИНИЦЕЙ" 
+                 Grid.Column="1" Grid.Row="3"
+                 PreviewTextInput="LetterTextBox_PreviewTextInput"/>
+
+            <TextBox x:Name="CVC" 
+                 Style="{StaticResource StemCardInput}" 
+                 Tag="***" 
+                 MaxLength="3"
+                 Width="100" 
+                 HorizontalAlignment="Left" 
+                 Grid.Column="1" Grid.Row="4" 
+                 PreviewTextInput="NumberTextBox_PreviewTextInput" 
+                 PreviewKeyDown="TextBox_PreviewKeyDown" 
+                 DataObject.Pasting="TextBox_Pasting"/>
+
             <Button x:Name="TopUpAcc" 
-                    Content="Узнать" 
-                    Width="100" Height="25" 
-                    Grid.Row="5" Grid.ColumnSpan="2" 
-                    BorderThickness="3" BorderBrush="Black" 
-                    Click="TopUpAcc_Click"/>
+                Content="Узнать" 
+                Style="{StaticResource StemCardButton}"
+                Grid.Row="5" Grid.ColumnSpan="2" 
+                Click="TopUpAcc_Click"/>
         </Grid>
     </Border>
 </Window>

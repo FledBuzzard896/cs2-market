@@ -57,7 +57,7 @@
             </StackPanel>
 
             <StackPanel Grid.Row="5" HorizontalAlignment="Center" Margin="10" Orientation="Horizontal">
-                <TextBlock Text="Вы получите: " Style="{StaticResource PriceInputLabel}"/>
+                <TextBlock Text="Вы получите (за единицу): " Style="{StaticResource PriceInputLabel}"/>
                 <TextBox x:Name="SellerProfit" Style="{StaticResource PriceInputBox}" TextChanged="SellerProfit_TextChanged" PreviewTextInput="NumberTextBox_PreviewTextInput"/>
 
                 <TextBlock Text="Покупатель заплатит (за единицу): " Style="{StaticResource PriceInputLabel}" Margin="100,0,0,0"/>

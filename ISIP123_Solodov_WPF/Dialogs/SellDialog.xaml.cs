@@ -234,7 +234,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
         {
             MainGrid.DataContext = _thisItem;
 
-            AveragePrice.Text = $"Средняя цена: {_thisItem.Items?.AveragePrice:N0} руб.";
+            AveragePrice.Text = $"Средняя цена: {_thisItem.Items?.AveragePrice:N2} руб.";
 
             // 1. Ищем АКТИВНЫЙ лот (StatusID == 1) для этого предмета
             var activeListing = Core.Context.MarketListings
@@ -244,8 +244,8 @@ namespace ISIP123_Solodov_WPF.Dialogs
 
             if (activeListing != null)
             {
-                LastUserPrice.Text = $"Цена на рынке: {activeListing.Price:N0} руб.";
-                PricePrediction.Text = $"Прогноз стоимости: {activeListing.Price:N0} руб.";
+                LastUserPrice.Text = $"Цена на рынке: {activeListing.Price:N2} руб.";
+                PricePrediction.Text = $"Прогноз стоимости: {activeListing.Price:N2} руб.";
                 _price = Convert.ToDouble(activeListing.Price);
             }
             else
@@ -258,27 +258,25 @@ namespace ISIP123_Solodov_WPF.Dialogs
 
                 if (lastSoldListing != null)
                 {
-                    LastUserPrice.Text = $"Последняя продажа: {lastSoldListing.Price:N0} руб.";
-                    PricePrediction.Text = $"Прогноз стоимости: {lastSoldListing.Price:N0} руб.";
+                    LastUserPrice.Text = $"Последняя продажа: {lastSoldListing.Price:N2} руб.";
+                    PricePrediction.Text = $"Прогноз стоимости: {lastSoldListing.Price:N2} руб.";
                     _price = Convert.ToDouble(lastSoldListing.Price);
                 }
                 else
                 {
                     // Ситуация 1: Никогда не продавали и активных нет.
-                    // Вместо дубля "Средняя цена", пишем информативный текст
                     LastUserPrice.Text = "На рынке пока нет предложений";
 
                     // Прогноз оставляем на основе средней цены
-                    PricePrediction.Text = $"Прогноз стоимости: {_thisItem.Items?.AveragePrice:N0} руб.";
+                    PricePrediction.Text = $"Прогноз стоимости: {_thisItem.Items?.AveragePrice:N2} руб.";
                     _price = Convert.ToDouble(_thisItem.Items?.AveragePrice);
                 }
             }
 
-            // БОНУС: Автоматически подставляем вычисленную цену в поле ввода,
-            // чтобы пользователю не пришлось вводить её вручную (сработает TextChanged и посчитает комиссию)
+            // Автоматически подставляет вычисленную цену в поле ввода
             if (string.IsNullOrEmpty(SellerProfit.Text))
             {
-                SellerProfit.Text = Math.Round(_price).ToString();
+                SellerProfit.Text = Math.Round(_price, 2).ToString();
             }
 
             // Считаем, сколько ТАКИХ ЖЕ предметов есть в инвентаре (и не выставлено на продажу)

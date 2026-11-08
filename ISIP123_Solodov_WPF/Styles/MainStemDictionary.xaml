@@ -1222,9 +1222,30 @@
     </Style>
     <!-- #endregion -->
 
+    <!--#region СТИЛЬ ДИАЛОГА "ТВОЁ ИМЯ НА ЯЗЫКЕ STEM"-->
 
+    <!-- Кислотно-зеленый фон -->
+    <SolidColorBrush x:Key="StemCardBackground" Color="#aefe07"/>
+
+    <!-- Главный заголовок ("Твое имя...") -->
+    <Style x:Key="StemCardTitle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#1a1a1a"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="FontSize" Value="52"/>
+        <Setter Property="FontFamily" Value="Cascadia Mono"/>
+        <Setter Property="Margin" Value="0,0,0,25"/>
+    </Style>
+
+    <!-- Подписи к полям ("Номер карты" и т.д.) -->
+    <Style x:Key="StemCardLabel" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#1a1a1a"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontFamily" Value="Consolas"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+    </Style>
+
+    <!-- Вывод подскази для ввода -->
     <Style x:Key="HintTextBoxStyle" TargetType="TextBox">
-        <!-- Базовые свойства TextBox как на фото -->
         <Setter Property="Background" Value="White"/>
         <Setter Property="Foreground" Value="Black"/>
         <Setter Property="BorderBrush" Value="Black"/>
@@ -1238,27 +1259,27 @@
                     <Grid>
                         <!-- Само поле ввода -->
                         <Border x:Name="border" 
-                            BorderBrush="{TemplateBinding BorderBrush}" 
-                            BorderThickness="{TemplateBinding BorderThickness}" 
-                            Background="{TemplateBinding Background}" 
-                            SnapsToDevicePixels="True">
+                        BorderBrush="{TemplateBinding BorderBrush}" 
+                        BorderThickness="{TemplateBinding BorderThickness}" 
+                        Background="{TemplateBinding Background}" 
+                        SnapsToDevicePixels="True">
                             <ScrollViewer x:Name="PART_ContentHost" Focusable="false"/>
                         </Border>
 
                         <!-- Подсказка (Берет текст из свойства Tag) -->
                         <TextBlock x:Name="placeholder" 
-                               Text="{TemplateBinding Tag}" 
-                               Foreground="#A0A0A0" 
-                               FontFamily="{TemplateBinding FontFamily}"
-                               FontSize="{TemplateBinding FontSize}"
-                               IsHitTestVisible="False" 
-                               VerticalAlignment="Center" 
-                               Margin="8,0,0,0" 
-                               Visibility="Collapsed"/>
+                           Text="{TemplateBinding Tag}" 
+                           Foreground="#A0A0A0" 
+                           FontFamily="{TemplateBinding FontFamily}"
+                           FontSize="{TemplateBinding FontSize}"
+                           IsHitTestVisible="False" 
+                           VerticalAlignment="Center" 
+                           Margin="8,0,0,0" 
+                           Visibility="Collapsed"/>
                     </Grid>
 
                     <ControlTemplate.Triggers>
-                        <!-- Подсказка видна ТОЛЬКО если текст абсолютно пустой -->
+                        <!-- Подсказка видна только если текст абсолютно пустой -->
                         <Trigger Property="Text" Value="">
                             <Setter TargetName="placeholder" Property="Visibility" Value="Visible"/>
                         </Trigger>
@@ -1267,4 +1288,38 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <!-- Поля ввода (основной стиль) -->
+    <Style x:Key="StemCardInput" TargetType="TextBox" BasedOn="{StaticResource HintTextBoxStyle}">
+        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="Height" Value="27"/>
+        <Setter Property="FontFamily" Value="Consolas"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+    </Style>
+
+    <!-- Разделитель для даты (" / ") -->
+    <Style x:Key="StemCardDivider" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontFamily" Value="Consolas"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Margin" Value="5,0"/>
+    </Style>
+
+    <!-- Кнопка "Узнать" -->
+    <Style x:Key="StemCardButton" TargetType="Button">
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="FontFamily" Value="Consolas"/>
+        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#e0e0e0"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!-- #endregion -->
+
 </ResourceDictionary>
