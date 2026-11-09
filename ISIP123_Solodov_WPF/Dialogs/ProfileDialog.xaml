@@ -9,43 +9,62 @@
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize">
     <Grid Background="{StaticResource DialogBackground}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-
-        <Grid Grid.Row="1" Grid.Column="1">
+        <Grid x:Name="DefaultUserGrid" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
+                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Логин: " Style="{StaticResource ProfileLabelText}"/>
-            <TextBlock x:Name="LoginTBox" Style="{StaticResource ProfileValueText}" Grid.Column="1"/>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
 
-            <TextBlock Text="Никнейм: " Style="{StaticResource ProfileLabelText}" Grid.Row="1"/>
-            <TextBlock x:Name="NicknameTBox" Style="{StaticResource ProfileValueText}" Grid.Row="1" Grid.Column="1"/>
+                <TextBlock Text="Логин: " Style="{StaticResource ProfileLabelText}"/>
+                <TextBlock x:Name="LoginTBox" Style="{StaticResource ProfileValueText}" Grid.Column="1"/>
 
-            <TextBlock Text="Баланс: " Style="{StaticResource ProfileLabelText}" Grid.Row="2"/>
-            <TextBlock x:Name="BalanceTBox" Style="{StaticResource ProfileValueText}" Grid.Row="2" Grid.Column="1"/>
+                <TextBlock Text="Никнейм: " Style="{StaticResource ProfileLabelText}" Grid.Row="1"/>
+                <TextBlock x:Name="NicknameTBox" Style="{StaticResource ProfileValueText}" Grid.Row="1" Grid.Column="1"/>
 
-            <Button x:Name="TopUpBalance" Content="Пополнить" Style="{StaticResource ProfileActionButton}" Grid.Row="3" Grid.ColumnSpan="2" Click="TopUpBalance_Click"/>
+                <TextBlock Text="Баланс: " Style="{StaticResource ProfileLabelText}" Grid.Row="2"/>
+                <TextBlock x:Name="BalanceTBox" Style="{StaticResource ProfileValueText}" Grid.Row="2" Grid.Column="1"/>
 
-            <!-- Кнопка смены темы -->
-            <!-- <Button x:Name="SwitchThemeBtn" Content="Сменить тему" Style="{StaticResource ProfileActionButton}" Grid.Row="4" Grid.ColumnSpan="2" Background="#1999ff" Click="SwitchThemeBtn_Click"/> -->
+                <Button x:Name="TopUpBalance" Content="Пополнить" Style="{StaticResource ProfileActionButton}" Grid.Row="3" Grid.ColumnSpan="2" Click="TopUpBalance_Click"/>
+            </Grid>
+        </Grid>
+
+        <Grid x:Name="GabenTheGodGrid" Margin="15" Visibility="Visible">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image Source="/Images/Rabscuttle.jpg"/>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

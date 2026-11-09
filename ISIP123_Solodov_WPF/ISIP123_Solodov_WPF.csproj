@@ -310,6 +310,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\mocking.png" />
+    <Resource Include="Images\Rabscuttle.jpg" />
     <Content Include="Models\steam-model-kip.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>steam-model-kip.edmx</DependentUpon>
