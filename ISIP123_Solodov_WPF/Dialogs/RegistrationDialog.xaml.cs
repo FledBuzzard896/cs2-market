@@ -92,6 +92,8 @@ namespace ISIP123_Solodov_WPF.Dialogs
                     Password = Core.HashPassword(password1),
                     Nickname = nickname,
                     Balance = 0,
+                    IsAdmin = false,
+                    IsBanned = false,
                 };
 
                 Core.Context.Users.Add(newUser);

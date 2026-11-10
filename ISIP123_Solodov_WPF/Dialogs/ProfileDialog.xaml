@@ -54,7 +54,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
@@ -63,7 +63,51 @@
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Image Source="/Images/Rabscuttle.jpg"/>
+                <Image Source="/Images/Rabscuttle.jpg" Width="125" Margin="15" Grid.Column="0"/>
+                <StackPanel Grid.Column="1" Margin="15" VerticalAlignment="Center" Orientation="Vertical">
+                    <TextBlock Text="Rabscuttle" Foreground="White" FontSize="16" Margin="0,0,0,5"/>
+                    <TextBlock Text="Seattle, Washington, United States" Foreground="#afb1b8" FontSize="12" Margin="0,0,0,15"/>
+                    <TextBlock Text="No information given." Foreground="#afb1b8" FontSize="12" TextWrapping="Wrap"/>
+                    <TextBlock>
+                        <Hyperlink NavigateUri="https://www.valvesoftware.com/ru/" RequestNavigate="Hyperlink_RequestNavigate" Foreground="#afb1b8">
+                            https://www.valvesoftware.com
+                        </Hyperlink>
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
+            
+            <!--
+            <Style x:Key="SupportActionButton" TargetType="Button">
+                <Setter Property="Width" Value="100"/>
+                <Setter Property="Height" Value="30"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Background" Value="#1999ff"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#1078c9"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            -->
+            
+            <Grid Grid.Row="1" Grid.Column="1" Margin="15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Button x:Name="BanPlayerBtn" Content="BanUser" Width="100" Height="30" BorderThickness="0" Background="#1999ff" Foreground="White" Cursor="Hand" HorizontalAlignment="Left" Click="BanPlayerBtn_Click"/>
+                <Button x:Name="UnBanPlayerBtn" Content="UnBanUser" Width="100" Height="30" BorderThickness="0" Background="#1999ff" Foreground="White" Cursor="Hand" Grid.Column="1" Click="UnBanPlayerBtn_Click"/>
+                <Button x:Name="GiveItemToPlayerBtn" Content="SendGift" Width="100" Height="30" BorderThickness="0" Background="#1999ff" Foreground="White" Cursor="Hand" Grid.Column="2" HorizontalAlignment="Right" Click="GiveItemToPlayerBtn_Click"/>
+                <Button x:Name="CheckUsersBtn" Content="CheckUsers" Width="100" Height="30" BorderThickness="0" Background="#1999ff" Foreground="White" Cursor="Hand" Grid.Row="1" HorizontalAlignment="Left" Click="CheckUsersBtn_Click"/>
+                <Button x:Name="CapitalizationBtn" Content="Capitalization" Width="100" Height="30" BorderThickness="0" Background="#1999ff" Foreground="White" Cursor="Hand" Grid.Row="1" Grid.Column="1" Click="CapitalizationBtn_Click"/>
             </Grid>
         </Grid>
     </Grid>

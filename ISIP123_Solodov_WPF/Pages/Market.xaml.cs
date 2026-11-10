@@ -44,22 +44,33 @@ namespace ISIP123_Solodov_WPF.Pages
                 return;
             }
 
+            // Открытие профиля
             ProfileDialog dialog = new ProfileDialog
             {
                 Owner = Application.Current.MainWindow
             };
             dialog.ShowDialog();
 
-            if (dialog.DialogResult == true) 
+            // Открытие диалога пополнения кошелька
+            if (Core.CurrentUser.IsAdmin == false && dialog.DialogResult == true)
             {
                 YourNameInStemDialog dialog2 = new YourNameInStemDialog
                 {
                     Owner = Application.Current.MainWindow
                 };
                 dialog2.ShowDialog();
-            }
 
-            balance.Text = $"Баланс кошелька: {Core.CurrentUser.Balance} ₽";
+                balance.Text = $"Баланс кошелька: {Core.CurrentUser.Balance} ₽";
+            }
+            // Открытие админ диалога различного назначения
+            else if (Core.CurrentUser.IsAdmin == true && dialog.DialogResult == true) 
+            {
+                GabenDialog dialog2 = new GabenDialog ()
+                {
+                    Owner = Application.Current.MainWindow
+                };
+                dialog2.ShowDialog();
+            }
         }
 
 

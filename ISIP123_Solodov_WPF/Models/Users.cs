@@ -27,6 +27,8 @@ namespace ISIP123_Solodov_WPF.Models
         public string Password { get; set; }
         public string Nickname { get; set; }
         public decimal Balance { get; set; }
+        public Nullable<bool> IsAdmin { get; set; }
+        public Nullable<bool> IsBanned { get; set; }
     
         public virtual ICollection<InventoryItems> InventoryItems { get; set; }
         public virtual ICollection<MarketListings> MarketListings { get; set; }

@@ -98,6 +98,8 @@
           <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Nickname" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Balance" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="IsAdmin" Type="bit" />
+          <Property Name="IsBanned" Type="bit" />
         </EntityType>
         <EntityType Name="WearCategories">
           <Key>
@@ -398,6 +400,8 @@
           <NavigationProperty Name="MarketListings" Relationship="Self.FK_Market_Buyer" FromRole="Users" ToRole="MarketListings" />
           <NavigationProperty Name="Transactions" Relationship="Self.FK_Transactions_Users" FromRole="Users" ToRole="Transactions" />
           <NavigationProperty Name="MarketListings1" Relationship="SteamCS2MarketModel.FK_Market_Seller" FromRole="Users" ToRole="MarketListings" />
+          <Property Name="IsAdmin" Type="Boolean" />
+          <Property Name="IsBanned" Type="Boolean" />
         </EntityType>
         <EntityType Name="WearCategories">
           <Key>
@@ -683,6 +687,8 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="SteamCS2MarketModel.Users">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="IsBanned" ColumnName="IsBanned" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
