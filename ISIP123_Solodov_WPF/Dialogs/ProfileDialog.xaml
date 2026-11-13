@@ -43,7 +43,9 @@
                 <TextBlock Text="Баланс: " Style="{StaticResource ProfileLabelText}" Grid.Row="2"/>
                 <TextBlock x:Name="BalanceTBox" Style="{StaticResource ProfileValueText}" Grid.Row="2" Grid.Column="1"/>
 
-                <Button x:Name="TopUpBalance" Content="Пополнить" Style="{StaticResource ProfileActionButton}" Grid.Row="3" Grid.ColumnSpan="2" Click="TopUpBalance_Click"/>
+                <TextBlock x:Name="IsBannedTBlock" Text="1 блокировка VAC" Style="{StaticResource ProfileLabelText}" Foreground="DarkRed" Visibility="Collapsed" Grid.Row="3"/>
+
+                <Button x:Name="TopUpBalance" Content="Пополнить" Style="{StaticResource ProfileActionButton}" Grid.Row="4" Grid.ColumnSpan="2" Click="TopUpBalance_Click"/>
             </Grid>
         </Grid>
 

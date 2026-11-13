@@ -2,47 +2,79 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace ISIP123_Solodov_WPF.Dialogs
 {
-    /// <summary>
-    /// Логика взаимодействия для GabenDialog.xaml
-    /// </summary>
     public partial class GabenDialog : Window
     {
         private List<Users> _users = null;
-        private GabenDialogMode _mode;  
+        private GabenDialogMode _mode;
+
         public string ButtonText { get; private set; }
+        public GabenDialogMode CurrentMode => _mode;
+        public List<Items> ItemsList { get; private set; }
 
-
-        public GabenDialog() 
+        public GabenDialog()
         {
             InitializeComponent();
             Loaded += PageLoaded;
         }
-        public GabenDialog(List<Users> UsersList, GabenDialogMode mode)
+
+        public GabenDialog(List<Users> usersList, GabenDialogMode mode)
         {
             InitializeComponent();
-
-            _users = UsersList;
+            _users = usersList;
             _mode = mode;
-
             Loaded += PageLoaded;
+        }
+
+        private void ItemComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is ComboBox comboBox && comboBox.SelectedItem is Items selectedItem && comboBox.Tag is Users user)
+            {
+                var result = MessageBox.Show(Application.Current.MainWindow, $"Вы уверены, что хотите выдать предмет:\n\n«{selectedItem.Name}»\n\nпользователю {user.Login}?", "Подтверждение выдачи", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        InventoryItems newStr = new InventoryItems
+                        {
+                            UserID = user.ID,
+                            ItemID = selectedItem.ID,
+                            IsListed = false
+                        };
+
+                        if (selectedItem.TypeID >= 7 && selectedItem.TypeID <= 13)
+                        {
+                            newStr.FloatValue = null;
+                        }
+                        else
+                        {
+                            Random random = new Random();
+                            var randomFloat = random.NextDouble();
+
+                            newStr.FloatValue = Math.Round(randomFloat, 8);
+                        }
+
+                        Core.Context.InventoryItems.Add(newStr);
+                        Core.Context.SaveChanges();
+
+                        string floatMsg = newStr.FloatValue.HasValue ? $"\nИзнос (Float): {newStr.FloatValue.Value}" : "";
+                        MessageBox.Show(Application.Current.MainWindow, $"Предмет «{selectedItem.Name}» успешно выдан!{floatMsg}", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    catch (System.Exception ex)
+                    {
+                        MessageBox.Show(Application.Current.MainWindow, $"Ошибка при выдаче: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                comboBox.SelectedIndex = -1;
+            }
         }
 
         private void ActionButton_Click(object sender, RoutedEventArgs e)
         {
-            // Получаем пользователя, на чьей строке нажали кнопку
             if (sender is Button button && button.Tag is Users selectedUser)
             {
                 switch (_mode)
@@ -50,7 +82,6 @@ namespace ISIP123_Solodov_WPF.Dialogs
                     case GabenDialogMode.Ban:
                         selectedUser.IsBanned = true;
                         Core.Context.SaveChanges();
-                        // Опционально: удалить из визуального списка, так как он больше не подходит под фильтр
                         _users.Remove(selectedUser);
                         MainListBox.Items.Refresh();
                         break;
@@ -62,35 +93,20 @@ namespace ISIP123_Solodov_WPF.Dialogs
                         MainListBox.Items.Refresh();
                         break;
 
-                    case GabenDialogMode.GiveItem:
-                        // Логика выдачи предмета (например, вызов другого окна)
-                        MessageBox.Show($"Выдан предмет для {selectedUser.Login}");
-                        break;
-
                     case GabenDialogMode.Check:
-                        // Логика проверки (например, открытие профиля)
-                        MessageBox.Show($"Проверка {selectedUser.Login}");
+                        MessageBox.Show(Application.Current.MainWindow, $"Login: {selectedUser.Login}\nNickname: {selectedUser.Nickname}\nBalance: {selectedUser.Balance} rub.\nIsAdmin: {selectedUser.IsAdmin}\nIsBanned: {selectedUser.IsBanned}", "Подробная информация", MessageBoxButton.OK, MessageBoxImage.Information);
                         break;
                 }
             }
         }
 
-        /// <summary>
-        /// Подгрузка страницы.
-        /// <para>1 - Вывод пользователей на Бан</para> 
-        /// <para>2 - Вывод пользователей на Разбан</para> 
-        /// <para>3 - Отправить подарок от Габена</para> 
-        /// <para>4 - Вывод всех пользователей</para>
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void PageLoaded(object sender, RoutedEventArgs e) 
+        private void PageLoaded(object sender, RoutedEventArgs e)
         {
             if (_users == null)
             {
                 // Подгрузка капитализации
             }
-            else 
+            else
             {
                 switch (_mode)
                 {
@@ -99,18 +115,22 @@ namespace ISIP123_Solodov_WPF.Dialogs
                         ButtonText = "Забанить";
                         break;
                     case GabenDialogMode.Unban:
-                        TitleTBlock.Text = "РАЗЗАБАНИТЬ ИГРОКА:";
+                        TitleTBlock.Text = "РАЗБАНИТЬ ИГРОКА:";
                         ButtonText = "Разбанить";
                         break;
                     case GabenDialogMode.GiveItem:
                         TitleTBlock.Text = "ВЫДАТЬ ПРЕДМЕТ:";
-                        ButtonText = "Выдать предмет";
+                        ButtonText = "Выдать";
+                        
+                        ItemsList = Core.Context.Items.ToList();
                         break;
                     case GabenDialogMode.Check:
-                        //ButtonText = "Профиль";
+                        TitleTBlock.Text = "ПРОВЕРКА ИГРОКА:";
+                        ButtonText = "Профиль";
                         break;
-                    default: break;
                 }
+
+                DataContext = this;
 
                 MainListBox.ItemsSource = _users;
             }

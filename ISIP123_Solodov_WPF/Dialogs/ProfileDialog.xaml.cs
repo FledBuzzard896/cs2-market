@@ -105,6 +105,10 @@ namespace ISIP123_Solodov_WPF.Dialogs
                 DefaultUserGrid.Visibility = Visibility.Collapsed;
                 GabenTheGodGrid.Visibility = Visibility.Visible;
             }
+            if (Core.CurrentUser.IsBanned == true) 
+            {
+                IsBannedTBlock.Visibility = Visibility.Visible;
+            }
             UpdateUI();
         }
 

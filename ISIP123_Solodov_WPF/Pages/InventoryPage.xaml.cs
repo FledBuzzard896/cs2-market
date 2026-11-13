@@ -61,7 +61,7 @@ namespace ISIP123_Solodov_WPF.Pages
             };
             dialog.ShowDialog();
 
-            if (dialog.DialogResult == true)
+            if (Core.CurrentUser.IsAdmin == false && dialog.DialogResult == true)
             {
                 YourNameInStemDialog dialog2 = new YourNameInStemDialog
                 {
@@ -273,6 +273,12 @@ namespace ISIP123_Solodov_WPF.Pages
         // Переход к продаже предмета
         private void SellItemButton_Click(object sender, RoutedEventArgs e)
         {
+            if (Core.CurrentUser.IsBanned == true)
+            {
+                MessageBox.Show(Application.Current.MainWindow, "Не удалось сделать операцию из-за блокировки VAC.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             if (InventoryItems.SelectedItem is InventoryItems selectedItem)
             {
                 SellDialog dialog = new SellDialog(selectedItem);

@@ -119,6 +119,11 @@ namespace ISIP123_Solodov_WPF.Pages
                 MessageBox.Show(Application.Current.MainWindow, "Вы должны зарегистрироваться, чтобы зайти в Инвентарь.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            if (Core.CurrentUser.IsBanned == true) 
+            {
+                MessageBox.Show(Application.Current.MainWindow, "Не удалось выполнить операцию из-за блокировки VAC.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             NavigationService.Navigate(new InventoryPage());
         }
 
@@ -150,9 +155,14 @@ namespace ISIP123_Solodov_WPF.Pages
         // ВЫБОР ПРЕДМЕТА ДЛЯ ПОКУПКИ
         private void ItemsLB_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if (Core.CurrentUser.IsBanned == true)
+            {
+                MessageBox.Show(Application.Current.MainWindow, "Не удалось выполнить операцию из-за блокировки VAC.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             if (ItemsLB.SelectedItem != null)
             {
-                // Так как мы используем анонимный тип для группировки, берем самый дешевый лот из группы
                 dynamic selectedGroup = ItemsLB.SelectedItem;
                 MarketListings cheapestListing = selectedGroup.CheapestListing;
 
