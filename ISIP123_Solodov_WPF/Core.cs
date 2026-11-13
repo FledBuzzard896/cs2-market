@@ -9,6 +9,14 @@ using System.Windows;
 
 namespace ISIP123_Solodov_WPF
 {
+    public enum GabenDialogMode
+    {
+        Ban,
+        Unban,
+        GiveItem,
+        Check
+    }
+
     internal class Core
     {
         // Подключение к локальной БД

@@ -62,15 +62,6 @@ namespace ISIP123_Solodov_WPF.Pages
 
                 balance.Text = $"Баланс кошелька: {Core.CurrentUser.Balance} ₽";
             }
-            // Открытие админ диалога различного назначения
-            else if (Core.CurrentUser.IsAdmin == true && dialog.DialogResult == true) 
-            {
-                GabenDialog dialog2 = new GabenDialog ()
-                {
-                    Owner = Application.Current.MainWindow
-                };
-                dialog2.ShowDialog();
-            }
         }
 
 

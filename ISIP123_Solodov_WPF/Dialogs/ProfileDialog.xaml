@@ -9,7 +9,7 @@
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize">
     <Grid Background="{StaticResource DialogBackground}">
-        <Grid x:Name="DefaultUserGrid" Visibility="Collapsed">
+        <Grid x:Name="DefaultUserGrid" Visibility="Visible">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="2*"/>
@@ -47,7 +47,7 @@
             </Grid>
         </Grid>
 
-        <Grid x:Name="GabenTheGodGrid" Margin="15" Visibility="Visible">
+        <Grid x:Name="GabenTheGodGrid" Margin="15" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="3*"/>

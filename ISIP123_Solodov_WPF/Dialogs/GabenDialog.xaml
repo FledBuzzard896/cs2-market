@@ -5,8 +5,53 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ISIP123_Solodov_WPF.Dialogs"
         mc:Ignorable="d"
-        Title="GabenDialog" Height="450" Width="800">
-    <Grid>
-        
+        Title="GabenDialog" 
+        Height="450" Width="800"
+        ResizeMode="NoResize">
+    <Grid Background="#181a21">
+        <Grid Margin="15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="TitleTBlock" Foreground="White" FontSize="24" FontWeight="Bold" Margin="0,20,0,20"/>
+            <ListBox x:Name="MainListBox"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                     BorderThickness="0"
+                     Background="Transparent"
+                     Grid.Row="1">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListBox.ItemContainerStyle>
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="200"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding ID}" Foreground="White" FontSize="20" Grid.Column="0"/>
+                            <TextBlock Text="{Binding Login}" Foreground="White" FontSize="18" Grid.Column="1"/>
+                            <Button Grid.Column="2" 
+                                Content="{Binding ButtonText, RelativeSource={RelativeSource AncestorType=Window}}" 
+                                Tag="{Binding}" 
+                                Click="ActionButton_Click"
+                                Padding="10,5"
+                                HorizontalAlignment="Right"
+                                Background="#2a475e" 
+                                Foreground="White" 
+                                BorderThickness="0"
+                                Cursor="Hand"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
     </Grid>
 </Window>
