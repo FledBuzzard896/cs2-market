@@ -33,7 +33,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
         // Маркер 1 = Бан пользователей
         private void BanPlayerBtn_Click(object sender, RoutedEventArgs e)
         {
-            var AllClearestUsers = Core.Context.Users.Where(u => u.Login != GabenLogin && u.IsBanned == false).ToList();
+            var AllClearestUsers = Core.ContextKIP.Users.Where(u => u.Login != GabenLogin && u.IsBanned == false).ToList();
 
             var dialog = new GabenDialog(AllClearestUsers, GabenDialogMode.Ban)
             {
@@ -45,7 +45,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
         // Маркер 2 = Разбан пользователей
         private void UnBanPlayerBtn_Click(object sender, RoutedEventArgs e)
         {
-            var AllBannedUsers = Core.Context.Users.Where(u => u.Login != GabenLogin && u.IsBanned == true).ToList();
+            var AllBannedUsers = Core.ContextKIP.Users.Where(u => u.Login != GabenLogin && u.IsBanned == true).ToList();
 
             var dialog = new GabenDialog(AllBannedUsers, GabenDialogMode.Unban)
             {
@@ -57,7 +57,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
         // Маркер 3 = Подарок пользователям
         private void GiveItemToPlayerBtn_Click(object sender, RoutedEventArgs e)
         {
-            var AllUsers = Core.Context.Users.ToList();
+            var AllUsers = Core.ContextKIP.Users.ToList();
 
             var dialog = new GabenDialog(AllUsers, GabenDialogMode.GiveItem)
             {
@@ -69,7 +69,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
         // Маркер 4 = Просмотр пользователей
         private void CheckUsersBtn_Click(object sender, RoutedEventArgs e)
         {
-            var AllUsers = Core.Context.Users.Where(u => u.Login != GabenLogin).ToList();
+            var AllUsers = Core.ContextKIP.Users.Where(u => u.Login != GabenLogin).ToList();
 
             var dialog = new GabenDialog(AllUsers, GabenDialogMode.Check)
             {
@@ -100,7 +100,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
 
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
-            if (Core.CurrentUser.IsAdmin == true) 
+            if (Core.CurrentUser.IsAdmin == true || Core.CurrentUser.Login == GabenLogin) 
             {
                 DefaultUserGrid.Visibility = Visibility.Collapsed;
                 GabenTheGodGrid.Visibility = Visibility.Visible;

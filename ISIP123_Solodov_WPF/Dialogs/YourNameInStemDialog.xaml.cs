@@ -75,8 +75,8 @@ namespace ISIP123_Solodov_WPF.Dialogs
                     TransactionDate = DateTime.Now,
                 };
 
-                Core.Context.Transactions.Add(newTransaction);
-                Core.Context.SaveChanges();
+                Core.ContextKIP.Transactions.Add(newTransaction);
+                Core.ContextKIP.SaveChanges();
 
                 MessageBox.Show(Application.Current.MainWindow, $"Баланс успешно пополнен на {cash} ₽!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
             }

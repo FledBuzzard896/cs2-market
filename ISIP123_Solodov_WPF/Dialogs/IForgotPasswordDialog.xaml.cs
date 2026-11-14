@@ -37,7 +37,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
             }
 
             // 2. Ищем пользователя
-            var usr = Core.Context.Users.FirstOrDefault(x => x.Login == LoginBox.Text);
+            var usr = Core.ContextKIP.Users.FirstOrDefault(x => x.Login == LoginBox.Text);
 
             if (usr == null)
             {
@@ -85,7 +85,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
             try
             {
                 usr.Password = newHash;
-                Core.Context.SaveChanges();
+                Core.ContextKIP.SaveChanges();
 
                 Core.CurrentUser = usr;
 

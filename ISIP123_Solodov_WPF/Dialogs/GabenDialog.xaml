@@ -17,7 +17,8 @@
             <ListBox x:Name="MainListBox" Grid.Row="1"
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                     BorderThickness="0" Background="Transparent">
+                     BorderThickness="0" Background="Transparent"
+                     Visibility="Visible">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -81,6 +82,62 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+            <Grid x:Name="MarketStatistic" Grid.Row="1" Background="#101822" Visibility="Collapsed">
+                <Grid.Resources>
+                    <!-- Стиль для названий показателей (приглушенный серо-голубой) -->
+                    <Style x:Key="SteamLabelStyle" TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="#8F98A0"/>
+                        <Setter Property="FontSize" Value="15"/>
+                        <Setter Property="FontFamily" Value="Segoe UI"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="Margin" Value="16,12,20,12"/>
+                    </Style>
+
+                    <!-- Стиль для числовых значений (светлый шрифт, выравнивание справа) -->
+                    <Style x:Key="SteamValueStyle" TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="#C6D4DF"/>
+                        <Setter Property="FontSize" Value="17"/>
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                        <Setter Property="FontFamily" Value="Segoe UI"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                        <Setter Property="Margin" Value="0,12,16,12"/>
+                    </Style>
+
+                    <!-- Стиль для тонких разделительных линий между строками -->
+                    <Style x:Key="SteamSeparatorStyle" TargetType="Border">
+                        <Setter Property="BorderBrush" Value="#2A3F5A"/>
+                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                        <Setter Property="Grid.ColumnSpan" Value="2"/>
+                        <Setter Property="VerticalAlignment" Value="Bottom"/>
+                        <Setter Property="Opacity" Value="0.6"/>
+                    </Style>
+                </Grid.Resources>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.ColumnSpan="2" Height="2" VerticalAlignment="Top" Background="#66C0F4" Opacity="0.7"/>
+
+                <Border Grid.Row="0" Style="{StaticResource SteamSeparatorStyle}"/>
+                <TextBlock Text="GMV (Оборот Торговой площадки)" Grid.Row="0" Grid.Column="0" Style="{StaticResource SteamLabelStyle}"/>
+                <TextBlock x:Name="GmvTBlock" Grid.Row="0" Grid.Column="1" Style="{StaticResource SteamValueStyle}" Foreground="#66C0F4"/>
+
+                <Border Grid.Row="1" Style="{StaticResource SteamSeparatorStyle}"/>
+                <TextBlock Text="Market Cap предметов" Grid.Row="1" Grid.Column="0" Style="{StaticResource SteamLabelStyle}"/>
+                <TextBlock x:Name="MarketCupTBlock" Grid.Row="1" Grid.Column="1" Style="{StaticResource SteamValueStyle}"/>
+
+                <TextBlock Text="Капитализация торговой площадки" Grid.Row="2" Grid.Column="0" Style="{StaticResource SteamLabelStyle}"/>
+                <TextBlock x:Name="MarketCapitalizationTBlock" Grid.Row="2" Grid.Column="1" Style="{StaticResource SteamValueStyle}" Foreground="#A4D007"/>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

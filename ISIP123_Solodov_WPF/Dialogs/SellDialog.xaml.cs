@@ -65,7 +65,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
             try
             {
                 // 1. Берем нужное количество предметов из инвентаря (только те, что еще не продаются)
-                var itemsToSell = Core.Context.InventoryItems
+                var itemsToSell = Core.ContextKIP.InventoryItems
                     .Where(x => x.UserID == Core.CurrentUser.ID && x.ItemID == _thisItem.ItemID && !x.IsListed)
                     .Take(_itemCount)
                     .ToList();
@@ -102,10 +102,10 @@ namespace ISIP123_Solodov_WPF.Dialogs
                 // 3. Добавляем ВСЕ лоты одной пачкой
                 foreach (var listing in newListings)
                 {
-                    Core.Context.MarketListings.Add(listing);
+                    Core.ContextKIP.MarketListings.Add(listing);
                 }
 
-                Core.Context.SaveChanges();
+                Core.ContextKIP.SaveChanges();
 
                 MessageBox.Show(Application.Current.MainWindow, $"Успешно выставлено предметов: {_itemCount}!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.DialogResult = true;
@@ -237,7 +237,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
             AveragePrice.Text = $"Средняя цена: {_thisItem.Items?.AveragePrice:N2} руб.";
 
             // 1. Ищем АКТИВНЫЙ лот (StatusID == 1) для этого предмета
-            var activeListing = Core.Context.MarketListings
+            var activeListing = Core.ContextKIP.MarketListings
                 .Where(x => x.StatusID == 1 && x.InventoryItems.Items.ID == _thisItem.Items.ID)
                 .OrderBy(x => x.Price) // Берем самый дешевый на рынке
                 .FirstOrDefault();
@@ -251,7 +251,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
             else
             {
                 // Ищем ПОСЛЕДНЮЮ ПРОДАЖУ (StatusID == 2)
-                var lastSoldListing = Core.Context.MarketListings
+                var lastSoldListing = Core.ContextKIP.MarketListings
                     .Where(x => x.StatusID == 2 && x.InventoryItems.Items.ID == _thisItem.Items.ID)
                     .OrderByDescending(x => x.SoldAt)
                     .FirstOrDefault();
@@ -280,7 +280,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
             }
 
             // Считаем, сколько ТАКИХ ЖЕ предметов есть в инвентаре (и не выставлено на продажу)
-            _maxItemCount = Core.Context.InventoryItems
+            _maxItemCount = Core.ContextKIP.InventoryItems
                 .Count(x => x.UserID == Core.CurrentUser.ID && x.ItemID == _thisItem.ItemID && !x.IsListed);
 
             if (_maxItemCount <= 1)

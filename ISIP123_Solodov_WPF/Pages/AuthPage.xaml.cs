@@ -47,7 +47,7 @@ namespace ISIP123_Solodov_WPF.Pages
                 string inputHash = Core.HashPassword(password);
 
 
-                var usr = Core.Context.Users.FirstOrDefault(x => x.Login == login);
+                var usr = Core.ContextKIP.Users.FirstOrDefault(x => x.Login == login);
 
                 if (usr == null || usr.Password != inputHash)
                 {

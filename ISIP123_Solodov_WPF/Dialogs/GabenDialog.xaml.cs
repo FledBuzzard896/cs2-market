@@ -1,6 +1,7 @@
 ﻿using ISIP123_Solodov_WPF.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,7 +12,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
     {
         private List<Users> _users = null;
         private GabenDialogMode _mode;
-
+        
         public string ButtonText { get; private set; }
         public GabenDialogMode CurrentMode => _mode;
         public List<Items> ItemsList { get; private set; }
@@ -58,8 +59,8 @@ namespace ISIP123_Solodov_WPF.Dialogs
                             newStr.FloatValue = Math.Round(randomFloat, 8);
                         }
 
-                        Core.Context.InventoryItems.Add(newStr);
-                        Core.Context.SaveChanges();
+                        Core.ContextKIP.InventoryItems.Add(newStr);
+                        Core.ContextKIP.SaveChanges();
 
                         string floatMsg = newStr.FloatValue.HasValue ? $"\nИзнос (Float): {newStr.FloatValue.Value}" : "";
                         MessageBox.Show(Application.Current.MainWindow, $"Предмет «{selectedItem.Name}» успешно выдан!{floatMsg}", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -81,14 +82,14 @@ namespace ISIP123_Solodov_WPF.Dialogs
                 {
                     case GabenDialogMode.Ban:
                         selectedUser.IsBanned = true;
-                        Core.Context.SaveChanges();
+                        Core.ContextKIP.SaveChanges();
                         _users.Remove(selectedUser);
                         MainListBox.Items.Refresh();
                         break;
 
                     case GabenDialogMode.Unban:
                         selectedUser.IsBanned = false;
-                        Core.Context.SaveChanges();
+                        Core.ContextKIP.SaveChanges();
                         _users.Remove(selectedUser);
                         MainListBox.Items.Refresh();
                         break;
@@ -104,7 +105,42 @@ namespace ISIP123_Solodov_WPF.Dialogs
         {
             if (_users == null)
             {
-                // Подгрузка капитализации
+                var ruCulture = new CultureInfo("ru-RU");
+                MarketStatistic.Visibility = Visibility.Visible;
+
+                TitleTBlock.Text = "СТАТИСТИКА ТОРГОВОЙ ПЛОЩАДКИ:";
+
+                var MarketLst = Core.ContextKIP.MarketListings.ToList();
+                var InventoriesLst = Core.ContextKIP.InventoryItems.ToList();
+
+                double GMV = 0;
+                double MarketCapOfItems = 0;
+                double MarketCapitalization = 0;
+
+                foreach (var item in MarketLst)
+                {
+                    if (item.StatusID == 2) 
+                    { 
+                        GMV += Convert.ToDouble(item.Price + item.Commission); 
+                        MarketCapitalization += Convert.ToDouble(item.Commission);
+                    }
+                }
+
+                while (MarketLst.Count > 0)
+                {
+                    var currentItem = MarketLst[0];
+                    var pricesSumOfItem = MarketLst.Where(x => x == currentItem).Sum(x => x.Price);
+                    int countOfItemInMarket = MarketLst.Count(x => x == currentItem);
+                    int countOfUtemInInventories = InventoriesLst.Count(x => x == currentItem.InventoryItems);
+
+                    MarketCapOfItems += Convert.ToDouble(pricesSumOfItem / countOfItemInMarket);
+
+                    MarketLst.RemoveAll(x => x == currentItem);
+                }
+
+                GmvTBlock.Text = $"{GMV.ToString("N2", ruCulture)} ₽";
+                MarketCupTBlock.Text = $"{MarketCapOfItems.ToString("N2", ruCulture)} ₽";
+                MarketCapitalizationTBlock.Text = $"{MarketCapitalization.ToString("N2", ruCulture)} ₽";
             }
             else
             {
@@ -122,7 +158,7 @@ namespace ISIP123_Solodov_WPF.Dialogs
                         TitleTBlock.Text = "ВЫДАТЬ ПРЕДМЕТ:";
                         ButtonText = "Выдать";
                         
-                        ItemsList = Core.Context.Items.ToList();
+                        ItemsList = Core.ContextKIP.Items.ToList();
                         break;
                     case GabenDialogMode.Check:
                         TitleTBlock.Text = "ПРОВЕРКА ИГРОКА:";
