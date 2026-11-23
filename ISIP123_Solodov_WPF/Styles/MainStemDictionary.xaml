@@ -1322,4 +1322,127 @@
     </Style>
     <!-- #endregion -->
 
+    <!--#region СТИЛЬ ДИАЛОГА "GABEN" (УПРАВЛЕНИЕ ПОЛЬЗОВАТЕЛЯМИ) -->
+
+    <!-- ===== Кнопки администратора (ProfileDialog: BanUser, UnBanUser и т.д.) ===== -->
+    <Style x:Key="GabenAdminActionButton" TargetType="Button">
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="#1999ff"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#1078c9"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- ===== Заголовок диалога GabenDialog ===== -->
+    <Style x:Key="GabenDialogTitle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Margin" Value="0,20,0,20"/>
+    </Style>
+
+    <!-- ===== Основной список пользователей ===== -->
+    <Style x:Key="GabenMainListBox" TargetType="ListBox">
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="Transparent"/>
+    </Style>
+
+    <Style x:Key="GabenListBoxItem" TargetType="ListBoxItem">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+    </Style>
+
+    <!-- ===== Элементы строки списка ===== -->
+    <Style x:Key="GabenUserIdText" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="GabenUserLoginText" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- ===== ComboBox выбора предмета для подарка ===== -->
+    <Style x:Key="GabenItemComboBox" TargetType="ComboBox">
+        <Setter Property="Width" Value="150"/>
+        <Setter Property="Margin" Value="10,0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+    </Style>
+
+    <!-- ===== Кнопка действия в строке списка ===== -->
+    <Style x:Key="GabenRowActionButton" TargetType="Button">
+        <Setter Property="Padding" Value="10,5"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Background" Value="#2a475e"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#3d5d82"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- ===== Панель статистики торговой площадки ===== -->
+    <Style x:Key="GabenMarketStatisticPanel" TargetType="Grid">
+        <Setter Property="Background" Value="#101822"/>
+    </Style>
+
+    <Style x:Key="GabenStatLabel" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#8F98A0"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="16,12,20,12"/>
+    </Style>
+
+    <Style x:Key="GabenStatValue" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#C6D4DF"/>
+        <Setter Property="FontSize" Value="17"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Margin" Value="0,12,16,12"/>
+    </Style>
+
+    <!-- GMV — акцентный голубой -->
+    <Style x:Key="GabenStatValueAccent" TargetType="TextBlock" BasedOn="{StaticResource GabenStatValue}">
+        <Setter Property="Foreground" Value="#66C0F4"/>
+    </Style>
+
+    <!-- Капитализация — акцентный зелёный -->
+    <Style x:Key="GabenStatValueGreen" TargetType="TextBlock" BasedOn="{StaticResource GabenStatValue}">
+        <Setter Property="Foreground" Value="#A4D007"/>
+    </Style>
+
+    <Style x:Key="GabenStatSeparator" TargetType="Border">
+        <Setter Property="BorderBrush" Value="#2A3F5A"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+        <Setter Property="Grid.ColumnSpan" Value="2"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Setter Property="Opacity" Value="0.6"/>
+    </Style>
+
+    <Style x:Key="GabenStatTopAccentLine" TargetType="Border">
+        <Setter Property="Height" Value="2"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Background" Value="#66C0F4"/>
+        <Setter Property="Opacity" Value="0.7"/>
+    </Style>
+
+    <!-- #endregion -->
+
 </ResourceDictionary>

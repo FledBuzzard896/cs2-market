@@ -49,6 +49,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>stem-logo-icon-no-bg %281%29.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
@@ -316,6 +319,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="stem-logo-icon-no-bg %281%29.ico" />
+    <Resource Include="stem-logo-icon-no-bg.ico" />
     <Resource Include="Images\mocking.png" />
     <Resource Include="Images\Rabscuttle.jpg" />
     <Content Include="Models\steam-model-kip.Context.tt">
