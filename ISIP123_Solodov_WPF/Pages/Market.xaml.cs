@@ -155,6 +155,12 @@ namespace ISIP123_Solodov_WPF.Pages
         // ВЫБОР ПРЕДМЕТА ДЛЯ ПОКУПКИ
         private void ItemsLB_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if (Core.CurrentUser == null) 
+            {
+                MessageBox.Show(Application.Current.MainWindow, "Не удалось перейти на страницу покупки предмета, зайдите в аккаунт.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             if (Core.CurrentUser.IsBanned == true)
             {
                 MessageBox.Show(Application.Current.MainWindow, "Не удалось выполнить операцию из-за блокировки VAC.", "Отказ", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -204,7 +210,7 @@ namespace ISIP123_Solodov_WPF.Pages
                 if (!string.IsNullOrEmpty(selectedQuality) && selectedQuality != "Все")
                 {
                     changedDataList = changedDataList
-                        .Where(x => x.InventoryItems.Items.Qualities.Name == selectedQuality)
+                        .Where(x => x.InventoryItems?.Items?.Qualities?.Name == selectedQuality)
                         .ToList();
                 }
             }

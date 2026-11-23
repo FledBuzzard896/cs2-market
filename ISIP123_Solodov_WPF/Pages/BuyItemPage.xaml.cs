@@ -65,7 +65,6 @@ namespace ISIP123_Solodov_WPF.Pages
         {
             if (Core.CurrentUser != null)
             {
-                // Берем N самых дешевых лотов (неважно, кто продавец)
                 var listingsToBuy = Core.ContextKIP.MarketListings
                     .Where(x => x.StatusID == 1
                              && x.InventoryItems.ItemID == _item.InventoryItems.ItemID)
@@ -73,14 +72,12 @@ namespace ISIP123_Solodov_WPF.Pages
                     .Take(_itemCount)      // Берем столько, сколько выбрал юзер
                     .ToList();
 
-                // Открываем окно подтверждения и передаем туда СПИСОК
                 TransactionConfirmation dialog = new TransactionConfirmation(listingsToBuy);
 
                 dialog.Owner = Application.Current.MainWindow;
 
                 if (dialog.ShowDialog() == true)
                 {
-                    // После успешной покупки возвращаемся на маркет
                     if (NavigationService.CanGoBack) NavigationService.GoBack();
                 }
                 return;

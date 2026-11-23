@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Хранилище SteamCS2MarketModelKip" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище SteamCS2MarketModelNew" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="InventoryItems">
           <Key>
             <PropertyRef Name="ID" />
@@ -69,6 +69,16 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="Transactions">
           <Key>
             <PropertyRef Name="ID" />
@@ -85,9 +95,11 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Login" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Nickname" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Balance" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="IsAdmin" Type="bit" />
+          <Property Name="IsBanned" Type="bit" />
         </EntityType>
         <EntityType Name="WearCategories">
           <Key>
@@ -218,7 +230,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Хранилище SteamCS2MarketModelKipContainer">
+        <EntityContainer Name="Хранилище SteamCS2MarketModelNewContainer">
           <EntitySet Name="InventoryItems" EntityType="Self.InventoryItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ItemTypes" EntityType="Self.ItemTypes" Schema="dbo" store:Type="Tables" />
@@ -226,6 +238,7 @@
           <EntitySet Name="MarketListings" EntityType="Self.MarketListings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OperationTypes" EntityType="Self.OperationTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Qualities" EntityType="Self.Qualities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WearCategories" EntityType="Self.WearCategories" Schema="dbo" store:Type="Tables" />
@@ -270,10 +283,11 @@
             <End Role="Transactions" EntitySet="Transactions" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="SteamCS2MarketModelKip" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="SteamCS2MarketModelNew" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="InventoryItems">
           <Key>
             <PropertyRef Name="ID" />
@@ -330,11 +344,11 @@
           <Property Name="SoldAt" Type="DateTime" Precision="7" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="SellerID" Type="Int32" />
           <NavigationProperty Name="InventoryItems" Relationship="Self.FK_Market_Inventory" FromRole="MarketListings" ToRole="InventoryItems" />
           <NavigationProperty Name="ListingStatuses" Relationship="Self.FK_Market_Status" FromRole="MarketListings" ToRole="ListingStatuses" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Market_Buyer" FromRole="MarketListings" ToRole="Users" />
-          <Property Name="SellerID" Type="Int32" />
-          <NavigationProperty Name="Users1" Relationship="SteamCS2MarketModelKip.FK_Market_Seller" FromRole="MarketListings" ToRole="Users" />
+          <NavigationProperty Name="Users1" Relationship="Self.FK_Market_Seller" FromRole="MarketListings" ToRole="Users" />
         </EntityType>
         <EntityType Name="OperationTypes">
           <Key>
@@ -351,6 +365,16 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Items" Relationship="Self.FK_Items_Qualities" FromRole="Qualities" ToRole="Items" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Transactions">
           <Key>
@@ -370,13 +394,15 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Login" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Nickname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Balance" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="IsAdmin" Type="Boolean" />
+          <Property Name="IsBanned" Type="Boolean" />
           <NavigationProperty Name="InventoryItems" Relationship="Self.FK_Inventory_Users" FromRole="Users" ToRole="InventoryItems" />
           <NavigationProperty Name="MarketListings" Relationship="Self.FK_Market_Buyer" FromRole="Users" ToRole="MarketListings" />
+          <NavigationProperty Name="MarketListings1" Relationship="Self.FK_Market_Seller" FromRole="Users" ToRole="MarketListings" />
           <NavigationProperty Name="Transactions" Relationship="Self.FK_Transactions_Users" FromRole="Users" ToRole="Transactions" />
-          <NavigationProperty Name="MarketListings1" Relationship="SteamCS2MarketModelKip.FK_Market_Seller" FromRole="Users" ToRole="MarketListings" />
         </EntityType>
         <EntityType Name="WearCategories">
           <Key>
@@ -471,6 +497,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Market_Seller">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="MarketListings" Type="Self.MarketListings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MarketListings">
+              <PropertyRef Name="SellerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Transactions_Operation">
           <End Role="OperationTypes" Type="Self.OperationTypes" Multiplicity="1" />
           <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
@@ -495,7 +533,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SteamMarketEntitiesKip" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SteamMarketEntitiesKipNew" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="InventoryItems" EntityType="Self.InventoryItems" />
           <EntitySet Name="Items" EntityType="Self.Items" />
           <EntitySet Name="ItemTypes" EntityType="Self.ItemTypes" />
@@ -503,6 +541,7 @@
           <EntitySet Name="MarketListings" EntityType="Self.MarketListings" />
           <EntitySet Name="OperationTypes" EntityType="Self.OperationTypes" />
           <EntitySet Name="Qualities" EntityType="Self.Qualities" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Transactions" EntityType="Self.Transactions" />
           <EntitySet Name="Users" EntityType="Self.Users" />
           <EntitySet Name="WearCategories" EntityType="Self.WearCategories" />
@@ -534,6 +573,10 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="MarketListings" EntitySet="MarketListings" />
           </AssociationSet>
+          <AssociationSet Name="FK_Market_Seller" Association="Self.FK_Market_Seller">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="MarketListings" EntitySet="MarketListings" />
+          </AssociationSet>
           <AssociationSet Name="FK_Transactions_Operation" Association="Self.FK_Transactions_Operation">
             <End Role="OperationTypes" EntitySet="OperationTypes" />
             <End Role="Transactions" EntitySet="Transactions" />
@@ -542,31 +585,15 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Transactions" EntitySet="Transactions" />
           </AssociationSet>
-          <AssociationSet Name="FK_Market_Seller" Association="SteamCS2MarketModelKip.FK_Market_Seller">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="MarketListings" EntitySet="MarketListings" />
-          </AssociationSet>
         </EntityContainer>
-        <Association Name="FK_Market_Seller">
-          <End Type="SteamCS2MarketModelKip.Users" Role="Users" Multiplicity="0..1" />
-          <End Type="SteamCS2MarketModelKip.MarketListings" Role="MarketListings" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="MarketListings">
-              <PropertyRef Name="SellerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище SteamCS2MarketModelKipContainer" CdmEntityContainer="SteamMarketEntitiesKip">
+        <EntityContainerMapping StorageEntityContainer="Хранилище SteamCS2MarketModelNewContainer" CdmEntityContainer="SteamMarketEntitiesKipNew">
           <EntitySetMapping Name="InventoryItems">
-            <EntityTypeMapping TypeName="SteamCS2MarketModelKip.InventoryItems">
+            <EntityTypeMapping TypeName="SteamCS2MarketModelNew.InventoryItems">
               <MappingFragment StoreEntitySet="InventoryItems">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
@@ -577,7 +604,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Items">
-            <EntityTypeMapping TypeName="SteamCS2MarketModelKip.Items">
+            <EntityTypeMapping TypeName="SteamCS2MarketModelNew.Items">
               <MappingFragment StoreEntitySet="Items">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -590,7 +617,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ItemTypes">
-            <EntityTypeMapping TypeName="SteamCS2MarketModelKip.ItemTypes">
+            <EntityTypeMapping TypeName="SteamCS2MarketModelNew.ItemTypes">
               <MappingFragment StoreEntitySet="ItemTypes">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -598,7 +625,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ListingStatuses">
-            <EntityTypeMapping TypeName="SteamCS2MarketModelKip.ListingStatuses">
+            <EntityTypeMapping TypeName="SteamCS2MarketModelNew.ListingStatuses">
               <MappingFragment StoreEntitySet="ListingStatuses">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -606,9 +633,8 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MarketListings">
-            <EntityTypeMapping TypeName="SteamCS2MarketModelKip.MarketListings">
+            <EntityTypeMapping TypeName="SteamCS2MarketModelNew.MarketListings">
               <MappingFragment StoreEntitySet="MarketListings">
-                <ScalarProperty Name="SellerID" ColumnName="SellerID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="InventoryID" ColumnName="InventoryID" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
@@ -617,11 +643,12 @@
                 <ScalarProperty Name="SoldAt" ColumnName="SoldAt" />
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="SellerID" ColumnName="SellerID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OperationTypes">
-            <EntityTypeMapping TypeName="SteamCS2MarketModelKip.OperationTypes">
+            <EntityTypeMapping TypeName="SteamCS2MarketModelNew.OperationTypes">
               <MappingFragment StoreEntitySet="OperationTypes">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -629,15 +656,26 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Qualities">
-            <EntityTypeMapping TypeName="SteamCS2MarketModelKip.Qualities">
+            <EntityTypeMapping TypeName="SteamCS2MarketModelNew.Qualities">
               <MappingFragment StoreEntitySet="Qualities">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="SteamCS2MarketModelNew.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Transactions">
-            <EntityTypeMapping TypeName="SteamCS2MarketModelKip.Transactions">
+            <EntityTypeMapping TypeName="SteamCS2MarketModelNew.Transactions">
               <MappingFragment StoreEntitySet="Transactions">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
@@ -648,18 +686,20 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="SteamCS2MarketModelKip.Users">
+            <EntityTypeMapping TypeName="SteamCS2MarketModelNew.Users">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Nickname" ColumnName="Nickname" />
                 <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="IsBanned" ColumnName="IsBanned" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="WearCategories">
-            <EntityTypeMapping TypeName="SteamCS2MarketModelKip.WearCategories">
+            <EntityTypeMapping TypeName="SteamCS2MarketModelNew.WearCategories">
               <MappingFragment StoreEntitySet="WearCategories">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

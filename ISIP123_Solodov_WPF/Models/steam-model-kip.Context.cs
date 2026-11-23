@@ -13,10 +13,10 @@ namespace ISIP123_Solodov_WPF.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class SteamMarketEntitiesKip : DbContext
+    public partial class SteamMarketEntitiesKipNew : DbContext
     {
-        public SteamMarketEntitiesKip()
-            : base("name=SteamMarketEntitiesKip")
+        public SteamMarketEntitiesKipNew()
+            : base("name=SteamMarketEntitiesKipNew")
         {
         }
     
@@ -32,6 +32,7 @@ namespace ISIP123_Solodov_WPF.Models
         public DbSet<MarketListings> MarketListings { get; set; }
         public DbSet<OperationTypes> OperationTypes { get; set; }
         public DbSet<Qualities> Qualities { get; set; }
+        public DbSet<sysdiagrams> sysdiagrams { get; set; }
         public DbSet<Transactions> Transactions { get; set; }
         public DbSet<Users> Users { get; set; }
         public DbSet<WearCategories> WearCategories { get; set; }

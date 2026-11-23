@@ -18,8 +18,8 @@ namespace ISIP123_Solodov_WPF.Models
         {
             this.InventoryItems = new HashSet<InventoryItems>();
             this.MarketListings = new HashSet<MarketListings>();
-            this.Transactions = new HashSet<Transactions>();
             this.MarketListings1 = new HashSet<MarketListings>();
+            this.Transactions = new HashSet<Transactions>();
         }
     
         public int ID { get; set; }
@@ -32,7 +32,7 @@ namespace ISIP123_Solodov_WPF.Models
     
         public virtual ICollection<InventoryItems> InventoryItems { get; set; }
         public virtual ICollection<MarketListings> MarketListings { get; set; }
-        public virtual ICollection<Transactions> Transactions { get; set; }
         public virtual ICollection<MarketListings> MarketListings1 { get; set; }
+        public virtual ICollection<Transactions> Transactions { get; set; }
     }
 }
